@@ -1,0 +1,88 @@
+--pl_ratio=1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/Train_IPL --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/w2v_vox_10m.cfg --ngpu=64 --partition=priority --local
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/base.cfg --ngpu=64 --partition=priority --local
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/Train_IPL --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/2.cfg --ngpu=64 --partition=rasr --local
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/Train_IPL --mode=continue --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/2.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/viterbi_ipl/2 --ngpu=64 --partition=rasr --local
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/Train_IPL --mode=continue --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/1.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/viterbi_ipl/1 --ngpu=64 --partition=rasr --extra="--maxisz=36000"
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/amp_test/letter_str3_ctc_100h.cfg --ngpu=32 --partition=priority --local
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/Train_IPL --mode=continue --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/1.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/viterbi_ipl/1 --ngpu=64 --partition=rasr --extra="--maxisz=36000"
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/w2v_vox_10m_1.cfg --ngpu=64 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/w2v_vox_10m_2.cfg --ngpu=64 --partition=priority
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/asr_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/w2v_vox_10m_2.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/viterbi_ipl/w2v_vox_10m_1 --ngpu=64 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/asr_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/w2v_vox_10m_2.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/viterbi_ipl/w2v_vox_10m_2 --ngpu=64 --partition=priority
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/1.cfg --ngpu=64 --partition=priority --extra="--runname=nov29"
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/asr_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/3.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/viterbi_ipl/3_runnamedec3 --ngpu=64 --partition=priority
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/5.cfg --ngpu=16 --partition=priority 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/4.cfg --ngpu=16 --partition=dev --extra="--ipl_relabel_epoch=10 --ipl_relabel_ratio=0.1"
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/4.cfg --ngpu=64 --partition=priority --extra="--maxisz=33000"
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/4.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/viterbi_ipl/4_ipl_relabel_epoch10_ipl_relabel_ratio0.1 --ngpu=16 --partition=dev
+
+
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-ipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/viterbi_ipl/4.cfg --ngpu=64 --partition=priority
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/30_notl.cfg --ngpu=64 --partition=priority
+
+
+buck run @mode/opt deeplearning/projects/flashlight/flashlight/app/asr:train_cpp -- train \
+--datadir=/mnt/vol/gfsai-east/ai-group/teams/fair-speech/librispeech/lists --train=train-clean-100.lst --valid=dev-clean:dev-clean.lst \
+--tokensdir /mnt/vol/gfsai-oregon/ai-group/users/qiantong/tmp/from_fair_cluster --tokens letters.lst \
+--lexicon=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/tmp/from_fair_cluster/ls_letters.lex \
+--batchsize=4 \
+--archdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/arch \
+--arch=tds_100M_do0.1_dw2.arch \
+--criterion=ctc \
+--netoptim=sgd --lr=0.0001 \
+--mfsc=true --filterbanks=80 \
+--reportiters=100 \
+--rundir=/tmp
+
+
+
+buck run @mode/opt deeplearning/projects/flashlight/flashlight/app/asr:train_cpp -- train \
+--datadir=/mnt/vol/gfsai-east/ai-group/teams/fair-speech/librispeech/lists --train=train-clean-100.lst --valid=dev-clean:dev-clean.lst \
+--tokensdir /mnt/vol/gfsai-oregon/ai-group/users/qiantong/tmp/from_fair_cluster --tokens letters.lst \
+--lexicon=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/tmp/from_fair_cluster/ls_letters.lex \
+--batchsize=1 \
+--memstepsize=5000000 \
+--archdir=/home/qiantong/tmp \
+--arch=EG_GLU4x2048_S4_TR2x768_DO0.2_LD0.2_CTC \
+--criterion=ctc \
+--netoptim=sgd --lr=0.001 \
+--mfsc=true --filterbanks=80 \
+--reportiters=100 \
+--rundir=/tmp
+
+buck build @mode/opt deeplearning/projects/flashlight/flashlight/app/asr:train_ipl_cpp && \
+buck-out/gen/deeplearning/projects/flashlight/flashlight/app/asr/train_ipl_cpp train \
+--datadir=/mnt/vol/gfsai-east/ai-group/teams/fair-speech/librispeech/lists --train=train-clean-100.lst --valid=dev-clean:dev-clean.lst \
+--datadir_unsup=/mnt/vol/gfsai-east/ai-group/teams/fair-speech/librispeech/lists --train_unsup=train-clean-360.lst \
+--tokensdir /mnt/vol/gfsai-oregon/ai-group/users/qiantong/tmp/from_fair_cluster --tokens letters.lst \
+--lexicon=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/tmp/from_fair_cluster/ls_letters.lex \
+--batchsize=4 \
+--archdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/arch \
+--arch=tds_100M_do0.1_dw2.arch \
+--rundir=/tmp
+
+

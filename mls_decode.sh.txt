@@ -1,0 +1,442 @@
+mls decode
+
+-- GB_LM + Joiny_Lex
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/private/home/vineelkpratap/scratch/English/gb_lm.bin \
+--lexicon=/private/home/qiantong/mls/lexicon_English_join.txt \
+--test=dev.lst \
+--nthread_decoder=8 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_lex_join_English \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/German_do0.15/003_model_dev.bin \
+--lm=/private/home/vineelkpratap/scratch/German/gb_lm.bin \
+--lexicon=/private/home/qiantong/mls/lexicon_German_join.txt \
+--test=dev.lst \
+--nthread_decoder=5 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_lex_join_German \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Dutch_do0.2/004_model_dev.bin \
+--lm=/private/home/vineelkpratap/scratch/Dutch/gb_lm.bin \
+--lexicon=/private/home/qiantong/mls/lexicon_Dutch_join.txt \
+--test=dev.lst \
+--nthread_decoder=5 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_lex_join_Dutch \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/French_do0.2/003_model_dev.bin \
+--lm=/private/home/vineelkpratap/scratch/French/gb_lm.bin \
+--lexicon=/private/home/qiantong/mls/lexicon_French_join.txt \
+--test=dev.lst \
+--nthread_decoder=5 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_lex_join_French \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Spanish_do0.25/003_model_dev.bin \
+--lm=/private/home/vineelkpratap/scratch/Spanish/gb_lm.bin \
+--lexicon=/private/home/qiantong/mls/lexicon_Spanish_join.txt \
+--test=dev.lst \
+--nthread_decoder=5 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_lex_join_Spanish \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Italian_do0.25/003_model_dev.bin \
+--lm=/private/home/vineelkpratap/scratch/Italian/gb_lm.bin \
+--lexicon=/private/home/qiantong/mls/lexicon_Italian_join.txt \
+--test=dev.lst \
+--nthread_decoder=5 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_lex_join_Italian \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Portuguese_do0.3/003_model_dev.bin \
+--lm=/private/home/vineelkpratap/scratch/Portuguese/gb_lm.bin \
+--lexicon=/private/home/qiantong/mls/lexicon_Portuguese_join.txt \
+--test=dev.lst \
+--nthread_decoder=5 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_lex_join_Portuguese \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Polish_do0.35/029_model_dev.bin \
+--lm=/private/home/vineelkpratap/scratch/Polish/gb_lm.bin \
+--lexicon=/private/home/qiantong/mls/lexicon_Polish_join.txt \
+--test=dev.lst \
+--nthread_decoder=5 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_lex_join_Polish \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_join_English
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_join_German
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_join_Dutch
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_join_French
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_join_Spanish
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_join_Italian
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_join_Portuguese
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_join_Polish
+
+33347331_54.err WER: 5.04518 LER: 2.07677 params: {'lmweight': '0.91996677962631213', 'wordscore': '1.0356431694427215', 'eosscore': '-7.2301209175209289'}
+33364074_78.err WER: 5.4537 LER: 2.11041 params: {'lmweight': '1.0263006499969873', 'wordscore': '-0.18868047291447354', 'eosscore': '-2.3526864176490738'}
+33364075_37.err WER: 14.424 LER: 5.65664 params: {'lmweight': '1.3686977106111153', 'wordscore': '-0.71978950020015464', 'eosscore': '-2.9970702992213161'}
+33364076_59.err WER: 6.58141 LER: 3.30655 params: {'lmweight': '1.5761860819313434', 'wordscore': '1.3610210127530333', 'eosscore': '-4.4014985137839533'}
+33347336_90.err WER: 5.26954 LER: 1.78904 params: {'lmweight': '0.91154265277929003', 'wordscore': '1.1220050607224774', 'eosscore': '-2.5326721451471244'}
+33364078_88.err WER: 11.9588 LER: 3.00254 params: {'lmweight': '2.820311594562348', 'wordscore': '-1.2751446518673957', 'eosscore': '-4.7162707722093034'}
+33364079_109.err WER: 16.3498 LER: 5.27278 params: {'lmweight': '1.3431337397426506', 'wordscore': '-0.80721062129123933', 'eosscore': '-4.137698801484
+33364080_16.err WER: 17.6434 LER: 4.67278 params: {'lmweight': '2.3953663602528552', 'wordscore': '-0.82027917150342056', 'eosscore': '-5.3379765050882373'}
+
+
+-- Trans_LM + Trans_Lex
+P152062119
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_trans_lm_trans_English
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_trans_lm_trans_German
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_trans_lm_trans_Dutch
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_trans_lm_trans_French
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_trans_lm_trans_Spanish
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_trans_lm_trans_Italian
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_trans_lm_trans_Portuguese
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_trans_lm_trans_Polish
+
+33357926_72.err WER: 5.02298 LER: 2.09632 params: {'lmweight': '0.95117649442285557', 'wordscore': '0.69033295867311217', 'eosscore': '-3.8393981244159114'}
+33357927_2.err WER: 6.265 LER: 2.22299 params: {'lmweight': '0.98517792974363694', 'wordscore': '-0.94005429096268323', 'eosscore': '-7.0270199974824514'}
+33357928_88.err WER: 15.3185 LER: 5.88734 params: {'lmweight': '0.99386040564326039', 'wordscore': '-1.8271727844505579', 'eosscore': '-7.1587644594717705'}
+33364356_58.err WER: 7.09271 LER: 3.46523 params: {'lmweight': '1.339151657683983', 'wordscore': '0.34133948073682063', 'eosscore': '-3.7232258733554087'}
+33364357_35.err WER: 5.55657 LER: 1.89839 params: {'lmweight': '1.5194474488002263', 'wordscore': '1.5686496274930928', 'eosscore': '-4.5976097714037252'}
+33364358_26.err WER: 15.2037 LER: 3.6871 params: {'lmweight': '2.2952611675323009', 'wordscore': '-1.8602682514123465', 'eosscore': '-7.2071462588335153'}
+33364359_76.err WER: 17.0216 LER: 5.71075 params: {'lmweight': '2.826849499813644', 'wordscore': '-1.4013464330849512', 'eosscore': '-2.8733160153723469'}
+33364360_79.err WER: 19.0855 LER: 5.21667 params: {'lmweight': '3.083836012322823', 'wordscore': '0.077683402658674794', 'eosscore': '-6.6794932370704387'}
+
+-- Zero_LM
+P151975762
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_zero_English
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_zero_German
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_zero_Dutch
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_zero_French
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_zero_Spanish
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_zero_Italian
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_zero_Portuguese
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lex_zero_Polish
+
+33348496_40.err WER: 5.89233 LER: 2.19534 params: {'lmweight': '0.073031598730362579', 'wordscore': '-0.20592599630205299', 'eosscore': '-2.3061517221581314'}
+33348497_33.err WER: 5.80687 LER: 2.13718 params: {'lmweight': '0.65977836839895154', 'wordscore': '-0.82245018500927181', 'eosscore': '-4.8137413154103692'}
+33348498_45.err WER: 16.4468 LER: 5.95782 params: {'lmweight': '0.12218403046485482', 'wordscore': '-1.3289224126434629', 'eosscore': '-4.5078088145939743'}
+33358315_8.err WER: 7.425 LER: 3.45218 params: {'lmweight': '0.98637371563393095', 'wordscore': '-0.99166775952838648', 'eosscore': '-7.3737851428124666'}
+33348500_12.err WER: 5.89621 LER: 1.90653 params: {'lmweight': '0.027130833539749211', 'wordscore': '-0.59086661228852577', 'eosscore': '-6.9752257459182925'}
+33348501_17.err WER: 14.0103 LER: 3.28108 params: {'lmweight': '0.18081340033745352', 'wordscore': '-3.9075267856282618', 'eosscore': '-3.2346898927747061'}
+33348502_12.err WER: 17.2224 LER: 5.4568 params: {'lmweight': '0.71496261157026508', 'wordscore': '-3.0121541850254969', 'eosscore': '-3.6409948995841734'}
+33348554_35.err WER: 18.7342 LER: 4.70327 params: {'lmweight': '0.35401992756044665', 'wordscore': '-4.80150684682246', 'eosscore': '-3.4223261848168445'}
+
+33358314_17.err WER: 5.81175 LER: 2.14012 params: {'lmweight': '0.6794620266537722', 'wordscore': '-1.5245603351781742', 'eosscore': '-5.5874930874747228'}
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lexfree_zero_logadd_English
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lexfree_zero_logadd_German
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lexfree_zero_logadd_Dutch
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lexfree_zero_logadd_French
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lexfree_zero_logadd_Spanish
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lexfree_zero_logadd_Italian
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lexfree_zero_logadd_Portuguese
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep --prefix=mls_lexfree_zero_logadd_Polish
+
+33360950_0.err WER: 5.95961 LER: 2.19242 params: {'lmweight': '0.14664508230831286', 'wordscore': '5.9194187230639894', 'eosscore': '-4.5037310018098218'}
+33360951_9.err WER: 5.50343 LER: 2.11469 params: {'lmweight': '0.41877358155990851', 'wordscore': '-3.8322611070178096', 'eosscore': '-6.0653429283889677'}
+33360952_2.err WER: 16.9848 LER: 5.96002 params: {'lmweight': '0.99884969850320549', 'wordscore': '3.4990996216047545', 'eosscore': '-4.0887069796948081'}
+33360953_2.err WER: 7.70347 LER: 3.47217 params: {'lmweight': '0.59833517918210977', 'wordscore': '-1.4773930129083128', 'eosscore': '-6.6396364929558622'}
+33360954_3.err WER: 5.92594 LER: 1.8911 params: {'lmweight': '0.77022088581998338', 'wordscore': '2.5383833551470456', 'eosscore': '-5.8450884997081625'}
+33360955_1.err WER: 14.5182 LER: 3.26549 params: {'lmweight': '0.82065681474581342', 'wordscore': '5.9182165715612847', 'eosscore': '-6.5840188142676963'}
+33360956_5.err WER: 18.6628 LER: 5.52795 params: {'lmweight': '0.33609304187997324', 'wordscore': '-2.2742329305900286', 'eosscore': '-2.8891654961004134'}
+33360957_4.err WER: 19.1902 LER: 4.35411 params: {'lmweight': '0.11436395191111315', 'wordscore': '3.355992257677709', 'eosscore': '-2.0964284383938114'}
+
+-- viterbi
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Test \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--test=dev.lst --uselexicon=false --emission_dir=
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Test \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/German_do0.15/003_model_dev.bin \
+--test=dev.lst --uselexicon=false --emission_dir=
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Test \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Dutch_do0.2/004_model_dev.bin \
+--test=dev.lst --uselexicon=false --emission_dir=
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Test \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/French_do0.2/003_model_dev.bin \
+--test=dev.lst --uselexicon=false --emission_dir=
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Test \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Spanish_do0.25/003_model_dev.bin \
+--test=dev.lst --uselexicon=false --emission_dir=
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Test \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Italian_do0.25/003_model_dev.bin \
+--test=dev.lst --uselexicon=false --emission_dir=
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Test \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Portuguese_do0.3/003_model_dev.bin \
+--test=dev.lst --uselexicon=false --emission_dir=
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Test \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/Polish_do0.35/029_model_dev.bin \
+--test=dev.lst --uselexicon=false --emission_dir=
+
+
+
+--- rescore
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=dev-other.lst \
+--nthread_decoder=8 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_English_LS_other \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=dev-clean.lst \
+--nthread_decoder=8 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_English_LS_clean \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/decoder_sweep/collect.py --prefix=mls_English_LS_clean --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep 
+python3 /private/home/qiantong/wav2letter_experiments/decoder_sweep/collect.py --prefix=mls_English_LS_other --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep 
+
+33375405_54.err WER: 2.05875 LER: 0.822656 params: {'lmweight': '0.74323253325633054', 'wordscore': '-0.15386156328510658', 'eosscore': '-6.0925073802116216'}
+33375404_35.err WER: 4.00801 LER: 1.91313 params: {'lmweight': '0.94024903844947938', 'wordscore': '0.03885096816486211', 'eosscore': '-5.6226457585756835'}
+
+mkdir /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_LS && \
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=test-clean.lst \
+--sclite=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_LS \
+--isbeamdump=true \
+--emission_dir='' \
+--lmweight=0.74 --wordscore=-0.15 \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50 \
+--nthread_decoder_am_forward=2 --nthread_decoder=30
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=test-other.lst \
+--sclite=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_LS \
+--isbeamdump=true \
+--emission_dir='' \
+--lmweight=0.94 --wordscore=-0.04 \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50 \
+--nthread_decoder_am_forward=2 --nthread_decoder=30
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=dev-clean.lst \
+--sclite=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_LS \
+--isbeamdump=true \
+--emission_dir='' \
+--lmweight=0.74 --wordscore=-0.15 \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50 \
+--nthread_decoder_am_forward=2 --nthread_decoder=30
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=dev-other.lst \
+--sclite=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_LS \
+--isbeamdump=true \
+--emission_dir='' \
+--lmweight=0.94 --wordscore=-0.04 \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50 \
+--nthread_decoder_am_forward=2 --nthread_decoder=30
+
+sbatch /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/transformer_forward_slurm_fin.sh mls_English_LS dev-other
+sbatch /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/transformer_forward_slurm_fin.sh mls_English_LS dev-clean
+sbatch /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/transformer_forward_slurm_fin.sh mls_English_LS test-other
+sbatch /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/transformer_forward_slurm_fin.sh mls_English_LS test-clean
+
+python3 rescore.py --hyp mls_English_LS/dev-other.lst.hyp --tr=mls_English_LS/dev-other-tr.ppl --search --list=/checkpoint/antares/datasets/librispeech/lists/dev-other.lst --in_wts=0,0,0 --gridsearch --new --top=large
+{'tr': 0.6000000000000001, 'convlm': -0.0, 'len': 0.5} 3.5389024267684794
+python3 rescore.py --hyp mls_English_LS/test-other.lst.hyp --tr=mls_English_LS/test-other-tr.ppl --list=/checkpoint/antares/datasets/librispeech/lists/test-other.lst --in_wts=0.6,0,0.5 --gridsearch --new --top=large
+
+python3 rescore.py --hyp mls_English_LS/dev-clean.lst.hyp --tr=mls_English_LS/dev-clean-tr.ppl --search --list=/checkpoint/antares/datasets/librispeech/lists/dev-clean.lst --in_wts=0,0,0 --gridsearch --new --top=large
+{'tr': 0.4, 'convlm': -0.0, 'len': 0.30000000000000004} 1.8289768880739694
+python3 rescore.py --hyp mls_English_LS/test-clean.lst.hyp --tr=mls_English_LS/test-clean-tr.ppl --list=/checkpoint/antares/datasets/librispeech/lists/test-clean.lst --in_wts=0.4,0,0.3 --gridsearch --new --top=large
+
+
+--
+
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1fork_lr0.005_lr_decay10_lr_decay_step10/003_model_dev-other.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=dev-other.lst \
+--nthread_decoder=8 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_English_2_LS_other \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1fork_lr0.005_lr_decay10_lr_decay_step10/003_model_dev-other.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=dev-clean.lst \
+--nthread_decoder=8 \
+--logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep \
+--prefix=mls_English_2_LS_clean \
+--n=120 \
+--partition=learnfair \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50
+
+python3 /private/home/qiantong/wav2letter_experiments/decoder_sweep/collect.py --prefix=mls_English_2_LS_other --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep 
+python3 /private/home/qiantong/wav2letter_experiments/decoder_sweep/collect.py --prefix=mls_English_2_LS_clean --logdir=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep 
+
+33570689_42.err WER: 2.05691 LER: 0.812602 params: {'lmweight': '1.0602968990497375', 'wordscore': '1.6383362292049775', 'eosscore': '-7.1528645580387238'}
+33570688_84.err WER: 3.92753 LER: 1.94246 params: {'lmweight': '1.3412552688110262', 'wordscore': '0.25550232287583619', 'eosscore': '-3.83109325457926'
+
+mkdir /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_2_LS && \
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=test-clean.lst \
+--sclite=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_2_LS \
+--isbeamdump=true \
+--emission_dir='' \
+--lmweight=1.06 --wordscore=1.64 \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50 \
+--nthread_decoder_am_forward=2 --nthread_decoder=30
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=test-other.lst \
+--sclite=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_2_LS \
+--isbeamdump=true \
+--emission_dir='' \
+--lmweight=1.34 --wordscore=0.255 \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50 \
+--nthread_decoder_am_forward=2 --nthread_decoder=30
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=dev-clean.lst \
+--sclite=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_2_LS \
+--isbeamdump=true \
+--emission_dir='' \
+--lmweight=1.06 --wordscore=1.64 \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50 \
+--nthread_decoder_am_forward=2 --nthread_decoder=30
+
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+/checkpoint/wav2letter/transfer_learning/code/wav2letter/build/Decoder \
+--am=/checkpoint/vineelkpratap/wav2letter_experiments/mls/English_do0.1/006_model_dev.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/librispeech_lm_corpus_4gram_200kvocab.bin \
+--lexicon=/private/home/qiantong/push_numbers/lists/lexicon_letters.txt \
+--datadir=/private/home/qiantong/push_numbers/lists \
+--test=dev-other.lst \
+--sclite=/checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/mls_English_2_LS \
+--isbeamdump=true \
+--emission_dir='' \
+--lmweight=1.34 --wordscore=0.255 \
+--beamsize=1500 --beamthreshold=100 --beamsizetoken=50 \
+--nthread_decoder_am_forward=2 --nthread_decoder=30
+
+
+sbatch /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/transformer_forward_slurm_fin.sh mls_English_2_LS dev-other
+sbatch /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/transformer_forward_slurm_fin.sh mls_English_2_LS dev-clean
+sbatch /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/transformer_forward_slurm_fin.sh mls_English_2_LS test-other
+sbatch /checkpoint/qiantong/wav2letter_experiments/decoder_sweep/beamdump/transformer_forward_slurm_fin.sh mls_English_2_LS test-clean
+
+
+python3 rescore.py --hyp mls_English_2_LS/dev-other.lst.hyp --tr=mls_English_2_LS/dev-other-tr.ppl --search --list=/checkpoint/antares/datasets/librispeech/lists/dev-other.lst --in_wts=0,0,0 --gridsearch --new --top=large
+{'tr': 0.6000000000000001, 'convlm': -0.0, 'len': 0.5} 3.544790782503739
+python3 rescore.py --hyp mls_English_2_LS/test-other.lst.hyp --tr=mls_English_2_LS/test-other-tr.ppl --list=/checkpoint/antares/datasets/librispeech/lists/test-other.lst --in_wts=0.6,0,0.5 --gridsearch --new --top=large
+
+python3 rescore.py --hyp mls_English_2_LS/dev-clean.lst.hyp --tr=mls_English_2_LS/dev-clean-tr.ppl --search --list=/checkpoint/antares/datasets/librispeech/lists/dev-clean.lst --in_wts=0,0,0 --gridsearch --new --top=large
+{'tr': 0.6000000000000001, 'convlm': -0.0, 'len': 0.30000000000000004} 1.8253005506782856
+python3 rescore.py --hyp mls_English_2_LS/test-clean.lst.hyp --tr=mls_English_2_LS/test-clean-tr.ppl --list=/checkpoint/antares/datasets/librispeech/lists/test-clean.lst --in_wts=0.4,0,0.3 --gridsearch --new --top=large
+
+

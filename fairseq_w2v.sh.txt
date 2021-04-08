@@ -1,0 +1,266 @@
+conda activate /private/home/abaevski/.conda/envs/fairseq-fp16-20200116
+
+conda create --clone /private/home/abaevski/.conda/envs/fairseq-fp16-20200116 -n fairseq-fp16-20200116
+conda activate fairseq-fp16-20200116
+
+module load anaconda3/5.0.1 cuda/10.1 cudnn/v7.6.5.32-cuda.10.1 NCCL/2.7.6-1-cuda.10.1
+
+
+sbatch --gres=gpu:volta:8 --wrap "sleep 259200" --constraint volta32gb --time 1440 --exclusive --partition dev,learnfair --comment debug --mem 450G
+sbatch --gres=gpu:volta:8 --wrap "sleep 259200" --constraint volta32gb --time 1440 --exclusive --partition priority --comment debug --mem 450G
+
+python /private/home/qiantong/w2v/fairseq-py-dev/scripts/find_best.py /checkpoint/qiantong/w2v/models --pattern '.*"dev_other_wer":\s+"(\d+\.\d+).*'  --ordered --file_name train.log --last
+
+
+
+
+## infer
+
+python examples/speech_recognition/infer.py /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw --task speech_pretraining --seed 1 --nbest 1 --path /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/abaevski/data/speech/libri/4-gram.bin --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000 --dump-emissions /checkpoint/qiantong/w2v/emissions/vox2_3n.ems
+
+python examples/speech_recognition/infer.py /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw --task speech_pretraining --seed 1 --nbest 1 --path /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/abaevski/data/speech/libri/4-gram.bin --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000 --load-emissions /checkpoint/qiantong/w2v/emissions/vox2_3n.ems.npy
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case --task speech_pretraining --path /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt --seed 1 --nbest 1 --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000 --load-emissions /checkpoint/qiantong/w2v/emissions/vox2_3n.ems.npy
+
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case --task speech_pretraining --path /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt --seed 1 --nbest 1 --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --lm-weight 1.7127037815865025 --word-score -1.1004136784571168 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000 --beam 400 --beam-threshold 30 --beam-size-token 30  --load-emissions /checkpoint/qiantong/w2v/emissions/vox2_3n.ems.npy
+
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/librivox --task speech_pretraining --path /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt --seed 1 --nbest 1 --gen-subset train_36s_long --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000
+
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case --task speech_pretraining --seed 1 --nbest 1 --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000 --path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr1e-06.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt --dump-emissions /checkpoint/qiantong/w2v/emissions/vox2_pl_ft.dev_other.ems
+
+
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case --task speech_pretraining --seed 1 --nbest 1 --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000 --path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr1e-06.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_last.4.28.pt --dump-emissions /checkpoint/qiantong/w2v/emissions/vox2_pl_ft.dev_other_4.28.ems
+
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case --task speech_pretraining --seed 1 --nbest 1 --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000 --path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.0.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr2e-05.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_2_190000.pt --dump-emissions /checkpoint/qiantong/w2v/emissions/vox2_pl.dev_other_4.38.ems
+
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case --task speech_pretraining --seed 1 --nbest 1 --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --criterion ctc --labels ltr --max-tokens 4000000 --path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.0.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr2e-05.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt --dump-emissions /checkpoint/qiantong/w2v/emissions/vox2_pl.dev_other_4.52.ems
+
+
+
+## 10m
+python examples/speech_recognition/infer.py /checkpoint/abaevski/data/speech/libri/10m/wav2vec/raw --task speech_pretraining --seed 1 --nbest 1 --path /checkpoint/abaevski/asr/spb_10m_new/prenorm_ln_stable_repr_lr.fp16.u13000.savg.ft_bert.nrm.ltr.m_static.mstd0.mask10.mprob0.65.ld0.1.mc_static.mcstd0.maskc64.mcprob0.25.fgm0.0.ffu10000.lr0.0001.warmup1300.hld5200.dec6500.frs0.05.fd0.1.drop0.0.ad0.1.atd0.0.sd2337.ms1280000.uf5.ngpu4/checkpoint_best.pt --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/abaevski/data/speech/libri/4-gram.bin --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --lm-weight 2 --word-score -1 --sil-weight 0 --criterion ctc --labels ltr --max-tokens 4000000 --normalize --dump-emissions /checkpoint/qiantong/w2v/emissions/10m_best_dev_other.ems
+
+python sweeps/sweep_lm_automl.py -d /checkpoint/abaevski/data/speech/libri/10m/wav2vec/raw  --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/abaevski/data/speech/libri/4-gram.bin --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --targets ltr --max-tokens 4000000 --beam 5 --beam-threshold 10 --beam-tokens 10 --emissions /checkpoint/qiantong/w2v/emissions/10m_best_dev_other.ems.npy -p 10m_best -g 1 -j 8 -r 128 --partition dev --local
+
+python sweeps/sweep_lm_automl.py -d /checkpoint/abaevski/data/speech/libri/10m/wav2vec/raw  --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/abaevski/data/speech/libri/4-gram.bin --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --targets ltr --max-tokens 4000000 --beam 800 --beam-threshold 80 --beam-tokens 80 --emissions /checkpoint/qiantong/w2v/emissions/10m_best_dev_other.ems.npy -p 10m_best_rescoring -g 1 -j 16 -r 128 --partition dev --local
+
+
+# ngram
+
+python examples/speech_recognition/infer.py /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw --task speech_pretraining --seed 1 --nbest 1 --path /checkpoint/abaevski/asr/spb_10m_new/prenorm_ln_stable_repr_lr.fp16.u13000.savg.ft_bert.nrm.ltr.m_static.mstd0.mask10.mprob0.65.ld0.1.mc_static.mcstd0.maskc64.mcprob0.25.fgm0.0.ffu10000.lr0.0001.warmup1300.hld5200.dec6500.frs0.05.fd0.1.drop0.0.ad0.1.atd0.0.sd2337.ms1280000.uf5.ngpu4/checkpoint_best.pt --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/abaevski/data/speech/libri/4-gram.bin --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --lm-weight 3.91 --word-score -1.19 --sil-weight 0 --beam 800 --beam-threshold 80 --beam-size-token 80 --criterion ctc --labels ltr --max-tokens 4000000 --normalize --load-emissions /checkpoint/qiantong/w2v/emissions/10m_best_dev_other.ems.npy
+
+9.98
+
+CUDA_VISIBLE_DEVICES=1 python examples/speech_recognition/infer.py /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw --task speech_pretraining --seed 1 --nbest 1 --path /checkpoint/abaevski/asr/spb_10m_new/prenorm_ln_stable_repr_lr.fp16.u13000.savg.ft_bert.nrm.ltr.m_static.mstd0.mask10.mprob0.65.ld0.1.mc_static.mcstd0.maskc64.mcprob0.25.fgm0.0.ffu10000.lr0.0001.warmup1300.hld5200.dec6500.frs0.05.fd0.1.drop0.0.ad0.1.atd0.0.sd2337.ms1280000.uf5.ngpu4/checkpoint_best.pt --gen-subset test_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/abaevski/data/speech/libri/4-gram.bin --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --lm-weight 3.91 --word-score -1.19 --sil-weight 0 --beam 800 --beam-threshold 80 --beam-size-token 80 --criterion ctc --labels ltr --max-tokens 4000000 --normalize
+
+10.51
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/librivox --task speech_pretraining --seed 1 --nbest 1 --gen-subset train_36s_real \
+--path /checkpoint/abaevski/asr/spb_10m_new/prenorm_ln_stable_repr_lr.fp16.u13000.savg.ft_bert.nrm.ltr.m_static.mstd0.mask10.mprob0.65.ld0.1.mc_static.mcstd0.maskc64.mcprob0.25.fgm0.0.ffu10000.lr0.0001.warmup1300.hld5200.dec6500.frs0.05.fd0.1.drop0.0.ad0.1.atd0.0.sd2337.ms1280000.uf5.ngpu4/checkpoint_best.pt \
+--results-path /checkpoint/qiantong/w2v/pl/10m_ngram_lv --w2l-decoder kenlm --lm-model /checkpoint/abaevski/data/speech/libri/4-gram.bin \
+--lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --beam 800 --beam-threshold 80 --beam-size-token 80 \
+--lm-weight 3.91 --word-score -1.19 --sil-weight 0.0 --criterion ctc  --labels ltr --max-tokens 4000000 --remove-bpe "$bpe" \
+--shard-id ${SLURM_ARRAY_TASK_ID}  --num-shards 256
+
+# rescoring
+python examples/speech_recognition/infer.py /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw --task speech_pretraining --seed 1 --nbest 1 --path /checkpoint/abaevski/asr/spb_10m_new/prenorm_ln_stable_repr_lr.fp16.u13000.savg.ft_bert.nrm.ltr.m_static.mstd0.mask10.mprob0.65.ld0.1.mc_static.mcstd0.maskc64.mcprob0.25.fgm0.0.ffu10000.lr0.0001.warmup1300.hld5200.dec6500.frs0.05.fd0.1.drop0.0.ad0.1.atd0.0.sd2337.ms1280000.uf5.ngpu4/checkpoint_best.pt --gen-subset dev_other --results-path ~/tmp/dec2 --w2l-decoder kenlm --kenlm-model /checkpoint/abaevski/data/speech/libri/4-gram.bin --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --lm-weight 2.18 --word-score 0.36 --sil-weight 0 --beam 800 --beam-threshold 80 --beam-size-token 80 --criterion ctc --labels ltr --max-tokens 4000000 --normalize --load-emissions /checkpoint/qiantong/w2v/emissions/10m_best_dev_other.ems.npy
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/librivox --task speech_pretraining --seed 1 --nbest 1 --gen-subset train_36s_real \
+--path /checkpoint/abaevski/asr/spb_10m_new/prenorm_ln_stable_repr_lr.fp16.u13000.savg.ft_bert.nrm.ltr.m_static.mstd0.mask10.mprob0.65.ld0.1.mc_static.mcstd0.maskc64.mcprob0.25.fgm0.0.ffu10000.lr0.0001.warmup1300.hld5200.dec6500.frs0.05.fd0.1.drop0.0.ad0.1.atd0.0.sd2337.ms1280000.uf5.ngpu4/checkpoint_best.pt \
+--results-path /checkpoint/qiantong/w2v/pl/10m_rescore_lv --w2l-decoder kenlm --lm-model /checkpoint/abaevski/data/speech/libri/4-gram.bin \
+--lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --beam 800 --beam-threshold 80 --beam-size-token 80 \
+--lm-weight 2.18 --word-score 0.36 --sil-weight 0.0 --criterion ctc  --labels ltr --max-tokens 4000000 --remove-bpe "$bpe" --normalize \
+--shard-id ${SLURM_ARRAY_TASK_ID}  --num-shards 256
+
+# test
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case  --task speech_pretraining --seed 1 --nbest 1 \
+--path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr1e-06.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt \
+--gen-subset test_other \
+--results-path /tmp/vox_ft_pl --w2l-decoder kenlm --lm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --beam 800 --beam-threshold 80 --beam-size-token 80 \
+--lm-weight 0.8331777629905044 --word-score 0.5487563580873465 --sil-weight 0.0 --criterion ctc  --labels ltr --max-tokens 4000000 --remove-bpe "$bpe" 
+
+3.86
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case  --task speech_pretraining --seed 1 --nbest 1 \
+--path /checkpoint/qiantong/w2v/models/vox_960h_lv_pl.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr2e-05.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt \
+--gen-subset test_other \
+--results-path /tmp/vox_ft_pl --w2l-decoder kenlm --lm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --beam 800 --beam-threshold 80 --beam-size-token 80 \
+--lm-weight 0.8331777629905044 --word-score 0.5487563580873465 --sil-weight 0.0 --criterion ctc  --labels ltr --max-tokens 4000000 --remove-bpe "$bpe" 
+
+3.8152188449267332
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case  --task speech_pretraining --seed 1 --nbest 1 \
+--path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr2e-05.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt \
+--gen-subset test_other \
+--results-path /tmp/vox_ft_pl --w2l-decoder kenlm --lm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --beam 800 --beam-threshold 80 --beam-size-token 80 \
+--lm-weight 0.8331777629905044 --word-score 0.5487563580873465 --sil-weight 0.0 --criterion ctc  --labels ltr --max-tokens 4000000 --remove-bpe "$bpe" 
+
+3.78
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case  --task speech_pretraining --seed 1 --nbest 1 \
+--path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr2e-05.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_last.3.70.pt \
+--gen-subset test_other \
+--results-path /tmp/vox_ft_pl --w2l-decoder kenlm --lm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --beam 800 --beam-threshold 80 --beam-size-token 80 \
+--lm-weight 0.8331777629905044 --word-score 0.5487563580873465 --sil-weight 0.0 --criterion ctc  --labels ltr --max-tokens 4000000 --remove-bpe "$bpe" 
+
+
+3.70
+
+
+# tr_lm
+bash sweeps/submit_eval_sharded.sh /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr1e-06.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt /checkpoint/abaevski/data/speech/libri/960h/wav2vec/raw/ speech_pretraining 4000000 qiantong_eval 0.9222598540828018 -0.8611567806153051 ltr 8 /checkpoint/abaevski/models/libri_lms/translm2/checkpoint_best.pt
+
+bash sweeps/submit_eval_sharded.sh /checkpoint/qiantong/w2v/models/vox_960h_lv_pl.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr2e-05.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt /checkpoint/abaevski/data/speech/libri/960h/wav2vec/raw/ speech_pretraining 4000000 vox_from_scratch_eval 0.9222598540828018 -0.8611567806153051 ltr 8 /checkpoint/abaevski/models/libri_lms/translm2/checkpoint_best.pt
+
+
+
+## sweep
+
+python sweeps/sweep_lm_automl.py -d /checkpoint/abaevski/data/speech/libri/960h/wav2vec/raw  --gen-subset dev_other --log-dir /checkpoint/abaevski/automl/960h/vox --decoder fairseqlm --lm /checkpoint/abaevski/models/libri_lms/translm2/checkpoint_best.pt --lexicon /checkpoint/abaevski/data/speech/libri/10h/wav2vec/raw/lexicon_ltr2.lst --targets ltr --max-tokens 4000000 --beam 50 --beam-threshold 50 --beam-tokens 50 --emissions /checkpoint/abaevski/emissions/vox10m.npy -p 10m_vox -g 1 -j 8 -r 128 --partition dev
+
+python sweeps/sweep_lm_automl.py -d /private/home/qiantong/w2v/data/lower_case --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --targets ltr --max-tokens 4000000 --beam 4 --beam-threshold 30 --beam-tokens 30 --emissions /checkpoint/qiantong/w2v/emissions/vox2_3n.ems.npy -p vox2_3n_ls-lv -g 1 -j 1 -r 1 --partition dev  --local
+
+python sweeps/sweep_lm_automl.py -d /private/home/qiantong/w2v/data/lower_case --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --targets ltr --max-tokens 4000000 --beam 800 --beam-threshold 80 --beam-tokens 80 --emissions /checkpoint/qiantong/w2v/emissions/vox2_3n.ems.npy -p vox2_3n_ls-lv -g 1 -j 16 -r 128 --partition dev 
+
+{'lm_weight': 1.7127037815865025, 'word_score': -1.1004136784571168, 'data': '/private/home/qiantong/w2v/data/lower_case', 'gen_subset': 'dev_other', 'max_tokens': 4000000, 'targets': 'ltr', 'emissions': '/checkpoint/qiantong/w2v/emissions/vox2_3n.ems.npy', 'decoder': 'kenlm', 'lm': '/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin', 'beam': 400, 'beam_threshold': 30, 'beam_tokens': 30, 'lexicon': '/private/home/qiantong/w2v/data/lower_case/lexicon.lst', 'sil_weight': 0} 3.690036900369004
+
+
+python sweeps/sweep_lm_automl.py -d /private/home/qiantong/w2v/data/lower_case --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --targets ltr --max-tokens 4000000 --beam 400 --beam-threshold 30 --beam-tokens 30 --emissions /checkpoint/qiantong/w2v/emissions/vox2_pl_ft.dev_other.ems.npy -p vox2_pl_ft -g 1 -j 16 -r 128 --partition dev 
+
+{'lm_weight': 0.8331777629905044, 'word_score': 0.5487563580873465, 'data': '/private/home/qiantong/w2v/data/lower_case', 'gen_subset': 'dev_other', 'max_tokens': 4000000, 'targets': 'ltr', 'emissions': '/checkpoint/qiantong/w2v/emissions/vox2_pl_ft.dev_other.ems.npy', 'decoder': 'kenlm', 'lm': '/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin', 'beam': 400, 'beam_threshold': 30, 'beam_tokens': 30, 'lexicon': '/private/home/qiantong/w2v/data/lower_case/lexicon.lst', 'sil_weight': 0} 3.560493051739028
+
+
+python sweeps/sweep_lm_automl.py -d /private/home/qiantong/w2v/data/lower_case --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --targets ltr --max-tokens 4000000 --beam 800 --beam-threshold 80 --beam-tokens 80 --emissions /checkpoint/qiantong/w2v/emissions/vox2_pl_ft.dev_other_4.28.ems.npy -p vox2_pl_ft_4-28 -g 1 -j 16 -r 128 --partition dev 
+
+{'lm_weight': 1.1970034909838838, 'word_score': 0.2864239550049401, 'data': '/private/home/qiantong/w2v/data/lower_case', 'gen_subset': 'dev_other', 'max_tokens': 4000000, 'targets': 'ltr', 'emissions': '/checkpoint/qiantong/w2v/emissions/vox2_pl_ft.dev_other_4.28.ems.npy', 'decoder': 'kenlm', 'lm': '/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin', 'beam': 800, 'beam_threshold': 80, 'beam_tokens': 80, 'lexicon': '/private/home/qiantong/w2v/data/lower_case/lexicon.lst', 'sil_weight': 0} 3.576195336421449
+
+
+python sweeps/sweep_lm_automl.py -d /private/home/qiantong/w2v/data/lower_case --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --targets ltr --max-tokens 4000000 --beam 800 --beam-threshold 80 --beam-tokens 80 --emissions /checkpoint/qiantong/w2v/emissions/vox2_pl.dev_other_4.38.ems.npy -p vox2_pl_4-38 -g 1 -j 16 -r 128 --partition dev 
+
+
+python sweeps/sweep_lm_automl.py -d /private/home/qiantong/w2v/data/lower_case --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --targets ltr --max-tokens 4000000 --beam 800 --beam-threshold 80 --beam-tokens 80 --emissions /checkpoint/qiantong/w2v/emissions/vox2_pl.dev_other_4.52.ems.npy -p vox2_pl_4-52 -g 1 -j 8 -r 128 --partition dev 
+
+
+## sweep + tr rescoring
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case  --task speech_pretraining --seed 1 --nbest 1 \
+--path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr2e-05.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_last.3.70.pt \
+--gen-subset dev_other \
+--results-path /tmp/vox_ft_pl --w2l-decoder kenlm --lm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --beam 800 --beam-threshold 80 --beam-size-token 80 \
+--lm-weight 0.8331777629905044 --word-score 0.5487563580873465 --sil-weight 0.0 --criterion ctc  --labels ltr --max-tokens 4000000 --remove-bpe "$bpe" \
+--load-emissions /checkpoint/qiantong/w2v/emissions/vox2_3n.ems.npy
+
+
+python sweeps/sweep_lm_automl.py -d /private/home/qiantong/w2v/data/lower_case --gen-subset dev_other --log-dir /checkpoint/qiantong/w2v/decoder --decoder kenlm --lm /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --targets ltr --max-tokens 4000000 --beam 800 --beam-threshold 80 --beam-tokens 80 --emissions /checkpoint/qiantong/w2v/emissions/vox2_3n.ems.npy -p vox2_3n_ls-lv_tr_rescore -g 1 -j 2 -r 2 --partition dev --constraint volta32gb --local
+
+
+
+## decode
+
+bash sweeps/submit_eval_sharded.sh /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt /checkpoint/abaevski/data/speech/libri/960h/wav2vec/raw/ speech_pretraining 4000000 960h_vox_3n_4gram_3 1.7416915880045662 0.5188938080757266 ltr 4
+
+sh sweeps/submit_eval_sharded.sh /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt /private/home/qiantong/w2v/data/lower_case speech_pretraining 4000000 vox2_3n_dev_other_ls_lv 1.7127037815865025 -1.1004136784571168 ltr 16 /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin dev_other
+
+bash sweeps/submit_eval_sharded.sh /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt /private/home/qiantong/w2v/data/librivox speech_pretraining 20000 vox2_3n_lv_ls_lv 1.7127037815865025 -1.1004136784571168 ltr 256 /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin train
+
+bash sweeps/submit_eval_sharded.sh /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt /private/home/qiantong/w2v/data/librivox speech_pretraining 20000 vox2_3n_lv_ls_lv 1.7127037815865025 -1.1004136784571168 ltr 256 /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin train_36s
+
+bash sweeps/submit_eval_sharded.sh /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt /private/home/qiantong/w2v/data/librivox speech_pretraining 200000 vox2_3n_lv_36s_short_ls_lv 1.7127037815865025 -1.1004136784571168 ltr 256 /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin train_36s_short
+
+
+
+sh sweeps/submit_eval_sharded.sh /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt /private/home/qiantong/w2v/data/lower_case speech_pretraining 4000000 vox2_3n_test_other_ls_lv 0.8331777629905044 0.5487563580873465 ltr 8 /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin test_other
+
+
+python examples/speech_recognition/infer.py /private/home/qiantong/w2v/data/lower_case  --task speech_pretraining --seed 1 --nbest 1 \
+--path /checkpoint/qiantong/w2v/models/vox_960h_ft_lv_pl_reset.fp16.ltr.u480000.savg.ft_bert.mask10.mprob0.2.ld0.1.tran0.maskc64.mcprob0.0.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr1e-06.warmup48000.hld192000.dec240000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt \
+--gen-subset test_other \
+--results-path /tmp/vox_ft_pl --w2l-decoder kenlm --lm-model /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon /private/home/qiantong/w2v/data/lower_case/lexicon.lst --beam 800 --beam-threshold 80 --beam-size-token 80 \
+--lm-weight 0.8331777629905044 --word-score 0.5487563580873465 --sil-weight 0.0 --criterion ctc  --labels ltr --max-tokens 4000000 --remove-bpe "$bpe" 
+
+## data
+
+python scripts/audio_manifest.py /datasets01/speech/112519/librivox-36s/librivox --dest ~/w2v/data/librivox --valid-percent 0 --split train_36s
+
+python scripts/fb_wrd_to_ltr.py < /private/home/qiantong/w2v/data/librivox/train_36s_short.wrd >! /private/home/qiantong/w2v/data/librivox/train_36s_short.ltr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## experiments
+python3 /private/home/qiantong/pseudo-labels/run.py /private/home/qiantong/pseudo-labels/low_resource/100h/949.cfg --ngpu=32 --partition=learnfair
+
+python3 /private/home/qiantong/pseudo-labels/run.py /private/home/qiantong/pseudo-labels/low_resource/100h/950.cfg --ngpu=32 --partition=learnfair
+python3 /private/home/qiantong/pseudo-labels/run.py /private/home/qiantong/pseudo-labels/low_resource/100h/951.cfg --ngpu=32 --partition=learnfair
+python3 /private/home/qiantong/pseudo-labels/run.py /private/home/qiantong/pseudo-labels/low_resource/100h/952.cfg --ngpu=32 --partition=learnfair
+python3 /private/home/qiantong/pseudo-labels/run.py /private/home/qiantong/pseudo-labels/low_resource/100h/953.cfg --ngpu=32 --partition=learnfair
+
+python3 /private/home/qiantong/pseudo-labels/run.py /checkpoint/qiantong/ls_200M/100h/950 --ngpu=32 --partition=learnfair --mode=continue --extra=' --lr=0.01 --lrcrit=0.01'
+python3 /private/home/qiantong/pseudo-labels/run.py /checkpoint/qiantong/ls_200M/100h/951 --ngpu=32 --partition=learnfair --mode=continue --extra=' --lr=0.01 --lrcrit=0.01'
+python3 /private/home/qiantong/pseudo-labels/run.py /checkpoint/qiantong/ls_200M/100h/949 --ngpu=32 --partition=learnfair --mode=continue --extra=' --lr=0.01 --lrcrit=0.01'
+
+python3 /private/home/qiantong/pseudo-labels/run.py /checkpoint/qiantong/ls_200M/100h/950 --ngpu=32 --partition=learnfair --mode=continue --extra=' --lr=0.005 --lrcrit=0.005'
+python3 /private/home/qiantong/pseudo-labels/run.py /checkpoint/qiantong/ls_200M/100h/951 --ngpu=32 --partition=learnfair --mode=continue --extra=' --lr=0.005 --lrcrit=0.005'
+python3 /private/home/qiantong/pseudo-labels/run.py /checkpoint/qiantong/ls_200M/100h/952 --ngpu=32 --partition=rasr --mode=continue
+
+
+/private/home/qiantong/bci/wav2letter/build/Test --am=/checkpoint/qiantong/ls_200M/100h/951/005_model_dev-clean.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-clean.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/bci/wav2letter/build/Test --am=/checkpoint/qiantong/ls_200M/100h/951/005_model_dev-clean.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-clean.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/bci/wav2letter/build/Test --am=/checkpoint/qiantong/ls_200M/100h/951/005_model_dev-other.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/bci/wav2letter/build/Test --am=/checkpoint/qiantong/ls_200M/100h/951/005_model_dev-other.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+1.51, 2.04, 3.41, 3.96
+
+# old data
+
+python /private/home/qiantong/w2v/fairseq-py-dev/users/alexeib/asr/libri_ctc_960h_cont3.py --data /checkpoint/abaevski/data/speech/libri/960h/wav2vec/raw --num-gpus 8 -n 3 -t -1 --partition learnfair --checkpoints-dir /checkpoint/qiantong/w2v/models -p vox_960h_lv_pl --time 4300 --constraint volta32gb
+
+python /private/home/qiantong/w2v/fairseq-py-dev/users/alexeib/asr/libri_ctc_960h_cont3.py --data /checkpoint/abaevski/data/speech/libri/960h/wav2vec/raw --num-gpus 8 -n 1 -t -1 --partition dev --checkpoints-dir /checkpoint/qiantong/w2v/models -p vox_960h_ft --time 4300 --constraint volta32gb --baseline-model /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt
+
+
+# lv data
+python /private/home/qiantong/w2v/fairseq-py-dev/users/alexeib/asr/libri_ctc_960h_cont3.py --data /private/home/qiantong/w2v/data/train_36s_short --num-gpus 8 -n 3 -t -1 --partition learnfair --checkpoints-dir /checkpoint/qiantong/w2v/models -p vox_960h_lv_pl --time 4300 --constraint volta32gb 
+
+
+python /private/home/qiantong/w2v/fairseq-py-dev/users/alexeib/asr/libri_ctc_960h_cont3.py --data /private/home/qiantong/w2v/data/train_36s_short --num-gpus 8 -n 3 -t -1 --partition learnfair --checkpoints-dir /checkpoint/qiantong/w2v/models -p vox_960h_lv_pl_continue --time 4300 --constraint volta32gb --baseline-model /checkpoint/qiantong/w2v/models/vox_960h_lv_pl.fp16.ltr.u1280000.savg.ft_bert.mask10.mprob0.5.ld0.1.tran0.maskc64.mcprob0.1.fn0.0.nt_gaussian.fgm0.0.ffu10000.lr2e-05.warmup128000.hld512000.dec640000.frs0.05.fd0.0.drop0.0.ad0.1.atd0.0.sd1337.uf1.ngpu24/checkpoint_best.pt
+
+
+
+python /private/home/qiantong/w2v/fairseq-py-dev/users/alexeib/asr/libri_ctc_960h_cont3.py --data /private/home/qiantong/w2v/data/train_36s_short --num-gpus 8 -n 3 -t -1 --partition learnfair --checkpoints-dir /checkpoint/qiantong/w2v/models -p vox_960h_ft_lv_pl --time 4300 --constraint volta32gb --baseline-model /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt
+
+python /private/home/qiantong/w2v/fairseq-py-dev/users/alexeib/asr/libri_ctc_960h_cont3.py --data /private/home/qiantong/w2v/data/train_36s_short --num-gpus 8 -n 3 -t -1 --partition learnfair --checkpoints-dir /checkpoint/qiantong/w2v/models -p vox_960h_ft_lv_pl --time 4300 --constraint volta32gb --baseline-model /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt --reset-optimizer --reset-meters
+
+python /private/home/qiantong/w2v/fairseq-py-dev/users/alexeib/asr/libri_ctc_960h_cont3.py --data /private/home/qiantong/w2v/data/train_36s_short --num-gpus 8 -n 1 -t -1 --partition dev --checkpoints-dir /checkpoint/qiantong/w2v/models -p vox_960h_ft_lv_pl --time 4300 --constraint volta32gb --baseline-model /checkpoint/abaevski/asr/aws/ft/vox2_3n.pt
+
+
+

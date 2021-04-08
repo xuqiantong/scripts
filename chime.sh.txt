@@ -1,0 +1,26 @@
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline.cfg --partition=dev
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_newdb.cfg --partition=priority
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.2.cfg --partition=priority
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.3.cfg --partition=priority
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.4.cfg --partition=priority
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.4_saug40k.cfg --partition=dev
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.4_real.cfg --partition=priority
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.5.cfg --partition=priority
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.6.cfg --partition=priority
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.7.cfg --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.4_real_withempty.cfg --partition=priority
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.5_withempty.cfg --partition=dev
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/chime/baseline_do0.5_withempty_saug100k.cfg --partition=priority
+
+
+
+
+
+
+
+
+

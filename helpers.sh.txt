@@ -1,0 +1,220 @@
+######### grep unloggedc logs #########
+
+lua /mnt/vol/gfsai-oregon/ai-group/users/locronan/wsj++/scripts/jobid2perf.lua 1335984891 > 002_perf
+
+sort -rnk 20 005_perf | tail
+
+
+######### universal test_cpp #########
+
+buck build @mode/opt deeplearning/projects/wav2letter:test_cpp && \
+buck-out/gen/deeplearning/projects/wav2letter/test_cpp \
+-am /mnt/vol/gfsai-east/ai-group/users/qiantong/pretrain/results/librispeech_tds_distributed/001_model_librispeech#dev-other.bin \
+-emission_dir /home/qiantong/local/tmp/ \
+-test /mnt/vol/gfsai-east/ai-group/users/nng/pretrain/librispeech/everstore/fb200k/dev-clean.context \
+-maxload -1 -nthread 1 -show
+
+-c w2l.build_fb_dependencies=true
+
+
+######### universal decode_cpp #########
+
+buck build @mode/opt deeplearning/projects/wav2letter:decode_cpp && \
+buck-out/gen/deeplearning/projects/wav2letter/decode_cpp \
+-tokensdir /mnt/fair-flash-east/wsj-fresh/lm \
+-tokens letters.lst \
+-lexicon /mnt/vol/gfsai-oregon/langtech/users/qiantong/tmp/words_sil.lst \
+-lm /mnt/vol/gfsai-oregon/langtech/users/qiantong/tmp/lm-4g.bin \
+-emission_dir /home/qiantong/local/tmp/ \
+-datadir /mnt/fair-flash-east/wsj-fresh-ii \
+-test nov92 \
+-criterion asg -replabel 2 -surround '|' \
+-lmweight 4.176637100109047 \
+-wordscore 2.133965121255252 \
+-maxload -1 \
+-beamthreshold 100 \
+-silweight -1.362763627877781 \
+-nthread_decoder 10 \
+-nthread 2 \
+-smearing max \
+-beamsize 2000 \
+-show -showletters
+
+CUDA_VISIBLE_DEVICES=1
+
+
+######### tensor board #########
+
+source /home/qiantong/virtualenvs/tf/bin/activate
+
+python ~/fbsource/fbcode/deeplearning/projects/wav2letter/scripts/tensorboard.py \
+ -i ~/w2l_tboard/0904_swbd/raw \
+ -o ~/w2l_tboard/0904_swbd/tb \
+ -f '.*' \
+ -a 'lr,mfsc' \
+ -n 10  
+
+tensorboard --logdir ~/w2l_tboard/0904_swbd/tb
+
+ssh -L 6006:localhost:6006 devgpu223.prn2
+
+
+
+
+######### rm -rf /tmp #########
+
+sudo find . -name "*" -delete
+
+find . -name "*.pdf" -print0 | xargs -0 rm
+
+
+
+######### line operation in batch #########
+
+sed -e 's/$/ |/' -i /mnt/vol/gfsai-east/ai-group/users/qiantong/capio_valid_sil.lst
+
+sed -e 's/ |//' -i /mnt/vol/gfsai-oregon/langtech/users/qiantong/tmp/words.lst
+
+sed -e 's/lr=0.3/lr=0.1/' -i *
+sed -e 's/momentum=0.6/momentum=0.5/' -i *
+
+sed -e 's/mriviere\/LibriVox_cut/antares\/librivox/' -i 10h_phn.lst
+sed -e 's/fbcode\/deeplearning\/projects\/wav2letter/\/private\/home\/qiantong\/gab\/wav2letter/' -i togab.diff
+sed -e 's/\/private\/home\/qiantong\/gab\/wav2letter\///' -i togab.diff
+
+sed -e 's/$/ | 1 | 1 | 1/' '#checkpoint#antares#datasets#librispeech#lists#dev-other.lst.bm' > ~/asd.bm
+sed -e 's/ | 1 | 1 | 1//' dump-fix2-500.out > ~/asd.bm
+
+sed -e 's/resnet_ctc_librivox_kenlm_ronan_fix3_new/transformer_ctc_librivox_convlm_ronan_fix3_redump_new/' -i rescore_run.dev-clean.sh
+sed -e 's/transformer_ctc_librivox_convlm_ronan_fix3_redump_new/resnet_ctc_librivox_kenlm_ronan_fix3_new/' -i rescore_run.dev-other.sh
+sed -e 's/transformer_ctc_librivox_convlm_ronan_fix3_redump_new/resnet_ctc_librivox_kenlm_ronan_fix3_new/' -i rescore_run.test-other.sh
+sed -e 's/transformer_ctc_librivox_convlm_ronan_fix3_redump_new/resnet_ctc_librivox_kenlm_ronan_fix3_new/' -i rescore_run.test-clean.sh
+
+sed -e 's/test\/librispeech-transformer-seq2seq-500/transformer_ctc_librivox_convlm_ronan_fix3_redump\/#checkpoint#antares#datasets#librispeech#lists#/' -i rescore_run.dev-clean.sh
+sed -e 's/test\/resnet-ctc--2500-/transformer_ctc_librivox_convlm_ronan_fix3_redump\/#checkpoint#antares#datasets#librispeech#lists#/' -i rescore_run.dev-other.sh
+sed -e 's/test\/librispeech-transformer-seq2seq-500/transformer_ctc_librivox_convlm_ronan_fix3_redump\/#checkpoint#antares#datasets#librispeech#lists#/' -i rescore_run.test-other.sh
+sed -e 's/test\/librispeech-transformer-seq2seq-500/transformer_ctc_librivox_convlm_ronan_fix3_redump\/#checkpoint#antares#datasets#librispeech#lists#/' -i rescore_run.test-clean.sh
+
+sed -e 's/\/checkpoint\/kharitonov/<\/path\/to>/' -i *
+
+sed -e 's/\_/\|/' -i train_letter_lm.nosrd.txt
+
+
+
+cd ~qiantong/rescore
+sbatch rescore.dev-clean.sh
+sbatch rescore.dev-other.sh
+sbatch rescore.test-other.sh
+sbatch rescore.test-clean.sh
+
+
+######### get samples from everstore #########
+
+clowder get GFSz1gPqxyhkXw8MACUghkbm0nBzboxpAABk /tmp/tmp.wav
+
+
+######### nuclide connection failed #########
+
+sudo killall node
+
+
+
+######### sclite script #########
+
+/mnt/vol/gfsfblearner-oregon/flow/data/fbpkgs/sclite/27/score.pl \
+-idFormat wsj -lang en -glm /mnt/vol/gfsfblearner-oregon/flow/data/fbpkgs/sclite/27/en.glm \
+-refFormat trn -hypFormat trn \
+-ref /home/qiantong/local/tmp/valid_pages.pristine.lst.lower.nohyphen.viterbi.ref \
+/home/qiantong/local/tmp/valid_pages.pristine.lst.lower.nohyphen.hyp
+
+
+python /private/home/qiantong/sclite/hyp_ref_transformer.py \
+--datadir=/private/home/qiantong/tmp/sclite \
+--test=test-other.lst
+
+
+/private/home/qiantong/sclite/sctk-2.4.10/bin/hubscr.pl \
+-p /private/home/qiantong/sclite/sctk-2.4.10/bin \
+-V -l english -h hub5 \
+-g /private/home/qiantong/sclite/en20000405_hub5.glm \
+-r /private/home/qiantong/tmp/sclite/test-other.lst.stm.ref \
+/private/home/qiantong/tmp/sclite/test-other.lst.ctm.hyp
+
+
+~/sctk-2.4.10/bin/sclite -r ~/tmp/dec1/ref.word-checkpoint_best.pt-test_other.txt  -h ~/tmp/dec1/hypo.word-checkpoint_best.pt-test_other.txt  -i rm -o all stdout >! ~/tmp/dec1/report
+
+/private/home/qiantong/sclite/sctk-2.4.10/bin/sclite \
+-r /private/home/qiantong/tmp/sclite/test-other.lst.ref \
+-h /private/home/qiantong/tmp/sclite/test-other.lst.hyp \
+-i rm -o all stdout >! /private/home/qiantong/tmp/sclite/report
+
+
+######### Concatenating Files And Insert New Line In Between Files #########
+
+for f in *.wrd; do (cat "${f}"; echo) >> ~/hub05_switchboard.txt; done
+
+
+############## VUE's pipeline ############
+
+buck build @mode/opt deeplearning/projects/wav2letter/src/fb/online-decoder/test/... && buck-out/gen/deeplearning/projects/wav2letter/src/fb/online-decoder/test/end2end_librispeech_test
+
+
+buck build @mode/opt vue/ml/asr/tools:asr_online_tool && buck-out/gen/vue/ml/asr/tools/asr_online_tool --wer=true --num_mkl_threads=8 --asr_files_path=/mnt/vol/gfsai-east/ai-group/users/qiantong/asr/latest
+...
+I0817 15:54:47.016950 1612830 ASROnlineTool.cpp:397] Words error rate is 14.4489
+
+
+
+
+############ fair cluster ############
+
+module load cuda/9.2
+module load cudnn/v7.1-cuda.9.2
+module load NCCL/2.2.13-1-cuda.9.2
+module load mkl/2018.0.128
+module unload kenlm 
+module load gcc/6.3.0 
+module load openmpi/3.0.0/gcc.6.3.0
+
+while :; do clear; date; squeue -o "%.20i %.9P %148j %.8u %.2t %.10M %.6D %R" -u $USER | awk -v ll=60 'NR < ll {print} END {if (NR > ll) {print "... and", NR - ll, "more"}}'; read -p "Press enter to continue"; done
+
+squeue -o "%.10i %.9P %75j %.8u %.2t %.10M %.6D %R" -u qiantong
+
+conda activate pt
+
+sudo sysctl -w kernel.core_pattern="/private/home/$USER/cores/core_%e.%p"
+ulimit -c unlimited
+
+sbatch --gres=gpu:volta:8 --wrap "echo 'hello' && sleep 259200" --constraint volta32gb --time 4200 --exclusive --partition priority --comment debug --mem 450G
+
+
+
+## jupyter
+
+pip install jupyterlab
+
+jupyter notebook
+
+ssh -N -f -L 8888:localhost:8888 devfair
+
+## tensorboard
+
+ssh -L 6007:localhost:6007 devfair
+
+
+############## Useful links ############
+
+https://our.internmc.facebook.com/intern/everstore/customer/2101/monitoring/
+
+learngpu045.10.atn5.facebook.com
+learngpu062.10.atn5.facebook.com
+learngpu082.10.atn5.facebook.com
+
+cmt: AUFPHG
+
+
+awk '{s = ""; for (i=4; i<= NF; i++) s= s $i; print s}'
+
+du -hs * | sort -hr
+
+find . -regex '.*\.\(cpp\|hpp\|cu\|cuh\|c\|h\)' -exec clang-format-8 -style=file -assume-filename=.clang-format -i {} \;

@@ -1,0 +1,162 @@
+baseline_vineel|repaug
+
+baseline_vineel|adam
+
+baseline_vineel|EG
+
+
+
+/private/home/vineelkpratap/libs/rasr_aug4/rasr_addnoise_but_kaldi_simulated.cfg
+module purge
+module load cuda/11.0
+module load cudnn/v8.0.3.33-cuda.11.0
+module load NCCL/2.7.8-1-cuda.11.0
+module load intel/mkl/2020.3.279
+module load kenlm/010421/gcc.9.3.0
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_newsaug.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_repaug.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_repaug_1.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_repaug_normalbatch.cfg --partition=dev,priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_repaug --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_repaug_normalbatch1.cfg --partition=priority,learnfair
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --mode=continue --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/rasr_sfx/baseline --partition=dev,priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/baseline_newsaug_param
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_newsaug_param.cfg --partition=priority,learnfair
+
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H8_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H12_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H6_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H8_DO0.1_LD0.1_CTC_sinpos
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H8_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H12_DO0.1_LD0.1_CTC_sinpos
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H12_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+
+2050010969215
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_1
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H6_DO0.1_LD0.1_CTC_sinpos
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H6_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_1.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR54x1024_DO0.1_LD0.1_CTC_sinpos
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR54x1024_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/baseline_adam
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/baseline_adam1
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/baseline_adam2
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_adam.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_adam1.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/baseline_adam2
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_adam2.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_adam3.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_adam4.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_adam5.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_adam6.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_adam.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x768_H6_DO0.1_LD0.1_CTC_sinpos
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x768_H6_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x768_H8_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR54x768_DO0.1_LD0.1_CTC_sinpos
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR54x768_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x768_H6_DO0.1_LD0.1_CTC_sinpos
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x768_H6_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_1
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_1.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_normalbatch.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_2
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_2.cfg --partition=priority,learnfair
+
+
+
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_2.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H6_DO0.1_LD0.1_CTC_sinpos
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_H6_DO0.1_LD0.1_CTC_sinpos.cfg --partition=priority,learnfair
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_1
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_1.cfg --partition=priority,learnfair
+ 
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/baseline_repaug_normalbatch
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_normalbatch.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_normalbatch6.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train_org --ngpu 32 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_normalbatch8.cfg --partition=priority,learnfair
+
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_newdb.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_newdb1.cfg --partition=priority,learnfair
+
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_newdb.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_newdb.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_newdb_largelr.cfg --partition=priority,learnfair
+
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_newdb1.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_newdb1.cfg --partition=priority,learnfair
+
+
+rm -rf /checkpoint/qiantong/wav2letter_experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_newdb_warmup
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_newdb_warmup.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_newdb1_warmup.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_newdb2_warmup.cfg --partition=priority,learnfair
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train train --flagsfile=/private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_repaug.cfg --logtostderr=1  --rundir=/tmp/baseline_repaug --enable_distributed
+
+
+
+
+
+
+
+
+
+
+terion Forward Time(ms): 0.24 : Backward Time(ms): 264.62 : Optimization Time(ms): 54.92 | LR: 1e-06: Avg Train Loss: 6.943: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0322 10:22:27.768781 2732321 ImageNetTransformer.cpp:631] Epoch 0 Batch: 200 Throughput 1948.4 | : Batch time(ms): 525.57 : Sample Time(ms): 97.70 : Forward Time(ms): 84.22 : Criterion Forward Time(ms): 0.24 : Backward Time(ms): 287.39 : Optimization Time(ms): 54.87 | LR: 1e-06: Avg Train Loss: 6.9368: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0322 10:23:22.829910 2732321 ImageNetTransformer.cpp:631] Epoch 0 Batch: 300 Throughput 1860.5 | : Batch time(ms): 550.38 : Sample Time(ms): 103.35 : Forward Time(ms): 73.53 : Criterion Forward Time(ms): 0.25 : Backward Time(ms): 300.99 : Optimization Time(ms): 54.99 | LR: 1e-06: Avg Train Loss: 6.9316: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0322 10:24:18.486872 2732321 ImageNetTransformer.cpp:631] Epoch 0 Batch: 400 Throughput 1840.2 | : Batch time(ms): 556.47 : Sample Time(ms): 105.28 : Forward Time(ms): 68.14 : Criterion Forward Time(ms): 0.25 : Backward Time(ms): 310.11 : Optimization Time(ms): 55.19 | LR: 1e-06: Avg Train Loss: 6.9292: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0322 10:25:13.642874 2732321 ImageNetTransformer.cpp:631] Epoch 0 Batch: 500 Throughput 1856.8 | : Batch time(ms): 551.50 : Sample Time(ms): 106.08 : Forward Time(ms): 65.12 : Criterion Forward Time(ms): 0.25 : Backward Time(ms): 314.82 : Optimization Time(ms): 55.25 | LR: 1e-06: Avg Train Loss: 6.926: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0322 10:26:09.029557 2732321 ImageNetTransformer.cpp:631] Epoch 0 Batch: 600 Throughput 1849 | : Batch time(ms): 553.82 : Sample Time(ms): 105.64 : Forward Time(ms): 63.01 : Criterion Forward Time(ms): 0.25 : Backward Time(ms): 319.38 : Optimization Time(ms): 55.31 | LR: 1e-06: Avg Train Loss: 6.9235: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0322 10:27:02.298516 2732321 ImageNetTransformer.cpp:631] Epoch 0 Batch: 700 Throughput 1922.5 | : Batch time(ms): 532.63 : Sample Time(ms): 105.41 : Forward Time(ms): 61.45 : Criterion Forward Time(ms): 0.25 : Backward Time(ms): 319.44 : Optimization Time(ms): 55.50 | LR: 1e-06: Avg Train Loss: 6.9216: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+
+
+I0306 07:07:41.404429 3340546 ImageNetTransformer.cpp:618] Epoch 0 Batch: 200 Throughput 5751.4 | : Batch time(ms): 178.04 : Sample Time(ms): 17.68 : Forward Time(ms): 91.70 : Criterion Forward Time(ms): 0.20 : Backward Time(ms): 84.59 : Optimization Time(ms): 24.95 | LR: 1e-06: Avg Train Loss: 6.9336: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0306 07:07:59.242887 3340546 ImageNetTransformer.cpp:618] Epoch 0 Batch: 300 Throughput 5741.2 | : Batch time(ms): 178.36 : Sample Time(ms): 16.95 : Forward Time(ms): 79.45 : Criterion Forward Time(ms): 0.20 : Backward Time(ms): 84.13 : Optimization Time(ms): 24.91 | LR: 1e-06: Avg Train Loss: 6.9296: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0306 07:08:17.056915 3340546 ImageNetTransformer.cpp:618] Epoch 0 Batch: 400 Throughput 5748.9 | : Batch time(ms): 178.12 : Sample Time(ms): 16.59 : Forward Time(ms): 73.16 : Criterion Forward Time(ms): 0.21 : Backward Time(ms): 83.97 : Optimization Time(ms): 24.90 | LR: 1e-06: Avg Train Loss: 6.9269: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0306 07:08:34.947014 3340546 ImageNetTransformer.cpp:618] Epoch 0 Batch: 500 Throughput 5724.3 | : Batch time(ms): 178.89 : Sample Time(ms): 16.45 : Forward Time(ms): 69.61 : Criterion Forward Time(ms): 0.21 : Backward Time(ms): 83.62 : Optimization Time(ms): 25.00 | LR: 1e-06: Avg Train Loss: 6.9224: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0306 07:08:52.629812 3340546 ImageNetTransformer.cpp:618] Epoch 0 Batch: 600 Throughput 5792.4 | : Batch time(ms): 176.78 : Sample Time(ms): 16.31 : Forward Time(ms): 67.13 : Criterion Forward Time(ms): 0.21 : Backward Time(ms): 83.33 : Optimization Time(ms): 24.93 | LR: 1e-06: Avg Train Loss: 6.9187: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+0: I0306 07:09:10.297789 3340546 ImageNetTransformer.cpp:618] Epoch 0 Batch: 700 Throughput 5799 | : Batch time(ms): 176.58 : Sample Time(ms): 16.20 : Forward Time(ms): 65.32 : Criterion Forward Time(ms): 0.21 : Backward Time(ms): 83.15 : Optimization Time(ms): 24.88 | LR: 1e-06: Avg Train Loss: 6.9201: Train Top5 Accuracy( %): -nan: Train Top1 Accuracy( %): -nan
+
+
+10h: /checkpoint/qiantong/ls_200M/100h/924
+100h: /checkpoint/qiantong/ls_200M/100h/149
+

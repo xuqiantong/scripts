@@ -1,0 +1,119 @@
+export USR=/private/home/qiantong/fl_org/usr
+mkdir $USR
+
+git clone --recursive git@github.com:arrayfire/arrayfire.git
+wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.gz && tar xf boost_1_70_0.tar.gz
+cd arrayfire && git checkout v3.7.1 && git submodule update --init --recursive
+mkdir build && cd build
+cmake ..   -DCMAKE_BUILD_TYPE=Release -DAF_BUILD_OPENCL=OFF -DAF_BUILD_CPU=OFF   -DAF_BUILD_UNIFIED=OFF -DAF_BUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF   -DCUDA_architecture_build_targets="6.0;7.0;7.0+PTX"   -DCMAKE_INSTALL_PREFIX=$USR -DBOOST_INCLUDEDIR=$USR/../boost_1_70_0 -DcuDNN_LINK_LIBRARY=$CUDNN_LIB_DIR/libcudnn.so.7.6.2  -DcuDNN_INCLUDE_DIRS=$CUDNN_INCLUDE_DIR
+make -j40 && make install
+cd ../../
+
+
+
+cmake .. \
+    -DCMAKE_INSTALL_PREFIX=$USR \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DAF_BUILD_OPENCL=OFF \
+    -DAF_BUILD_CPU=OFF \
+    -DAF_BUILD_CUDA=ON \
+    -DAF_BUILD_UNIFIED=OFF \
+    -DAF_BUILD_EXAMPLES=OFF \
+    -DBUILD_TESTING=OFF \
+    -DAF_BUILD_FORGE=OFF  \
+    -DCUDA_architecture_build_targets="7.0;7.0+PTX;8.0;8.0+PTX"
+
+
+git clone --recursive git@github.com:fairinternal/flashlight.git
+cd flashlight
+mkdir build && cd build
+export KENLM_ROOT_DIR=/checkpoint/antares/w2l_env/kenlm/
+cmake .. -DCMAKE_INSTALL_PREFIX=$USR -DArrayFire_DIR=$USR/share/ArrayFire/cmake -DFL_BACKEND=CUDA
+make -j40 && make install
+
+
+export KENLM_INC=/public/apps/kenlm/110617/gcc.6.3.0/ \
+export KENLM_ROOT_DIR=/public/apps/kenlm/110617/gcc.6.3.0/build/lib 
+export KENLM_ROOT=/checkpoint/antares/w2l_env/kenlm/
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=~/fl_org/usr -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake -DFL_BACKEND=CUDA
+
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=~/fl_org/usr -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake -DFL_BACKEND=CUDA
+
+
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=~/fl_org/usr -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake -DFL_BACKEND=CUDA -DFL_PLUGIN_MODULE_SRC_PATH=/checkpoint/antares/experiments/fl_new_master/plugin/lm_adae512_sinpos_l8_h8_fc1024_dp0.3_ldp0.cpp
+
+
+git fetch origin pull/366/head:distill
+gdb /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer ~/cores/core_fl_img_imagenet.1165394
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/trainer_test/1.cfg --ngpu=8 --partition=dev
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/asr/fl_asr_tutorial_train_ctc --mode=train --config=/private/home/qiantong/wav2letter_experiments/trainer_test/1.cfg --ngpu=8 --partition=dev --extra="--runname=.trainer"
+
+squeue -o "%.10i %.9P %75j %.8u %.2t %.10M %.6D %R" -u qiantong
+
+
+
+
+module purge
+module load gcc/7.3.0
+module load cuda/10.0
+module load cudnn/v7.6-cuda.10.0
+module load NCCL/2.4.7-1-cuda.10.0
+module load mkl/2018.0.128
+module load kenlm/111020/gcc.7.4.0
+
+
+module purge
+module load cuda/10.1
+module load cudnn/v7.6.5.32-cuda.10.1
+module load NCCL/2.5.6-1-cuda.10.1
+module load mkl/2018.0.128
+module load kenlm/110617/gcc.7.3.0
+module load openmpi/4.0.1/gcc.7.3.0
+
+
+
+module purge
+module load cuda/11.0
+module load cudnn/v8.0.3.33-cuda.11.0
+module load NCCL/2.8.3-1-cuda.11.0
+module load intel/mkl/2020.3.279
+module load kenlm/010421/gcc.9.3.0
+
+
+
+./examples/simple_streaming_asr_example -input_files_base_path ~/tmp/inf/data_vi/ -input_audio_file 0000000098.wav
+
+
+cmake .. -Dflashlight_DIR=/private/home/qiantong/fl_org/usr/share/flashlight/cmake -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake  
+
+
+/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_decode \
+--am=/tmp/inf/data_vi/acoustic_model.bin \
+--lm=language_model.bin \
+--test=/private/home/qiantong/tmp/test.lst \
+--beamsize=10 \
+--beamsizetoken=1 \
+--beamthreshold=100 \
+--uselexicon=true \
+--lexicon=/tmp/inf/data_vi/lexicon.txt \
+--tokens=/tmp/inf/data_vi/tokens.txt \
+--show --logtostderr
+
+
+
+sudo sysctl -w kernel.core_pattern="/private/home/$USER/cores/%e.%p"
+
+
+
+
+
+
+
+
+
+
+
+
+

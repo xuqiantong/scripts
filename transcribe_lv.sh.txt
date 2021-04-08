@@ -1,0 +1,309 @@
+buck run @mode/opt deeplearning/projects/wav2letter:decode_cpp -c w2l.build_fb_dependencies=true -c fbcode.enable_gpu_sections=true -- --lm=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/train_data/lm/de.bin --datadir= --test=/home/qiantong/tmp/de/10test.lst --nthread_decoder=1 --nthread_decoder_am_forward=1 --everstoredb=false  --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/data --tokens=de/grapheme.tokens --am=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/logs/lv2_asg_de_tds_100m_do0.1/002_model_de.bin --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/streaming_models/trash/de/lexicon.txt --uselexicon=true --decodertype=wrd --lmtype=kenlm --lmweight=1.6494673965498805 --wordscore=1.0236053131520748 --silscore=-0.6341897919774055 --eosscore=0 --beamsize=100 --beamsizetoken=100 --beamthreshold=100 --smearing=max --smoothingtemperature=1 --attentionthreshold=30 --maxload=-1 --sclite=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/de -show
+
+
+/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/decode_cpp --lm=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/train_data/lm/de.bin --datadir= --test=/home/qiantong/tmp/de/10test.lst --nthread_decoder=1 --nthread_decoder_am_forward=1 --everstoredb=false  --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/data --tokens=de/grapheme.tokens --am=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/logs/lv2_asg_de_tds_100m_do0.1/002_model_de.bin --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/streaming_models/trash/de/lexicon.txt --uselexicon=true --decodertype=wrd --lmtype=kenlm --lmweight=1.6494673965498805 --wordscore=1.0236053131520748 --silscore=-0.6341897919774055 --eosscore=0 --beamsize=100 --beamsizetoken=100 --beamthreshold=100 --smearing=max --smoothingtemperature=1 --attentionthreshold=30 --maxload=-1 --sclite=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/de -show
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py German 500 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py German 500
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py Dutch 100 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py Dutch 100
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py Polish 10 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py Polish 10
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py Russian 10 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py Russian 10
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py Italian 10 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py Italian 10
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py Spanish 200 fblearner_ash_bigbasin_fair
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py Spanish 200
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py French 200 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py French 200
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py Portuguese 100 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py Portuguese 100
+
+
+#!/bin/bash
+
+rawfile=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/data.lst
+i=$1
+
+total_len=$(wc -l <${rawfile})
+lpj=$((total_len / 1000))
+endid=$((i * lpj))
+
+listfile=/tmp/${i}.lst
+head -n ${endid} ${rawfile} | tail -n ${lpj} > ${listfile}
+
+cp /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/lm_librispeech_kenlm_word_4g_200kvocab.bin /tmp/lm.bin
+
+/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/decode_cpp --lm=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/lm_librispeech_kenlm_word_4g_200kvocab.bin --datadir= --test=/tmp/data.lst --nthread_decoder=1 --nthread_decoder_am_forward=1 --everstoredb=false --show=true  --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models --tokens=librispeech-train-all-unigram-10000.tokens --am=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/am_tds_ctc_librivox_dev_other.bin --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/annl/speech/datasets/dict/librispeech-train+dev-unigram-10000-nbest10.dict --uselexicon=true --decodertype=wrd --lmtype=kenlm --lmweight=0.48445624722505 --wordscore=0.74825575243769 --eosscore=0 --beamsize=300 --beamsizetoken=100 --beamthreshold=100 --smearing=max --smoothingtemperature=1 --attentionthreshold=30 --maxload=-1 --sclite=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/English
+
+
+/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/decode_cpp --lm=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/lm_librispeech_kenlm_word_4g_200kvocab.bin --datadir= --test=/tmp/data.lst --nthread_decoder=10 --nthread_decoder_am_forward=1 --everstoredb=false --show=true  --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models --tokens=librispeech-train-all-unigram-10000.tokens --am=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/am_tds_ctc_librivox_dev_other.bin --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/annl/speech/datasets/dict/librispeech-train+dev-unigram-10000-nbest10.dict --uselexicon=true --decodertype=wrd --lmtype=kenlm --lmweight=0.48445624722505 --wordscore=0.74825575243769 --eosscore=0 --beamsize=300 --beamsizetoken=100 --beamthreshold=100 --smearing=max --smoothingtemperature=1 --attentionthreshold=30 --maxload=-1 --sclite=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/English --show
+
+
+for i in $(seq 1 1); do (
+    echo "sh /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/English/run_decode.sh $i" | \
+        /usr/local/chronos/scripts/crun --hostgroup fblearner_ash_bigbasin_fair --gpu 1 --cpu 12 --mem 50 --secure-group oncall_fair_speech --print-url --timeout 29d
+) done
+
+for i in $(seq 2 1000); do (
+    echo "sh /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/English/run_decode.sh $i" | \
+        /usr/local/chronos/scripts/crun --hostgroup fblearner_ash_bigbasin_fair --gpu 1 --cpu 12 --mem 50 --secure-group oncall_fair_speech --print-url --timeout 29d
+) done
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py English 1000
+
+
+wc -l /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/english_segments.lst
+
+11256306 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/english_segments.lst
+
+
+/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/decode_cpp --lm=/tmp/lm.bin --datadir= --test=${listfile} --nthread_decoder=10 --nthread_decoder_am_forward=1 --everstoredb=false --show=true  --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models --tokens=librispeech-train-all-unigram-10000.tokens --am=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/am_tds_ctc_librivox_dev_other.bin --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/annl/speech/datasets/dict/librispeech-train+dev-unigram-10000-nbest10.dict --uselexicon=true --decodertype=wrd --lmtype=kenlm --lmweight=0.48445624722505 --wordscore=0.74825575243769 --eosscore=0 --beamsize=300 --beamsizetoken=100 --beamthreshold=100 --smearing=max --smoothingtemperature=1 --attentionthreshold=30 --maxload=-1 --sclite=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/English --mintsz=0
+
+
+
+/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/test_cpp --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models --tokens=librispeech-train-all-unigram-10000.tokens --datadir= --am=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/am_tds_ctc_librivox_dev_other.bin --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/annl/speech/datasets/dict/librispeech-train+dev-unigram-10000-nbest10.dict --uselexicon=false --mintsz=0 --test=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/split/English/valid.lst.everstore --everstoredb --show > /tmp/sclite/valid.log
+
+/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/test_cpp --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models --tokens=librispeech-train-all-unigram-10000.tokens --datadir= --am=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/am_tds_ctc_librivox_dev_other.bin --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/annl/speech/datasets/dict/librispeech-train+dev-unigram-10000-nbest10.dict --uselexicon=false --mintsz=0 --test=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/split/English/test.lst.everstore --everstoredb --show > /tmp/sclite/test.log
+
+
+echo "/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/test_cpp --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models --tokens=librispeech-train-all-unigram-10000.tokens --datadir= --am=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models/am_tds_ctc_librivox_dev_other.bin --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/annl/speech/datasets/dict/librispeech-train+dev-unigram-10000-nbest10.dict --uselexicon=false --mintsz=0 --test=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/split/English/train.lst.everstore  --nthread_decoder_am_forward=8 --everstoredb --show > /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/split/English/tmp/sclite/train.log" | /usr/local/chronos/scripts/crun --hostgroup fblearner_ash_bigbasin_fair --gpu 8 --cpu 36 --mem 200 --secure-group oncall_fair_speech --print-url --timeout 29d
+
+
+
+
+
+
+
+
+
+
+(base) [qiantong@devgpu147.prn2 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/English] wc -l /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/*/segments.lst
+    437392 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/Dutch/segments.lst
+  14558416 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/English/segments.lst
+    268712 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/French/segments.lst
+    651784 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/German/segments.lst
+     56625 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/Italian/segments.lst
+     28035 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/Polish/segments.lst
+     56751 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/Portuguese/segments.lst
+     33921 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/Russian/segments.lst
+    292673 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/align/Spanish/segments.lst
+
+
+(base) [qiantong@devgpu147.prn2 /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode] wc -l */final*
+    437300 Dutch/final.lst
+  14540961 English/final.lst
+    268700 French/final.lst
+    651500 German/final.lst
+     56620 Italian/final.lst
+     28030 Polish/final.lst
+     56750 Portuguese/final.lst
+     33920 Russian/final.lst
+    292650 Spanish/final.lst
+
+
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py French 50 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py French 50
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py Spanish 50 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py Spanish 50
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/transcribe.py Portuguese 50 fblearner_ash_bigbasin_fair
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/concatenate.py Portuguese 50
+
+
+for i in $(seq 1 20); do (
+    echo "sh /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/Polish/run_decode.sh $i" | \
+        /usr/local/chronos/scripts/crun --hostgroup fblearner_ash_bigbasin_fair --gpu 1 --cpu 12 --mem 50 --secure-group oncall_fair_speech --print-url --timeout 29d
+) done
+
+
+
+
+### split
+
+1. map meta
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/map_meta.py German
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/map_meta.py Spanish
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/map_meta.py Dutch
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/map_meta.py Italian
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/map_meta.py French
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/map_meta.py Portuguese
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/map_meta.py Polish
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/map_meta.py English 2> 1673_log
+
+2. speaker gender
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py German
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py Spanish
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py Dutch
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py Italian
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py French
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py Portuguese
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py Polish
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py Russian
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/predict_speaker.py English
+
+3. split
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py Polish 3 9 30
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py Polish
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py Russian 2 20 40
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py Italian 5 20 40
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py Portuguese 2 20 40
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py French 7 20 40
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py Spanish 9 20 40
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py Dutch 4 7 50
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py German 14 20 40
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.py English 40 20 21 > split_log
+
+
+echo "python /mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/tmp/split_partitions.py English 10 20 21" | \
+/usr/local/chronos/scripts/crun --hostgroup fblearner_ash_bigsur_cpu --cpu 35 --mem 200 --secure-group oncall_fair_speech --print-url --timeout 2d
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py English
+
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.old.py Polish 2 25 35
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py Polish
+
+114.1262450519444
+train 7 4 3 106.13310230888973
+valid 6 3 3 2.3342777083333344
+test 6 3 3 2.3393761458333344
+valid 23.34277708333333 8.753852683609063
+test 23.393761458333334 8.377643133218687
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.old.py Italian 5 22 40
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py Italian
+
+258.0788216325
+train 61 20 41 245.02678654583494
+valid 12 6 6 6.2128823958333275
+test 12 6 6 6.281033246388901
+valid 31.064411979166664 6.450869111363006
+test 31.40516623194445 6.702634637285868
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.old.py Portuguese 5 15 23
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py Portuguese
+
+191.16652058916654
+train 42 26 16 160.96321562360833
+valid 10 5 5 3.6443199302777813
+test 10 5 5 3.7381802083333313
+valid 21.865919581666667 2.057960036358389
+test 22.429081250000003 1.2523020082899865
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.old.py French 9 20 40
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py French
+
+train 142 62 75 1076.5805276210024
+valid 18 9 9 10.07122944499998
+test 18 9 9 10.067192292222215
+valid 33.57076481666667 7.253286885621297
+test 33.55730764074074 7.364422031477377
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.old.py German 15 20 30
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py German
+
+train 176 81 95 1959.3207107965122
+valid 30 15 15 14.730707430555537
+test 30 15 15 14.730162118333395
+valid 29.46141486111111 1.1347216050030984
+test 29.46032423666666 1.0949250200252032
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitionspython /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py Spanish
+.old.py Spanish 10 20 40
+
+942.1182110613917
+train 86 36 50 917.6841873281052
+valid 20 10 10 9.988661475277775
+test 20 10 10 10.003648993333305
+valid 29.965984425833334 6.4108289609111395
+test 30.01094698 6.489289128542153
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.old.py Dutch 3 10 300
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py Dutch
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/split_partitions.old.en.py English 21 22 23
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py English
+
+50592.319822496385
+train 5488 2741 2685 44756.21832143508
+valid 42 21 21 15.618869861111156
+test 42 21 21 15.67014935777777
+secrete 45 20 25 12.453389097499976
+valid 22.312671230158735 3.1499315590627948
+test 22.385927653968253 2.2646730808288944
+train 489.3172557008418 2536.4966621555423
+sec 16.60451879666667 2.7600569031504936
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/get_status.py all
+
+
+
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/prepare_lm_corpus.py German  > ~/tmp/German
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/prepare_lm_corpus.py Spanish > ~/tmp/Spanish
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/prepare_lm_corpus.py Dutch > ~/tmp/Dutch
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/prepare_lm_corpus.py Italian > ~/tmp/Italian
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/prepare_lm_corpus.py French > ~/tmp/French
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/prepare_lm_corpus.py Portuguese > ~/tmp/Portuguese
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/prepare_lm_corpus.py Polish > ~/tmp/Polish
+python /data/users/qiantong/fbsource/fbcode/experimental/qiantong/lv/prepare_lm_corpus.py English > ~/tmp/English

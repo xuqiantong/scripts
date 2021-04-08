@@ -1,0 +1,888 @@
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=fr-metadata/tst-COMMON.notranslation \
+    --sclite=/private/home/qiantong/tmp/to_juan \
+    --datadir=/private/home/juancarabina/exps/ast_self_training/outputs_dev_test_plain/ \
+    --am=/checkpoint/jacobkahn/icml_2020/pseudo-labeling/labeling_am/am_transformer_ctc_librispeech_dev_other.bin \
+    --tokensdir=/checkpoint/antares/wav2letter/recipes/models/seq2seq_tds/librispeech/am/ \
+    --tokens=librispeech-train-all-unigram-10000.tokens \
+    --lexicon=/checkpoint/antares/wav2letter/recipes/models/seq2seq_tds/librispeech/am/librispeech-train-unigram-10000-nbest10.lexicon \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=500 \
+    --beamsizetoken=100 \
+    --beamthreshold=100 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --mintsz=-1 \
+    --minisz=-1 \
+    --lmweight=1.2278337456709 \
+    --wordscore=1.3561817285779
+
+
+
+
+/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/decode_cpp \
+  --lm=/home/qiantong/tmp/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+  --am=/home/qiantong/tmp/am_transformer_ctc_librispeech_dev_other.bin \
+  --datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/juancarabina/ast_selftraining/ \
+  --test=test.en-fr.20200309.metadata.notranslation \
+  --nthread_decoder=20 --nthread_decoder_am_forward=1 \
+  --everstoredb=false --show=true --mintsz=0 \
+  --tokensdir=/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/decode/en_models --tokens=librispeech-train-all-unigram-10000.tokens \
+  --lexicon=/mnt/vol/gfsai-oregon/ai-group/users/annl/speech/datasets/dict/librispeech-train+dev-unigram-10000-nbest10.dict \
+  --uselexicon=true --decodertype=wrd --lmtype=kenlm \
+  --lmweight=1.2278337456709 --wordscore=1.3561817285779 --silscore=-0.0 \
+  --eosscore=0 --beamsize=500 --beamsizetoken=100 --beamthreshold=100 \
+  --smearing=max --smoothingtemperature=1 --attentionthreshold=30 --maxload=-1 \
+  --sclite=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/tmp/to_juan
+
+
+
+## 82
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-clean.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/82/002_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.68231773 \
+    --wordscore=0.7212421
+
+
+## 72
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-clean.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.77944429 \
+    --wordscore=0.08599525972219999
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.352414686980 \
+    --wordscore=0.1169399491
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.513675363739 \
+    --wordscore=0.64997983078
+
+[Decode test-other.lst (2939 samples) in 211.869s (actual decoding time 2.74s/sample) -- WER: 8.14627, LER: 6.29862]
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-clean.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.73846376065 \
+    --wordscore=0.3906582
+
+[Decode test-clean.lst (2620 samples) in 194.189s (actual decoding time 2.78s/sample) -- WER: 4.28332, LER: 3.32505]
+
+
+## 51
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-clean.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.42923 \
+    --wordscore=0.211751
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.548283428309 \
+    --wordscore=0.0774763907
+
+
+## 149
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-clean.lst --emission_dir=''
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-clean.lst --emission_dir=''
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir=''
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir=''
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.7643 \
+    --wordscore=1.22242
+
+[Decode test-other.lst (2939 samples) in 269.493s (actual decoding time 3.51s/sample) -- WER: 10.9069, LER: 8.11195]
+[Decode test-other.lst (2939 samples) in 275.958s (actual decoding time 3.59s/sample) -- WER: 10.9069, LER: 8.11195]
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=1.068333 \
+    --wordscore=1.891093
+
+[Decode test-other.lst (2939 samples) in 289.643s (actual decoding time 3.77s/sample) -- WER: 10.8993, LER: 8.22964
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-clean.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.5436986274930 \
+    --wordscore=0.1687274
+
+[Decode test-clean.lst (2620 samples) in 239.947s (actual decoding time 3.44s/sample) -- WER: 5.93997, LER: 4.50964]
+
+
+
+
+## 602
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/602/005_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.5301 \
+    --wordscore=0.637677529
+
+[Decode test-other.lst (2939 samples) in 213.147s (actual decoding time 2.75s/sample) -- WER: 7.34578, LER: 6.02732]
+
+
+## 604
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/604/006_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.3204 \
+    --wordscore=0.5077
+
+
+## 614
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/614/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=20 \
+    --nthread_decoder_am_forward=1 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+     --lmweight=1.223338 \
+    --wordscore=2.22965
+
+## 615
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/615/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=20 \
+    --nthread_decoder_am_forward=1 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+     --lmweight=1.282 \
+    --wordscore=2.0015
+
+[Decode test-other.lst (2939 samples) in 512.828s (actual decoding time 3.42s/sample) -- WER: 10.4923, LER: 8.51597]
+
+## 605
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/605/008_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.421601600 \
+    --wordscore=0.07444651
+
+[Decode test-other.lst (2939 samples) in 199.467s (actual decoding time 2.57s/sample) -- WER: 4.09988, LER: 3.00376]
+
+
+
+
+python launch_jobs.py sweep_params_ctc.json 200 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/82/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_82_clean
+
+
+python launch_jobs.py sweep_params_ctc.json 200 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_72
+
+python launch_jobs.py sweep_params_ctc.json 200 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_72_clean
+
+
+python launch_jobs.py sweep_params_ctc.json 200 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_89k_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_72_89k
+
+python launch_jobs.py sweep_params_ctc.json 200 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_89k_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_72_89k_clean
+
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.10kwp.config /checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_51_new
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_clean_ctc.10kwp.config /checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_51_new_clean
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-clean.lst --emission_dir=''
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#test-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir=''
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-clean.lst --emission_dir=''
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#test-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir=''
+
+
+# new clean
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/82/002_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_82_clean_new
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_72_clean_new
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/82/002_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-clean.lst --emission_dir=''
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/82/002_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-clean.lst --emission_dir=''
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-clean.lst --emission_dir=''
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-clean.lst --emission_dir=''
+
+
+
+
+
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh convlm_wrd_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/82/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin > jobs/job_82_clean_gcnn
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/convlm_wrd_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin > jobs/job_72_gcnn
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/convlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/72/004_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin > jobs/job_72_gcnn_other
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/convlm_wrd_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin > jobs/job_51_clean_gcnn
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/convlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/51/007_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin > jobs/job_51_gcnn
+
+
+
+
+
+
+## 149
+python launch_jobs.py sweep_params_ctc.json 180 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_149
+
+python launch_jobs.py sweep_params_ctc.json 180 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_clean_ctc.config /checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_149_clean
+
+python launch_jobs.py sweep_params_ctc.json 180 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_89k_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_149_89k
+
+
+
+## 602
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/602/005_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir=''
+
+[Test /private/home/qiantong/push_numbers/lists/test-other.lst (2939 samples) in 94.5551s (actual decoding time 0.0322s/sample) -- WER: 7.89217, LER: 4.65541]
+
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/602/005_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin > jobs/job_602
+
+
+## 604
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/604/006_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir=''
+
+
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/604/006_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/job_604
+
+
+
+
+## 614
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/614/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/614/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+[Test /private/home/qiantong/push_numbers/lists/dev-other.lst (2864 samples) in 51.491s (actual decoding time 0.0356s/sample) -- WER: 10.1908, LER: 6.75538]
+[Test /private/home/qiantong/push_numbers/lists/test-other.lst (2939 samples) in 52.9844s (actual decoding time 0.0357s/sample) -- WER: 11.0903, LER: 6.72464]
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/614/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_dev-test_5gram_200kvocab.bin > jobs/job_614
+
+## 615
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/615/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/615/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+[Test /private/home/qiantong/push_numbers/lists/dev-other.lst (2864 samples) in 51.903s (actual decoding time 0.0359s/sample) -- WER: 10.8032, LER: 7.10244]
+[Test /private/home/qiantong/push_numbers/lists/test-other.lst (2939 samples) in 53.0199s (actual decoding time 0.0357s/sample) -- WER: 11.6119, LER: 7.25148]
+
+python launch_jobs.py sweep_params_ctc.json 150 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/615/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/job_615
+
+
+## 605
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/605/008_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/605/008_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+[Test /private/home/qiantong/push_numbers/lists/dev-other.lst (2864 samples) in 53.3667s (actual decoding time 0.0369s/sample) -- WER: 4.02371, LER: 1.95938]
+[Test /private/home/qiantong/push_numbers/lists/test-other.lst (2939 samples) in 54.63s (actual decoding time 0.0368s/sample) -- WER: 4.41893, LER: 1.92332]
+
+
+python launch_jobs.py sweep_params_ctc.json 180 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.10kwp.config /checkpoint/qiantong/ls_200M/100h/605/008_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_605
+
+
+
+
+
+####################### RESCORING ##########################
+
+#### old 
+
+/private/home/qiantong/wav2letter/build/Decoder \
+--am=/checkpoint/qiantong/ls_200M/100h/149/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin  \
+--test=/checkpoint/antares/datasets/librispeech/lists/dev-clean.lst \
+--datadir= \
+--maxload=-1 \
+--nthread_decoder=2 \
+--nthread_decoder_am_forward=1 \
+--show \
+--uselexicon=true \
+--lmtype=convlm \
+--decodertype=wrd \
+--beamsize=100 \
+--beamsizetoken=50 \
+--beamthreshold=50 \
+--silscore=0 \
+--smearing=max \
+--emission_dir= \
+--maxload=100 \
+--lm_vocab=/checkpoint/antares/icassp_2020_models/lms/word_gcnn_14B_antares.vocab \
+--lm=/checkpoint/antares/icassp_2020_models/lms/word_gcnn_14B_antares.bin \
+--lm_memory=5000 \
+--show
+
+
+
+srun --gpus-per-node=8 --partition=dev --time=10 --cpus-per-task 48 --pty nvprof -s -o /private/home/qiantong/tmp/log_2g.nvvp --profile-child-processes ./convlm_decode.sh -l
+
+[Decode /checkpoint/antares/datasets/librispeech/lists/dev-clean.lst (100 samples) in 396.04s (actual decoding time 7.74s/sample) -- WER: 6.73226, LER: 4.02361]
+
+
+
+
+
+
+### rescoring test
+
+/private/home/qiantong/pseudo-labels/wav2letter0114/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=1 \
+    --nthread_decoder_am_forward=1 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=1.068333 \
+    --wordscore=1.891093 \
+    --maxload=20
+
+[Decode test-other.lst (20 samples) in 46.0462s (actual decoding time 2.09s/sample) -- WER: 9.80392, LER: 7.15456]
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=1 \
+    --nthread_decoder_am_forward=1 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=1.068333 \
+    --wordscore=1.891093 \
+    --maxload=20
+
+[Decode test-other.lst (20 samples) in 46.0462s (actual decoding time 2.09s/sample) -- WER: 9.80392, LER: 7.15456]
+
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Decoder \
+--test=test-other.lst \
+--datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+--am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+--uselexicon=true \
+--decodertype=wrd \
+--lmtype=kenlm \
+--silscore=0 \
+--beamsize=800 \
+--beamsizetoken=80 \
+--beamthreshold=80 \
+--nthread_decoder=1 \
+--nthread_decoder_am_forward=1 \
+--smearing=max \
+--emission_dir= \
+--mintsz=-1 \
+--lmweight=1.068333 \
+--wordscore=1.891093 \
+--maxload=20 \
+--is_rescore=true \
+--tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp \
+--lm_vocab=/private/home/qiantong/tmp/lm_200k.dict \
+--tr_lmwight=0.9 --tr_wordscore=2 \
+--tr_nbest=800 \
+--show
+
+
+
+python launch_jobs.py sweep_params_rescore.json 150 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin  /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/rs_test
+
+
+
+
+/private/home/qiantong/train_lm/wav2letter/build/Decoder \
+--test=dev-other.lst \
+--datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+--am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+--uselexicon=true \
+--decodertype=wrd \
+--lmtype=kenlm \
+--silscore=0 \
+--beamsize=800 \
+--beamsizetoken=80 \
+--beamthreshold=80 \
+--nthread_decoder=10 \
+--nthread_decoder_am_forward=1 \
+--smearing=max \
+--emission_dir= \
+--mintsz=-1 \
+--lmweight=1.068333 \
+--wordscore=1.891093 \
+--maxload=500 \
+--is_rescore=false \
+--tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp \
+--lm_vocab=/private/home/qiantong/tmp/lm_200k.dict \
+--tr_lmwight=0.9 --tr_wordscore=2 \
+--tr_nbest=800 \
+--tr_batchsize=1
+--show
+
+[Decode dev-other.lst (500 samples) in 962.357s (actual decoding time 1.88s/sample) -- WER: 9.94475, LER: 8.50507]
+
+
+
+
+/checkpoint/antares/experiments/w2l_tr_lm/gutenberg_intersect_librivox.ids_and_manual.and.librispeech_train-dev-test.ids_and_manual.gutenberg.corpus.normalized.uniq.freq
+
+
+/private/home/qiantong/train_lm/wav2letter/build/Decoder \
+--test=dev-other.lst \
+--datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+--am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+--uselexicon=true \
+--decodertype=wrd \
+--lmtype=kenlm \
+--silscore=0 \
+--beamsize=200 \
+--beamsizetoken=80 \
+--beamthreshold=80 \
+--nthread_decoder=10 \
+--nthread_decoder_am_forward=1 \
+--smearing=max \
+--emission_dir= \
+--mintsz=-1 \
+--lmweight=1.068333 \
+--wordscore=1.891093 \
+--maxload=20 \
+--is_rescore=true \
+--tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp \
+--lm_vocab=/private/home/qiantong/tmp/lm_300k.dict \
+--tr_lmwight=0.9 --tr_wordscore=1 \
+--tr_nbest=200 \
+--tr_batchsize=1 \
+--show
+
+[Decode dev-other.lst (20 samples) in 13.2251s (actual decoding time 0.433s/sample) -- WER: 8.9701, LER: 8.57687]
+
+
+[Decode dev-other.lst (20 samples) in 177.781s (actual decoding time 8.67s/sample) -- WER: 8.30565, LER: 8.3862]
+[Decode dev-other.lst (20 samples) in 50.7448s (actual decoding time 2.33s/sample) -- WER: 8.30565, LER: 8.38628
+
+
+/private/home/qiantong/train_lm/wav2letter/build/Decoder \
+--test=dev-other.lst \
+--datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+--am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+--lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+--lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict \
+--uselexicon=true \
+--decodertype=wrd \
+--lmtype=kenlm \
+--silscore=0 \
+--beamsize=200 \
+--beamsizetoken=80 \
+--beamthreshold=80 \
+--nthread_decoder=10 \
+--nthread_decoder_am_forward=1 \
+--smearing=max \
+--emission_dir= \
+--mintsz=-1 \
+--lmweight=1.068333 \
+--wordscore=1.891093 \
+--maxload=500 \
+--is_rescore=false \
+--tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp \
+--lm_vocab=/private/home/qiantong/tmp/lm_300k.dict \
+--tr_lmwight=0.9 --tr_wordscore=1 \
+--tr_nbest=200 \
+--tr_batchsize=10 \
+--show
+
+[Decode dev-other.lst (500 samples) in 257.467s (actual decoding time 0.476s/sample) -- WER: 10.6762, LER: 8.79039]
+
+
+
+
+[Decode dev-other-20.lst (20 samples) in 22.6822s (actual decoding time 0.925s/sample) -- WER: 5.68182, LER: 4.79042]
+
+
+
+
+
+python launch_jobs.py sweep_params_rescore.json 100 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin  /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/rs_gb-lslv
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Decoder --test=dev-other-20.lst --datadir=/private/home/qiantong/tmp --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict --uselexicon=true --decodertype=wrd --lmtype=kenlm --silscore=0 --beamsize=200 --beamsizetoken=80 --beamthreshold=80 --nthread_decoder=1 --nthread_decoder_am_forward=1 --smearing=max --emission_dir= --mintsz=-1 --lmweight=1.068333 --wordscore=1.891093 --maxload=20 --is_rescore=true --tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp --lm_vocab=/private/home/qiantong/tmp/lm_300k.dict --tr_lmwight=0.9 --tr_wordscore=2 --tr_nbest=50 --tr_batchsize=50 --show
+
+
+[Decode dev-other-20.lst (20 samples) in 24.2068s (actual decoding time 0.907s/sample) -- WER: 5.68182, LER: 4.79042]
+[Decode dev-other-20.lst (20 samples) in 24.17s (actual decoding time 1.71s/sample) -- WER: 5.68182, LER: 4.79042]
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Decoder --test=dev-other.lst --datadir=/checkpoint/antares/datasets/librispeech/lists/ --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict --uselexicon=true --decodertype=wrd --lmtype=kenlm --silscore=0 --beamsize=200 --beamsizetoken=80 --beamthreshold=80 --nthread_decoder=1 --nthread_decoder_am_forward=1 --smearing=max --emission_dir= --mintsz=-1 --lmweight=1.068333 --wordscore=1.891093 --maxload=20 --is_rescore=true --tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp --lm_vocab=/private/home/qiantong/tmp/lm_300k.dict --tr_lmwight=0.9 --tr_wordscore=2 --tr_nbest=50 --tr_batchsize=50 --show
+
+
+
+
+python launch_jobs.py sweep_params_rescore.json 500 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/rs_815
+
+
+
+
+### new
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-clean.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-clean.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+[Test /private/home/qiantong/push_numbers/lists/dev-clean.lst (2703 samples) in 52.6534s (actual decoding time 0.0385s/sample) -- WER: 5.42443, LER: 3.40676]
+[Test /private/home/qiantong/push_numbers/lists/test-clean.lst (2620 samples) in 54.873s (actual decoding time 0.0414s/sample) -- WER: 5.71934, LER: 3.37513]
+[Test /private/home/qiantong/push_numbers/lists/dev-other.lst (2864 samples) in 56.1879s (actual decoding time 0.0388s/sample) -- WER: 8.97974, LER: 5.98118]
+[Test /private/home/qiantong/push_numbers/lists/test-other.lst (2939 samples) in 57.6709s (actual decoding time 0.0389s/sample) -- WER: 10.0911, LER: 6.28579]
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/835/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-clean.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/835/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-clean.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/835/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/835/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+[Test /private/home/qiantong/push_numbers/lists/dev-other.lst (2864 samples) in 55.671s (actual decoding time 0.0384s/sample) -- WER: 8.9032, LER: 5.90222]
+[Test /private/home/qiantong/push_numbers/lists/test-other.lst (2939 samples) in 55.7851s (actual decoding time 0.0375s/sample) -- WER: 10.0128, LER: 6.2066]
+
+
+/private/home/qiantong/fl_org/flashlight/build/tasks/asr/Test --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+
+
+python launch_jobs.py sweep_params_rescore.json 500 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/rs_815
+
+('WER', 7.84525, 'LER', 6.97008, '27207703', '/checkpoint/qiantong/decoder_sweep/decode_27207703.err')
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Decoder \
+--flagfile= --fromenv= --tryfromenv= --undefok= --tab_completion_columns=80 --tab_completion_word= --help=false --helpfull=false --helpmatch= --helpon= --helppackage=false --helpshort=false --helpxml=false --version=false --adambeta1=0.94999999999999996 --adambeta2=0.98999999999999999 --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --am_decoder_tr_dropout=0 --am_decoder_tr_layerdrop=0 --am_decoder_tr_layers=1 --arch=TR_300M_ld0.3_do0.3.arch --archdir=/private/home/qiantong/pseudo-labels/low_resource/10h --attention=content --attentionthreshold=2147483647 --attnWindow=no --attnconvchannel=0 --attnconvkernel=0 --attndim=0 --batchsize=6 --beamsize=300 --beamsizetoken=80 --beamthreshold=80 --blobdata=false --channels=1 --criterion=ctc --critoptim=sgd --datadir=/checkpoint/antares/datasets/librispeech/lists/ --dataorder=input --decoder_sweep_epoch=100,110,120,130,140,160,180,200,220,240,260,280,300,340,380,420,460,500,550,600,650,700,750,800 --decoderattnround=1 --decoderdropout=0 --decoderrnnlayer=1 --decodertype=wrd --devwin=0 --emission_dir= --emission_queue_size=3000 --enable_distributed=true --encoderdim=0 --eosscore=0 --eosscore_range=-0.0,0.0 --eostoken=false --everstoredb=false --fftcachesize=1 --filterbanks=80 --flagsfile=/private/home/qiantong/tmp/decoder_sweep/rescore_test.config --framesizems=25 --framestridems=10 --gamma=0.5 --gumbeltemperature=1 --input=flac --inputbinsize=100 --inputfeeding=false --is_rescore=true --isbeamdump=false --iter=9223372036854775807 --itersave=false --labelsmooth=0 --leftWindowSize=50 --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict --linlr=-1 --linlrcrit=-1 --linseg=0 --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin --lm_memory=5000 --lm_vocab=/private/home/qiantong/tmp/lm_300k.dict --lmtype=kenlm --lmweight=0.56201756808600001 --lmweight_range=0.0,0.2 --localnrmlleftctx=0 --localnrmlrightctx=0 --logadd=false --lr=0.014999999999999999 --lr_decay=400 --lr_decay_step=300 --lrcosine=false --lrcrit=0 --maxdecoderoutputlen=200 --maxgradnorm=1 --maxisz=9223372036854775807 --maxload=-1 --maxrate=10 --maxsil=50 --maxtsz=9223372036854775807 --maxword=-1 --melfloor=1 --memstepsize=8338608 --mfcc=false --mfcccoeffs=13 --mfsc=true --minisz=0 --minrate=3 --minsil=0 --mintsz=-1 --momentum=0.90000000000000002 --n_pl_file=2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2 --netoptim=adagrad --noresample=false --nthread=10 --nthread_decoder=2 --nthread_decoder_am_forward=1 --numattnhead=8 --onorm=target --optimepsilon=1e-08 --optimrho=0.90000000000000002 --outputbinsize=5 --pctteacherforcing=100 --pcttraineval=100 --pl_epoch=100,110,120,130,140,160,180,200,220,240,260,280,300,340,380,420,460,500,550,600,650,700,750,800 --pow=false --pretrainWindow=0 --replabel=0 --reportiters=0 --rightWindowSize=50 --rndv_filepath=/checkpoint/qiantong/ls_200M/100h/815_rndv_qiantong --rundir=/checkpoint/qiantong/ls_200M/100h --runname=815 --samplerate=16000 --sampletarget=0 --samplingstrategy=rand --saug_fmaskf=27 --saug_fmaskn=2 --saug_tmaskn=10 --saug_tmaskp=0.050000000000000003 --saug_tmaskt=100 --sclite= --seed=0 --seed_model_wer=-1 --show=true --showletters=false --silscore=0 --smearing=max --smoothingtemperature=1 --softwoffset=10 --softwrate=5 --softwstd=5 --sqnorm=true --stepsize=9223372036854775807 --surround= --tag= --target=ltr --test=test-other.lst --tokens=librispeech-train-clean-100-unigram-5000.vocab-filtered --tokensdir=/private/home/qiantong/pseudo-labels/low_resource/ --tr_batchsize=50 --tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp --tr_lmwight=0.51806486609400004 --tr_nbest=100 --tr_wordscore=1.0378611423899999 --train=/private/home/qiantong/push_numbers/lists/train-clean-100.lst --trainWithWindow=false --train_unsup=/private/home/qiantong/push_numbers/lists/train-clean-360.lst,/private/home/qiantong/push_numbers/lists/train-other-500.lst --transdiag=0 --unkscore=-inf --use_existing_pl=false --use_memcache=false --use_saug=true --uselexicon=true --usewordpiece=true --valid=/private/home/qiantong/push_numbers/lists/dev-other.lst,/private/home/qiantong/push_numbers/lists/dev-clean.lst --warmup=40000 --weightdecay=0 --wordscore=1.3153134925900001 --wordscore_range=0.0,5 --wordseparator=_ --world_rank=0 --world_size=64 --alsologtoemail= --alsologtostderr=false --colorlogtostderr=false --drop_log_memory=true --log_backtrace_at= --log_dir= --log_link= --log_prefix=true --logbuflevel=0 --logbufsecs=30 --logemaillevel=999 --logfile_mode=436 --logmailer=/bin/mail --logtostderr=true --max_log_size=1800 --minloglevel=0 --stderrthreshold=2 --stop_logging_if_full_disk=false --symbolize_stacktrace=true --v=0 --vmodule=
+
+[Decode test-other.lst (2939 samples) in 2551.68s (actual decoding time 1.67s/sample) -- WER: 8.9372, LER: 7.35854]
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Decoder \
+--flagfile= --fromenv= --tryfromenv= --undefok= --tab_completion_columns=80 --tab_completion_word= --help=false --helpfull=false --helpmatch= --helpon= --helppackage=false --helpshort=false --helpxml=false --version=false --adambeta1=0.94999999999999996 --adambeta2=0.98999999999999999 --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --am_decoder_tr_dropout=0 --am_decoder_tr_layerdrop=0 --am_decoder_tr_layers=1 --arch=TR_300M_ld0.3_do0.3.arch --archdir=/private/home/qiantong/pseudo-labels/low_resource/10h --attention=content --attentionthreshold=2147483647 --attnWindow=no --attnconvchannel=0 --attnconvkernel=0 --attndim=0 --batchsize=6 --beamsize=300 --beamsizetoken=80 --beamthreshold=80 --blobdata=false --channels=1 --criterion=ctc --critoptim=sgd --datadir=/checkpoint/antares/datasets/librispeech/lists/ --dataorder=input --decoder_sweep_epoch=100,110,120,130,140,160,180,200,220,240,260,280,300,340,380,420,460,500,550,600,650,700,750,800 --decoderattnround=1 --decoderdropout=0 --decoderrnnlayer=1 --decodertype=wrd --devwin=0 --emission_dir= --emission_queue_size=3000 --enable_distributed=true --encoderdim=0 --eosscore=0 --eosscore_range=-0.0,0.0 --eostoken=false --everstoredb=false --fftcachesize=1 --filterbanks=80 --flagsfile=/private/home/qiantong/tmp/decoder_sweep/rescore_test.config --framesizems=25 --framestridems=10 --gamma=0.5 --gumbeltemperature=1 --input=flac --inputbinsize=100 --inputfeeding=false --is_rescore=true --isbeamdump=false --iter=9223372036854775807 --itersave=false --labelsmooth=0 --leftWindowSize=50 --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict --linlr=-1 --linlrcrit=-1 --linseg=0 --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin --lm_memory=5000 --lm_vocab=/private/home/qiantong/tmp/lm_300k.dict --lmtype=kenlm --lmweight=0.56201756808600001 --lmweight_range=0.0,0.2 --localnrmlleftctx=0 --localnrmlrightctx=0 --logadd=false --lr=0.014999999999999999 --lr_decay=400 --lr_decay_step=300 --lrcosine=false --lrcrit=0 --maxdecoderoutputlen=200 --maxgradnorm=1 --maxisz=9223372036854775807 --maxload=-1 --maxrate=10 --maxsil=50 --maxtsz=9223372036854775807 --maxword=-1 --melfloor=1 --memstepsize=8338608 --mfcc=false --mfcccoeffs=13 --mfsc=true --minisz=0 --minrate=3 --minsil=0 --mintsz=-1 --momentum=0.90000000000000002 --n_pl_file=2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2 --netoptim=adagrad --noresample=false --nthread=10 --nthread_decoder=2 --nthread_decoder_am_forward=1 --numattnhead=8 --onorm=target --optimepsilon=1e-08 --optimrho=0.90000000000000002 --outputbinsize=5 --pctteacherforcing=100 --pcttraineval=100 --pl_epoch=100,110,120,130,140,160,180,200,220,240,260,280,300,340,380,420,460,500,550,600,650,700,750,800 --pow=false --pretrainWindow=0 --replabel=0 --reportiters=0 --rightWindowSize=50 --rndv_filepath=/checkpoint/qiantong/ls_200M/100h/815_rndv_qiantong --rundir=/checkpoint/qiantong/ls_200M/100h --runname=815 --samplerate=16000 --sampletarget=0 --samplingstrategy=rand --saug_fmaskf=27 --saug_fmaskn=2 --saug_tmaskn=10 --saug_tmaskp=0.050000000000000003 --saug_tmaskt=100 --sclite= --seed=0 --seed_model_wer=-1 --show=true --showletters=false --silscore=0 --smearing=max --smoothingtemperature=1 --softwoffset=10 --softwrate=5 --softwstd=5 --sqnorm=true --stepsize=9223372036854775807 --surround= --tag= --target=ltr --test=test-other.lst --tokens=librispeech-train-clean-100-unigram-5000.vocab-filtered --tokensdir=/private/home/qiantong/pseudo-labels/low_resource/ --tr_batchsize=50 --tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp --tr_lmwight=0.51806486609400004 --tr_nbest=100 --tr_wordscore=1.0378611423899999 --train=/private/home/qiantong/push_numbers/lists/train-clean-100.lst --trainWithWindow=false --train_unsup=/private/home/qiantong/push_numbers/lists/train-clean-360.lst,/private/home/qiantong/push_numbers/lists/train-other-500.lst --transdiag=0 --unkscore=-inf --use_existing_pl=false --use_memcache=false --use_saug=true --uselexicon=true --usewordpiece=true --valid=/private/home/qiantong/push_numbers/lists/dev-other.lst,/private/home/qiantong/push_numbers/lists/dev-clean.lst --warmup=40000 --weightdecay=0 --wordscore=1.3153134925900001 --wordscore_range=0.0,5 --wordseparator=_ --world_rank=0 --world_size=64 --alsologtoemail= --alsologtostderr=false --colorlogtostderr=false --drop_log_memory=true --log_backtrace_at= --log_dir= --log_link= --log_prefix=true --logbuflevel=0 --logbufsecs=30 --logemaillevel=999 --logfile_mode=436 --logmailer=/bin/mail --logtostderr=true --max_log_size=1800 --minloglevel=0 --stderrthreshold=2 --stop_logging_if_full_disk=false --symbolize_stacktrace=true --v=0 --vmodule=
+
+
+python launch_jobs.py sweep_params_rescore.json 80 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_train.config /checkpoint/qiantong/ls_200M/100h/815/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/rs_815_train
+
+
+python launch_jobs.py sweep_params_rescore.json 80 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_train.config /private/home/qiantong/tmp/843_copy.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/rs_843_train
+
+python launch_jobs.py sweep_params_rescore.json 80 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /private/home/qiantong/tmp/843_copy.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/rs_843_dev
+
+
+
+
+
+# 100 + 860
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/838/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-clean.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/838/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-clean.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/838/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test --am=/checkpoint/qiantong/ls_200M/100h/838/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+[Test /private/home/qiantong/push_numbers/lists/dev-clean.lst (2703 samples) in 55.0071s (actual decoding time 0.0403s/sample) -- WER: 5.4759, LER: 3.74407]
+[Test /private/home/qiantong/push_numbers/lists/test-clean.lst (2620 samples) in 55.9257s (actual decoding time 0.0423s/sample) -- WER: 5.94948, LER: 3.80457]
+[Test /private/home/qiantong/push_numbers/lists/dev-other.lst (2864 samples) in 55.9988s (actual decoding time 0.0387s/sample) -- WER: 9.32127, LER: 6.48917]
+[Test /private/home/qiantong/push_numbers/lists/test-other.lst (2939 samples) in 59.1067s (actual decoding time 0.0398s/sample) -- WER: 10.3051, LER: 6.71694]
+
+python launch_jobs.py sweep_params_rescore.json 100 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/838/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/rs_838
+
+('WER', 8.25744, 'LER', 6.3993, '27457729', '/checkpoint/qiantong/decoder_sweep/decode_27457729.err')
+
+python launch_jobs.py sweep_params_rescore.json 100 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/838/002_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/rs_838_clean
+
+('WER', 5.07886, 'LER', 3.82242, '27658542', '/checkpoint/qiantong/decoder_sweep/decode_27658542.err')
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Decoder \
+--flagfile= --fromenv= --tryfromenv= --undefok= --tab_completion_columns=80 --tab_completion_word= --help=false --helpfull=false --helpmatch= --helpon= --helppackage=false --helpshort=false --helpxml=false --version=false --adambeta1=0.94999999999999996 --adambeta2=0.98999999999999999 --am=/checkpoint/qiantong/ls_200M/100h/838/002_model_#private#home#qiantong#push_numbers#lists#dev-clean.lst.bin --am_decoder_tr_dropout=0 --am_decoder_tr_layerdrop=0 --am_decoder_tr_layers=1 --arch=TR_300M_ld0.3_do0.3.arch --archdir=/private/home/qiantong/pseudo-labels/low_resource/10h --attention=content --attentionthreshold=2147483647 --attnWindow=no --attnconvchannel=0 --attnconvkernel=0 --attndim=0 --batchsize=6 --beamsize=300 --beamsizetoken=80 --beamthreshold=80 --blobdata=false --channels=1 --criterion=ctc --critoptim=sgd --datadir=/private/home/qiantong/push_numbers/lists/ --dataorder=input --decoder_sweep_epoch=100,110,120,130,140,160,180,200,220,240,260,280,300,340,380,420,460,500,550,600,650,700,750,800 --decoderattnround=1 --decoderdropout=0 --decoderrnnlayer=1 --decodertype=wrd --devwin=0 --emission_dir= --emission_queue_size=3000 --enable_distributed=true --encoderdim=0 --eosscore=0 --eosscore_range=-0.0,0.0 --eostoken=false --everstoredb=false --fftcachesize=1 --filterbanks=80 --flagsfile=/private/home/qiantong/tmp/decoder_sweep/rescore_test.config --framesizems=25 --framestridems=10 --gamma=0.5 --gumbeltemperature=1 --input=flac --inputbinsize=100 --inputfeeding=false --is_rescore=true --isbeamdump=false --iter=9223372036854775807 --itersave=false --labelsmooth=0 --leftWindowSize=50 --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict --linlr=-1 --linlrcrit=-1 --linseg=0 --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lm_memory=5000 --lm_vocab=/private/home/qiantong/tmp/lm_300k.dict --lmtype=kenlm --lmweight=0.36365841756200001 --lmweight_range=0.0,0.25 --localnrmlleftctx=0 --localnrmlrightctx=0 --logadd=false --lr=0.029999999999999999 --lr_decay=400 --lr_decay_step=300 --lrcosine=false --lrcrit=0 --max_devices_per_node=8 --maxdecoderoutputlen=200 --maxgradnorm=1 --maxisz=9223372036854775807 --maxload=-1 --maxrate=10 --maxsil=50 --maxtsz=9223372036854775807 --maxword=-1 --melfloor=1 --memstepsize=8338608 --mfcc=false --mfcccoeffs=13 --mfsc=true --minisz=0 --minrate=3 --minsil=0 --mintsz=-1 --momentum=0.90000000000000002 --n_pl_file=2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2 --netoptim=adagrad --noresample=false --nthread=10 --nthread_decoder=1 --nthread_decoder_am_forward=1 --numattnhead=8 --onorm=target --optimepsilon=1e-08 --optimrho=0.90000000000000002 --outputbinsize=5 --pctteacherforcing=100 --pcttraineval=100 --pl_epoch=100,110,120,130,140,160,180,200,220,240,260,280,300,340,380,420,460,500,550,600,650,700,750,800 --pow=false --pretrainWindow=0 --replabel=0 --reportiters=0 --rightWindowSize=50 --rndv_filepath= --rundir=/checkpoint/qiantong/ls_200M/100h --runname=838 --samplerate=16000 --sampletarget=0 --samplingstrategy=rand --saug_fmaskf=27 --saug_fmaskn=2 --saug_start_update=10000 --saug_tmaskn=10 --saug_tmaskp=0.050000000000000003 --saug_tmaskt=100 --sclite= --seed=0 --seed_model_wer=-1 --show=true --showletters=false --silscore=0 --smearing=max --smoothingtemperature=1 --softwoffset=10 --softwrate=5 --softwstd=5 --sqnorm=true --stepsize=9223372036854775807 --surround= --tag= --target=ltr --test=test-clean.lst --tokens=librispeech-train-clean-100-unigram-5000.vocab-filtered --tokensdir=/private/home/qiantong/pseudo-labels/low_resource/ --tr_batchsize=50 --tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp --tr_lmwight=0.43885530317299998 --tr_nbest=100 --tr_wordscore=1.4157341459699999 --train=/private/home/qiantong/push_numbers/lists/train-clean-100.lst --trainWithWindow=false --train_unsup=/private/home/qiantong/push_numbers/lists/train-clean-360.lst,/private/home/qiantong/push_numbers/lists/train-other-500.lst --transdiag=0 --unkscore=-inf --use_existing_pl=false --use_memcache=false --uselexicon=true --usewordpiece=true --valid=/private/home/qiantong/push_numbers/lists/dev-other.lst,/private/home/qiantong/push_numbers/lists/dev-clean.lst --warmup=48000 --weightdecay=0 --wordscore=0.199441470993 --wordscore_range=0.0,5 --wordseparator=_ --world_rank=0 --world_size=64 --alsologtoemail= --alsologtostderr=false --colorlogtostderr=false --drop_log_memory=true --log_backtrace_at= --log_dir= --log_link= --log_prefix=true --logbuflevel=0 --logbufsecs=30 --logemaillevel=999 --logfile_mode=436 --logmailer=/bin/mail --logtostderr=true --max_log_size=1800 --minloglevel=0 --stderrthreshold=2 --stop_logging_if_full_disk=false --symbolize_stacktrace=true --v=0 --vmodule=
+
+[Decode test-clean.lst (2620 samples) in 3853.14s (actual decoding time 1.47s/sample) -- WER: 5.7764, LER: 4.76894]
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Decoder \
+--flagfile= --fromenv= --tryfromenv= --undefok= --tab_completion_columns=80 --tab_completion_word= --help=false --helpfull=false --helpmatch= --helpon= --helppackage=false --helpshort=false --helpxml=false --version=false --adambeta1=0.94999999999999996 --adambeta2=0.98999999999999999 --am=/checkpoint/qiantong/ls_200M/100h/838/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --am_decoder_tr_dropout=0 --am_decoder_tr_layerdrop=0 --am_decoder_tr_layers=1 --arch=TR_300M_ld0.3_do0.3.arch --archdir=/private/home/qiantong/pseudo-labels/low_resource/10h --attention=content --attentionthreshold=2147483647 --attnWindow=no --attnconvchannel=0 --attnconvkernel=0 --attndim=0 --batchsize=6 --beamsize=300 --beamsizetoken=80 --beamthreshold=80 --blobdata=false --channels=1 --criterion=ctc --critoptim=sgd --datadir=/private/home/qiantong/push_numbers/lists/ --dataorder=input --decoder_sweep_epoch=100,110,120,130,140,160,180,200,220,240,260,280,300,340,380,420,460,500,550,600,650,700,750,800 --decoderattnround=1 --decoderdropout=0 --decoderrnnlayer=1 --decodertype=wrd --devwin=0 --emission_dir= --emission_queue_size=3000 --enable_distributed=true --encoderdim=0 --eosscore=0 --eosscore_range=-0.0,0.0 --eostoken=false --everstoredb=false --fftcachesize=1 --filterbanks=80 --flagsfile=/private/home/qiantong/tmp/decoder_sweep/rescore_test.config --framesizems=25 --framestridems=10 --gamma=0.5 --gumbeltemperature=1 --input=flac --inputbinsize=100 --inputfeeding=false --is_rescore=true --isbeamdump=false --iter=9223372036854775807 --itersave=false --labelsmooth=0 --leftWindowSize=50 --lexicon=/checkpoint/annl/semisupervised/librispeech/data/librispeech-train-all+dev-train-clean-100-unigram-5000-nbest10.dict --linlr=-1 --linlrcrit=-1 --linseg=0 --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin --lm_memory=5000 --lm_vocab=/private/home/qiantong/tmp/lm_300k.dict --lmtype=kenlm --lmweight=0.62714478018800002 --lmweight_range=0.0,0.25 --localnrmlleftctx=0 --localnrmlrightctx=0 --logadd=false --lr=0.029999999999999999 --lr_decay=400 --lr_decay_step=300 --lrcosine=false --lrcrit=0 --max_devices_per_node=8 --maxdecoderoutputlen=200 --maxgradnorm=1 --maxisz=9223372036854775807 --maxload=-1 --maxrate=10 --maxsil=50 --maxtsz=9223372036854775807 --maxword=-1 --melfloor=1 --memstepsize=8338608 --mfcc=false --mfcccoeffs=13 --mfsc=true --minisz=0 --minrate=3 --minsil=0 --mintsz=-1 --momentum=0.90000000000000002 --n_pl_file=2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2 --netoptim=adagrad --noresample=false --nthread=10 --nthread_decoder=1 --nthread_decoder_am_forward=1 --numattnhead=8 --onorm=target --optimepsilon=1e-08 --optimrho=0.90000000000000002 --outputbinsize=5 --pctteacherforcing=100 --pcttraineval=100 --pl_epoch=100,110,120,130,140,160,180,200,220,240,260,280,300,340,380,420,460,500,550,600,650,700,750,800 --pow=false --pretrainWindow=0 --replabel=0 --reportiters=0 --rightWindowSize=50 --rndv_filepath= --rundir=/checkpoint/qiantong/ls_200M/100h --runname=838 --samplerate=16000 --sampletarget=0 --samplingstrategy=rand --saug_fmaskf=27 --saug_fmaskn=2 --saug_start_update=10000 --saug_tmaskn=10 --saug_tmaskp=0.050000000000000003 --saug_tmaskt=100 --sclite= --seed=0 --seed_model_wer=-1 --show=true --showletters=false --silscore=0 --smearing=max --smoothingtemperature=1 --softwoffset=10 --softwrate=5 --softwstd=5 --sqnorm=true --stepsize=9223372036854775807 --surround= --tag= --target=ltr --test=test-other.lst --tokens=librispeech-train-clean-100-unigram-5000.vocab-filtered --tokensdir=/private/home/qiantong/pseudo-labels/low_resource/ --tr_batchsize=50 --tr_lm=/checkpoint/antares/experiments/w2l_tr_lm/transformer_models/gb_wo_lv_ls_tr_16L_fairseq_head8_tkn256_bs8_lr1_wp16k_none/model.bin.bkp --tr_lmwight=0.32376989731599998 --tr_nbest=100 --tr_wordscore=0.85004079371899999 --train=/private/home/qiantong/push_numbers/lists/train-clean-100.lst --trainWithWindow=false --train_unsup=/private/home/qiantong/push_numbers/lists/train-clean-360.lst,/private/home/qiantong/push_numbers/lists/train-other-500.lst --transdiag=0 --unkscore=-inf --use_existing_pl=false --use_memcache=false --uselexicon=true --usewordpiece=true --valid=/private/home/qiantong/push_numbers/lists/dev-other.lst,/private/home/qiantong/push_numbers/lists/dev-clean.lst --warmup=48000 --weightdecay=0 --wordscore=0.99023738334 --wordscore_range=0.0,5 --wordseparator=_ --world_rank=0 --world_size=64 --alsologtoemail= --alsologtostderr=false --colorlogtostderr=false --drop_log_memory=true --log_backtrace_at= --log_dir= --log_link= --log_prefix=true --logbuflevel=0 --logbufsecs=30 --logemaillevel=999 --logfile_mode=436 --logmailer=/bin/mail --logtostderr=true --max_log_size=1800 --minloglevel=0 --stderrthreshold=2 --stop_logging_if_full_disk=false --symbolize_stacktrace=true --v=0 --vmodule=
+
+[Decode test-other.lst (2939 samples) in 4259.7s (actual decoding time 1.45s/sample) -- WER: 9.23715, LER: 7.60674]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 10 + 960
+python launch_jobs.py sweep_params_rescore.json 100 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/919/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/rs_919
+
+('WER', 25.6026, 'LER', 26.0446, '27458987', '/checkpoint/qiantong/decoder_sweep/decode_27458987.err')
+
+python launch_jobs.py sweep_params_rescore.json 100 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/919/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/rs_919_1
+
+('WER', 20.4817, 'LER', 19.757, '27468956', '/checkpoint/qiantong/decoder_sweep/decode_27468956.err')
+
+# 10 + LV
+python launch_jobs.py sweep_params_rescore.json 100 launch_rescore.sh /private/home/qiantong/tmp/decoder_sweep/rescore_test.config /checkpoint/qiantong/ls_200M/100h/913/005_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/gutenberg_minus_librivox_minus_librispeech_train-dev-test_5gram_200kvocab.bin > jobs/rs_913
+
+('WER', 20.4817, 'LER', 19.757, '27468956', '/checkpoint/qiantong/decoder_sweep/decode_27468956.err')
+
+
+
+
+
+

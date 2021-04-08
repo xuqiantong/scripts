@@ -1,0 +1,85 @@
+small models + small batchsize + 16gb volta
+small models + no tedlium
+
+
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adam.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=3 --arch=EG_GLU1x2048_S3_TR36x768_DO0.05_LD0.05_CTC --lr=0.005 --adambeta1=0.9"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adam.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=4 --arch=EG_GLU1x2048_S3_TR36x384_1536_DO0.05_LD0.05_CTC --lr=0.005 --adambeta1=0.9"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adam.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=3 --arch=COMFORMER_24x768x3072_do0.05_CTC"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adam.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=4 --arch=COMFORMER_16x512x1640_do0.05_CTC"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adam.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=8 --lr_decay=300 --lr_decay_step=100"
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adagrad.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=3 --arch=EG_GLU1x2048_S3_TR36x768_DO0.05_LD0.05_CTC"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adagrad.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=4 --arch=EG_GLU1x2048_S3_TR36x384_1536_DO0.05_LD0.05_CTC"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adagrad.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=3 --arch=COMFORMER_24x768x3072_do0.05_CTC"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adagrad.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=5 --arch=COMFORMER_16x512x1640_do0.05_CTC"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/notl_adagrad.cfg --ngpu=64 --partition=learnfair --extra="--batchsize=8 --lr_decay=300 --lr_decay_step=100"
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=continue --ngpu=64 --partition=priority --model_path=/checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/baseline_notl
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=continue --ngpu=64 --partition=priority --model_path=/checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/notl_adagrad_batchsize4_archEG_GLU1x2048_S3_TR36x384_1536_DO0.05_LD0.05_CTC --extra="--arch=EG_GLU1x2048_S3_TR36x384_1536_DO0.05_LD0.05_CTC --lr=0.005 --adambeta1=0.9"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=continue --ngpu=64 --partition=priority --model_path=/checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/notl_adagrad_batchsize3_archCOMFORMER_24x768x3072_do0.05_CTC --extra="--batchsize=3 --arch=COMFORMER_24x768x3072_do0.05_CTC"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=continue --ngpu=64 --partition=priority --model_path=/checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/notl_adam_batchsize4_archCOMFORMER_16x512x1640_do0.05_CTC --extra="--batchsize=4 --arch=COMFORMER_16x512x1640_do0.05_CTC"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=continue --ngpu=64 --partition=learnfair --model_path=/checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/notl_adam_batchsize8_lr_decay300_lr_decay_step100 --extra="--batchsize=8 --lr_decay=300 --lr_decay_step=100"
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=continue --ngpu=64 --partition=learnfair --model_path=/checkpoint/padentomasello/wav2letter_experiments/256_GPU/notl_adagrad_batchsize8_lr_decay300_lr_decay_step100 --extra="--batchsize=8 --lr_decay=300 --lr_decay_step=100"
+
+----
+
+cd /checkpoint/qiantong/wav2letter_experiments/256_GPU/notl
+
+cp /checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/baseline_notl/004_model_dev-other.bin acoustic_models/am_transformer_ctc_stride3_letters_300Mparams.bin
+cp /checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/notl_adagrad_batchsize4_archEG_GLU1x2048_S3_TR36x384_1536_DO0.05_LD0.05_CTC/004_model_dev-other.bin acoustic_models/am_transformer_ctc_stride3_letters_70Mparams.bin
+
+cp /checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/notl_adagrad_batchsize3_archCOMFORMER_24x768x3072_do0.05_CTC/003_model_dev-other.bin acoustic_models/am_conformer_ctc_stride3_letters_300Mparams.bin
+cp /checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/notl_adam_batchsize4_archCOMFORMER_16x512x1640_do0.05_CTC/005_model_dev-other.bin acoustic_models/am_conformer_ctc_stride3_letters_87Mparams.bin
+cp /checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/notl_adam_batchsize8_lr_decay300_lr_decay_step100/004_model_dev-other.bin acoustic_models/am_conformer_ctc_stride3_letters_25Mparams.bin
+
+
+module load fairusers_aws
+
+fs3cmd ls s3://dl.fbaipublicfiles.com/wav2letter/rasr_release
+fs3cmd del -r s3://dl.fbaipublicfiles.com/wav2letter/rasr_release
+
+fs3cmd ls s3://dl.fbaipublicfiles.com/wav2letter/
+fs3cmd sync -p --multipart-chunk-size-mb=100 /checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/acoustic_models s3://dl.fbaipublicfiles.com/wav2letter/rasr/
+fs3cmd sync -p --multipart-chunk-size-mb=500 /checkpoint/wav2letter/transfer_learning/aws/icassp_paper/kenlm_lm_cc/language_models s3://dl.fbaipublicfiles.com/wav2letter/rasr/
+
+fs3cmd ls s3://dl.fbaipublicfiles.com/wav2letter/rasr/acoustic_models/*
+fs3cmd ls s3://dl.fbaipublicfiles.com/wav2letter/rasr/language_models/*
+
+
+[300M_TR.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/acoustic_models/300M_TR.bin)
+[70M_TR.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/acoustic_models/70M_TR.bin)
+[300M_CFM.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/acoustic_models/300M_CFM.bin)
+[87M_CFM.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/acoustic_models/87M_CFM.bin)
+[25M_CFM.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/acoustic_models/25M_CFM.bin)
+
+
+[4gram.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/language_models/cc_ls_norm_10percent_4gram_p0-3-15_200kvocab.bin.qt)
+[4gram.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/language_models/cc_ls_norm_10percent_4gram_p0-6-15_200kvocab.bin.qt)
+[4gram.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/language_models/cc_ls_norm_10percent_4gram_p0010_200kvocab.bin.qt)
+[4gram.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/language_models/cc_ls_norm_10percent_4gram_p0015_200kvocab.bin.qt)
+[4gram.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/language_models/cc_ls_norm_10percent_4gram_p0030_200kvocab.bin.qt)
+[4gram.bin](s3://dl.fbaipublicfiles.com/wav2letter/rasr/language_models/cc_ls_norm_10percent_4gram_p005_200kvocab.bin.qt)
+
+
+[am_transformer_ctc_stride3_letters_300Mparams.arch](https://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/am_transformer_ctc_stride3_letters_300Mparams.arch)
+[am_transformer_ctc_stride3_letters_70Mparams.arch](https://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/am_transformer_ctc_stride3_letters_70Mparams.arch)
+[am_conformer_ctc_stride3_letters_300Mparams.arch](https://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/am_conformer_ctc_stride3_letters_300Mparams.arch)
+[am_conformer_ctc_stride3_letters_87Mparams.arch](https://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/am_conformer_ctc_stride3_letters_87Mparams.arch)
+[am_conformer_ctc_stride3_letters_25Mparams.arch](https://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/am_conformer_ctc_stride3_letters_25Mparams.arch)
+
+fs3cmd ls s3://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/
+
+
+cd /checkpoint/qiantong/wav2letter_experiments/256_GPU/notl/archs
+fs3cmd put am_transformer_ctc_stride3_letters_300Mparams.arch s3://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/
+fs3cmd put am_transformer_ctc_stride3_letters_70Mparams.arch s3://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/
+fs3cmd put am_conformer_ctc_stride3_letters_300Mparams.arch s3://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/
+fs3cmd put am_conformer_ctc_stride3_letters_87Mparams.arch s3://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/
+fs3cmd put am_conformer_ctc_stride3_letters_25Mparams.arch s3://dl.fbaipublicfiles.com/wav2letter/rasr/tutorial/
+
+
+
+

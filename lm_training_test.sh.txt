@@ -1,0 +1,363 @@
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 /mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0313 --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=60000,160000 --num_labels=200000 --tokens_per_sample=1024 --batchsize=2 --reportiters=100 --saveiters=10000 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/train --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/valid --model_path=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_g1.bin
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 /mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=100 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/train --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/valid --model_path=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0313_r2.bin --enable_distributed
+
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 /mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000,200000 --num_labels=221448 --tokens_per_sample=2048 --reportiters=100 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/train --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/valid --model_path=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0313.bin
+
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 1 /mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_jeff_cpp --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=60000,160000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=100 --saveiters=10000 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/train --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/valid --model_path=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_jeff_g1.bin
+
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 1 /mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0320 --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=100 --saveiters=10000 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/train --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/valid --model_path=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0320_g1.bin
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 /mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0320 --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=100 --saveiters=10000 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/train --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/valid --model_path=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0320_g8.bin
+
+
+
+
+
+buck build @mode/opt deeplearning/projects/wav2letter:train_lm_cpp && buck-out/gen/deeplearning/projects/wav2letter/train_lm_cpp --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=100 --saveiters=0 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/home/qiantong/tmp/fl_ml_fairseq_bin/train --valid=/home/qiantong/tmp/fl_ml_fairseq_bin/valid
+
+buck build @mode/opt deeplearning/projects/wav2letter:train_lm_cpp && buck-out/gen/deeplearning/projects/wav2letter/train_lm_cpp --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=60000,160000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=100 --saveiters=0 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/home/qiantong/tmp/fl_ml_ft_fairseq_bin/train --valid=/home/qiantong/tmp/fl_ml_ft_fairseq_bin/valid
+
+
+buck build @mode/opt deeplearning/projects/wav2letter:train_lm_cpp && buck-out/gen/deeplearning/projects/wav2letter/train_lm_cpp --lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=100 --saveiters=10000 --weightdecay=1e-7 --maxgradnorm=0.1 --train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/valid --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/lm_corpus_200k_fairseq_bin/valid
+
+
+
+## decoder
+
+python launch_jobs.py sweep_params_ctc.json 200 launch.sh /private/home/qiantong/tmp/decoder_sweep/kenlm_wrd_dev_other_ctc.config /checkpoint/qiantong/ls_200M/100h/55/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin /checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin > jobs/job_55
+
+
+
+
+
+
+###### Tokenizer
+
+buck build @mode/opt deeplearning/projects/wav2letter/src/lm:build_lm_dictionary && buck-out//gen/deeplearning/projects/wav2letter/src/lm/build_lm_dictionary --inputfiles=/home/qiantong/tmp/lm_data/librispeech-lm-norm.txt.lower.shuffle,/home/qiantong/tmp/lm_data/librispeech-lm-norm.txt.lower.shuffle --nworkers=40 --dictionary=/tmp/dict.txt --writedescriptor=true
+
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0329 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.txt --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/dev.txt --dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0329
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0329 \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0329
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0329 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.txt --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/dev.txt --dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0329_2
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 1 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0330 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.txt --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/dev.txt --dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0330_1g
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0330 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.nown.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.txt --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/dev.txt --dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0329_GCNN_nown
+
+ 
+
+sudo ./nsys profile -t cuda,nvtx -y 600 -s cpu -d 10 -b fp  ~/fbsource/fbcode/buck-out/gen/deeplearning/projects/wav2letter/scripts/benchmark_arch /mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch -1 200000^C
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 1 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0402 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.txt --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/dev.txt --dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0402_1g
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0402 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--train=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.txt --valid=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/dev.txt --dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0402_8g
+
+
+
+
+
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0407 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt,train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0407_8g
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 8 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0407 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/common_crawl/dict.1M.txt \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/cc_0407_64g \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--valid=dev.txt \
+--train=common_crawl/en_head_0000.txt,common_crawl/en_head_0001.txt,common_crawl/en_head_0002.txt,common_crawl/en_head_0003.txt,common_crawl/en_head_0004.txt,common_crawl/en_head_0005.txt,common_crawl/en_head_0006.txt,common_crawl/en_head_0007.txt,common_crawl/en_head_0008.txt,common_crawl/en_head_0009.txt,common_crawl/en_head_0010.txt,common_crawl/en_head_0011.txt,common_crawl/en_head_0012.txt,common_crawl/en_head_0013.txt,common_crawl/en_head_0014.txt,common_crawl/en_head_0015.txt,common_crawl/en_head_0016.txt,common_crawl/en_head_0017.txt,common_crawl/en_head_0018.txt,common_crawl/en_head_0019.txt,common_crawl/en_head_0020.txt,common_crawl/en_head_0021.txt,common_crawl/en_head_0022.txt,common_crawl/en_head_0023.txt,common_crawl/en_head_0024.txt,common_crawl/en_head_0025.txt,common_crawl/en_head_0026.txt,common_crawl/en_head_0027.txt,common_crawl/en_head_0028.txt,common_crawl/en_head_0029.txt,common_crawl/en_head_0030.txt,common_crawl/en_head_0031.txt,common_crawl/en_head_0032.txt,common_crawl/en_head_0033.txt,common_crawl/en_head_0034.txt,common_crawl/en_head_0035.txt,common_crawl/en_head_0036.txt,common_crawl/en_head_0037.txt,common_crawl/en_head_0038.txt,common_crawl/en_head_0039.txt,common_crawl/en_head_0040.txt,common_crawl/en_head_0041.txt,common_crawl/en_head_0042.txt,common_crawl/en_head_0043.txt,common_crawl/en_head_0044.txt,common_crawl/en_head_0045.txt,common_crawl/en_head_0046.txt,common_crawl/en_head_0047.txt,common_crawl/en_head_0048.txt,common_crawl/en_head_0049.txt,common_crawl/en_head_0050.txt,common_crawl/en_head_0051.txt,common_crawl/en_head_0052.txt,common_crawl/en_head_0053.txt,common_crawl/en_head_0054.txt,common_crawl/en_head_0055.txt,common_crawl/en_head_0056.txt,common_crawl/en_head_0057.txt,common_crawl/en_head_0058.txt,common_crawl/en_head_0059.txt,common_crawl/en_head_0060.txt,common_crawl/en_head_0061.txt,common_crawl/en_head_0062.txt,common_crawl/en_head_0063.txt,common_crawl/en_head_0064.txt,common_crawl/en_head_0065.txt,common_crawl/en_head_0066.txt,common_crawl/en_head_0067.txt,common_crawl/en_head_0068.txt,common_crawl/en_head_0069.txt,common_crawl/en_head_0070.txt,common_crawl/en_head_0071.txt,common_crawl/en_head_0072.txt,common_crawl/en_head_0073.txt,common_crawl/en_head_0074.txt,common_crawl/en_head_0075.txt,common_crawl/en_head_0076.txt,common_crawl/en_head_0077.txt,common_crawl/en_head_0078.txt,common_crawl/en_head_0079.txt,common_crawl/en_head_0080.txt,common_crawl/en_head_0081.txt,common_crawl/en_head_0082.txt,common_crawl/en_head_0083.txt,common_crawl/en_head_0084.txt,common_crawl/en_head_0085.txt,common_crawl/en_head_0086.txt,common_crawl/en_head_0087.txt,common_crawl/en_head_0088.txt,common_crawl/en_head_0089.txt,common_crawl/en_head_0090.txt,common_crawl/en_head_0091.txt,common_crawl/en_head_0092.txt,common_crawl/en_head_0093.txt,common_crawl/en_head_0094.txt,common_crawl/en_head_0095.txt,common_crawl/en_head_0096.txt,common_crawl/en_head_0097.txt,common_crawl/en_head_0098.txt,common_crawl/en_head_0099.txt,common_crawl/en_head_0100.txt,common_crawl/en_head_0101.txt,common_crawl/en_head_0102.txt,common_crawl/en_head_0103.txt,common_crawl/en_head_0104.txt,common_crawl/en_head_0105.txt,common_crawl/en_head_0106.txt,common_crawl/en_head_0107.txt,common_crawl/en_head_0108.txt,common_crawl/en_head_0109.txt,common_crawl/en_head_0110.txt,common_crawl/en_head_0111.txt,common_crawl/en_head_0112.txt,common_crawl/en_head_0113.txt,common_crawl/en_head_0114.txt,common_crawl/en_head_0115.txt,common_crawl/en_head_0116.txt,common_crawl/en_head_0117.txt,common_crawl/en_head_0118.txt,common_crawl/en_head_0119.txt,common_crawl/en_head_0120.txt,common_crawl/en_head_0121.txt,common_crawl/en_head_0122.txt,common_crawl/en_head_0123.txt,common_crawl/en_head_0124.txt,common_crawl/en_head_0125.txt,common_crawl/en_head_0126.txt,common_crawl/en_head_0127.txt,common_crawl/en_head_0128.txt,common_crawl/en_head_0129.txt,common_crawl/en_head_0130.txt,common_crawl/en_head_0131.txt,common_crawl/en_head_0132.txt,common_crawl/en_head_0133.txt,common_crawl/en_head_0134.txt,common_crawl/en_head_0135.txt,common_crawl/en_head_0136.txt,common_crawl/en_head_0137.txt,common_crawl/en_head_0138.txt,common_crawl/en_head_0139.txt,common_crawl/en_head_0140.txt,common_crawl/en_head_0141.txt,common_crawl/en_head_0142.txt,common_crawl/en_head_0143.txt,common_crawl/en_head_0144.txt,common_crawl/en_head_0145.txt,common_crawl/en_head_0146.txt,common_crawl/en_head_0147.txt,common_crawl/en_head_0148.txt,common_crawl/en_head_0149.txt,common_crawl/en_head_0150.txt,common_crawl/en_head_0151.txt,common_crawl/en_head_0152.txt,common_crawl/en_head_0153.txt,common_crawl/en_head_0154.txt,common_crawl/en_head_0155.txt,common_crawl/en_head_0156.txt,common_crawl/en_head_0157.txt,common_crawl/en_head_0158.txt,common_crawl/en_head_0159.txt,common_crawl/en_middle_0000.txt,common_crawl/en_middle_0001.txt,common_crawl/en_middle_0002.txt,common_crawl/en_middle_0003.txt,common_crawl/en_middle_0004.txt,common_crawl/en_middle_0005.txt,common_crawl/en_middle_0006.txt,common_crawl/en_middle_0007.txt,common_crawl/en_middle_0008.txt,common_crawl/en_middle_0009.txt,common_crawl/en_middle_0010.txt,common_crawl/en_middle_0011.txt,common_crawl/en_middle_0012.txt,common_crawl/en_middle_0013.txt,common_crawl/en_middle_0014.txt,common_crawl/en_middle_0015.txt,common_crawl/en_middle_0016.txt,common_crawl/en_middle_0017.txt,common_crawl/en_middle_0018.txt,common_crawl/en_middle_0019.txt,common_crawl/en_middle_0020.txt,common_crawl/en_middle_0021.txt,common_crawl/en_middle_0022.txt,common_crawl/en_middle_0023.txt,common_crawl/en_middle_0024.txt,common_crawl/en_middle_0025.txt,common_crawl/en_middle_0026.txt,common_crawl/en_middle_0027.txt,common_crawl/en_middle_0028.txt,common_crawl/en_middle_0029.txt,common_crawl/en_middle_0030.txt,common_crawl/en_middle_0031.txt,common_crawl/en_middle_0032.txt,common_crawl/en_middle_0033.txt,common_crawl/en_middle_0034.txt,common_crawl/en_middle_0035.txt,common_crawl/en_middle_0036.txt,common_crawl/en_middle_0037.txt,common_crawl/en_middle_0038.txt,common_crawl/en_middle_0039.txt,common_crawl/en_middle_0040.txt,common_crawl/en_middle_0041.txt,common_crawl/en_middle_0042.txt,common_crawl/en_middle_0043.txt,common_crawl/en_middle_0044.txt,common_crawl/en_middle_0045.txt,common_crawl/en_middle_0046.txt,common_crawl/en_middle_0047.txt,common_crawl/en_middle_0048.txt,common_crawl/en_middle_0049.txt,common_crawl/en_middle_0050.txt,common_crawl/en_middle_0051.txt,common_crawl/en_middle_0052.txt,common_crawl/en_middle_0053.txt,common_crawl/en_middle_0054.txt,common_crawl/en_middle_0055.txt,common_crawl/en_middle_0056.txt,common_crawl/en_middle_0057.txt,common_crawl/en_middle_0058.txt,common_crawl/en_middle_0059.txt,common_crawl/en_middle_0060.txt,common_crawl/en_middle_0061.txt,common_crawl/en_middle_0062.txt,common_crawl/en_middle_0063.txt,common_crawl/en_middle_0064.txt,common_crawl/en_middle_0065.txt,common_crawl/en_middle_0066.txt,common_crawl/en_middle_0067.txt,common_crawl/en_middle_0068.txt,common_crawl/en_middle_0069.txt,common_crawl/en_middle_0070.txt,common_crawl/en_middle_0071.txt,common_crawl/en_middle_0072.txt,common_crawl/en_middle_0073.txt,common_crawl/en_middle_0074.txt,common_crawl/en_middle_0075.txt,common_crawl/en_middle_0076.txt,common_crawl/en_middle_0077.txt,common_crawl/en_middle_0078.txt,common_crawl/en_middle_0079.txt,common_crawl/en_middle_0080.txt,common_crawl/en_middle_0081.txt,common_crawl/en_middle_0082.txt,common_crawl/en_middle_0083.txt,common_crawl/en_middle_0084.txt,common_crawl/en_middle_0085.txt,common_crawl/en_middle_0086.txt,common_crawl/en_middle_0087.txt,common_crawl/en_middle_0088.txt,common_crawl/en_middle_0089.txt,common_crawl/en_middle_0090.txt,common_crawl/en_middle_0091.txt,common_crawl/en_middle_0092.txt,common_crawl/en_middle_0093.txt,common_crawl/en_middle_0094.txt,common_crawl/en_middle_0095.txt,common_crawl/en_middle_0096.txt,common_crawl/en_middle_0097.txt,common_crawl/en_middle_0098.txt,common_crawl/en_middle_0099.txt,common_crawl/en_middle_0100.txt,common_crawl/en_middle_0101.txt,common_crawl/en_middle_0102.txt,common_crawl/en_middle_0103.txt,common_crawl/en_middle_0104.txt,common_crawl/en_middle_0105.txt,common_crawl/en_middle_0106.txt,common_crawl/en_middle_0107.txt,common_crawl/en_middle_0108.txt,common_crawl/en_middle_0109.txt,common_crawl/en_middle_0110.txt,common_crawl/en_middle_0111.txt,common_crawl/en_middle_0112.txt,common_crawl/en_middle_0113.txt,common_crawl/en_middle_0114.txt,common_crawl/en_middle_0115.txt,common_crawl/en_middle_0116.txt,common_crawl/en_middle_0117.txt,common_crawl/en_middle_0118.txt,common_crawl/en_middle_0119.txt,common_crawl/en_middle_0120.txt,common_crawl/en_middle_0121.txt,common_crawl/en_middle_0122.txt,common_crawl/en_middle_0123.txt,common_crawl/en_middle_0124.txt,common_crawl/en_middle_0125.txt,common_crawl/en_middle_0126.txt,common_crawl/en_middle_0127.txt,common_crawl/en_middle_0128.txt,common_crawl/en_middle_0129.txt,common_crawl/en_middle_0130.txt,common_crawl/en_middle_0131.txt,common_crawl/en_middle_0132.txt,common_crawl/en_middle_0133.txt,common_crawl/en_middle_0134.txt,common_crawl/en_middle_0135.txt,common_crawl/en_middle_0136.txt,common_crawl/en_middle_0137.txt,common_crawl/en_middle_0138.txt,common_crawl/en_middle_0139.txt,common_crawl/en_middle_0140.txt,common_crawl/en_middle_0141.txt,common_crawl/en_middle_0142.txt,common_crawl/en_middle_0143.txt,common_crawl/en_middle_0144.txt,common_crawl/en_middle_0145.txt,common_crawl/en_middle_0146.txt,common_crawl/en_middle_0147.txt,common_crawl/en_middle_0148.txt,common_crawl/en_middle_0149.txt,common_crawl/en_middle_0150.txt,common_crawl/en_middle_0151.txt,common_crawl/en_middle_0152.txt,common_crawl/en_middle_0153.txt,common_crawl/en_middle_0154.txt,common_crawl/en_middle_0155.txt,common_crawl/en_middle_0156.txt,common_crawl/en_middle_0157.txt,common_crawl/en_middle_0158.txt,common_crawl/en_middle_0159.txt,common_crawl/en_tail_0000.txt,common_crawl/en_tail_0001.txt,common_crawl/en_tail_0002.txt,common_crawl/en_tail_0003.txt,common_crawl/en_tail_0004.txt,common_crawl/en_tail_0005.txt,common_crawl/en_tail_0006.txt,common_crawl/en_tail_0007.txt,common_crawl/en_tail_0008.txt,common_crawl/en_tail_0009.txt,common_crawl/en_tail_0010.txt,common_crawl/en_tail_0011.txt,common_crawl/en_tail_0012.txt,common_crawl/en_tail_0013.txt,common_crawl/en_tail_0014.txt,common_crawl/en_tail_0015.txt,common_crawl/en_tail_0016.txt,common_crawl/en_tail_0017.txt,common_crawl/en_tail_0018.txt,common_crawl/en_tail_0019.txt,common_crawl/en_tail_0020.txt,common_crawl/en_tail_0021.txt,common_crawl/en_tail_0022.txt,common_crawl/en_tail_0023.txt,common_crawl/en_tail_0024.txt,common_crawl/en_tail_0025.txt,common_crawl/en_tail_0026.txt,common_crawl/en_tail_0027.txt,common_crawl/en_tail_0028.txt,common_crawl/en_tail_0029.txt,common_crawl/en_tail_0030.txt,common_crawl/en_tail_0031.txt,common_crawl/en_tail_0032.txt,common_crawl/en_tail_0033.txt,common_crawl/en_tail_0034.txt,common_crawl/en_tail_0035.txt,common_crawl/en_tail_0036.txt,common_crawl/en_tail_0037.txt,common_crawl/en_tail_0038.txt,common_crawl/en_tail_0039.txt,common_crawl/en_tail_0040.txt,common_crawl/en_tail_0041.txt,common_crawl/en_tail_0042.txt,common_crawl/en_tail_0043.txt,common_crawl/en_tail_0044.txt,common_crawl/en_tail_0045.txt,common_crawl/en_tail_0046.txt,common_crawl/en_tail_0047.txt,common_crawl/en_tail_0048.txt,common_crawl/en_tail_0049.txt,common_crawl/en_tail_0050.txt,common_crawl/en_tail_0051.txt,common_crawl/en_tail_0052.txt,common_crawl/en_tail_0053.txt,common_crawl/en_tail_0054.txt,common_crawl/en_tail_0055.txt,common_crawl/en_tail_0056.txt,common_crawl/en_tail_0057.txt,common_crawl/en_tail_0058.txt,common_crawl/en_tail_0059.txt,common_crawl/en_tail_0060.txt,common_crawl/en_tail_0061.txt,common_crawl/en_tail_0062.txt,common_crawl/en_tail_0063.txt,common_crawl/en_tail_0064.txt,common_crawl/en_tail_0065.txt,common_crawl/en_tail_0066.txt,common_crawl/en_tail_0067.txt,common_crawl/en_tail_0068.txt,common_crawl/en_tail_0069.txt,common_crawl/en_tail_0070.txt,common_crawl/en_tail_0071.txt,common_crawl/en_tail_0072.txt,common_crawl/en_tail_0073.txt,common_crawl/en_tail_0074.txt,common_crawl/en_tail_0075.txt,common_crawl/en_tail_0076.txt,common_crawl/en_tail_0077.txt,common_crawl/en_tail_0078.txt,common_crawl/en_tail_0079.txt,common_crawl/en_tail_0080.txt,common_crawl/en_tail_0081.txt,common_crawl/en_tail_0082.txt,common_crawl/en_tail_0083.txt,common_crawl/en_tail_0084.txt,common_crawl/en_tail_0085.txt,common_crawl/en_tail_0086.txt,common_crawl/en_tail_0087.txt,common_crawl/en_tail_0088.txt,common_crawl/en_tail_0089.txt,common_crawl/en_tail_0090.txt,common_crawl/en_tail_0091.txt,common_crawl/en_tail_0092.txt,common_crawl/en_tail_0093.txt,common_crawl/en_tail_0094.txt,common_crawl/en_tail_0095.txt,common_crawl/en_tail_0096.txt,common_crawl/en_tail_0097.txt,common_crawl/en_tail_0098.txt,common_crawl/en_tail_0099.txt,common_crawl/en_tail_0100.txt,common_crawl/en_tail_0101.txt,common_crawl/en_tail_0102.txt,common_crawl/en_tail_0103.txt,common_crawl/en_tail_0104.txt,common_crawl/en_tail_0105.txt,common_crawl/en_tail_0106.txt,common_crawl/en_tail_0107.txt,common_crawl/en_tail_0108.txt,common_crawl/en_tail_0109.txt,common_crawl/en_tail_0110.txt,common_crawl/en_tail_0111.txt,common_crawl/en_tail_0112.txt,common_crawl/en_tail_0113.txt,common_crawl/en_tail_0114.txt,common_crawl/en_tail_0115.txt,common_crawl/en_tail_0116.txt,common_crawl/en_tail_0117.txt,common_crawl/en_tail_0118.txt,common_crawl/en_tail_0119.txt,common_crawl/en_tail_0120.txt,common_crawl/en_tail_0121.txt,common_crawl/en_tail_0122.txt,common_crawl/en_tail_0123.txt,common_crawl/en_tail_0124.txt,common_crawl/en_tail_0125.txt,common_crawl/en_tail_0126.txt,common_crawl/en_tail_0127.txt,common_crawl/en_tail_0128.txt,common_crawl/en_tail_0129.txt,common_crawl/en_tail_0130.txt,common_crawl/en_tail_0131.txt,common_crawl/en_tail_0132.txt,common_crawl/en_tail_0133.txt,common_crawl/en_tail_0134.txt,common_crawl/en_tail_0135.txt,common_crawl/en_tail_0136.txt,common_crawl/en_tail_0137.txt,common_crawl/en_tail_0138.txt,common_crawl/en_tail_0139.txt,common_crawl/en_tail_0140.txt,common_crawl/en_tail_0141.txt,common_crawl/en_tail_0142.txt,common_crawl/en_tail_0143.txt,common_crawl/en_tail_0144.txt,common_crawl/en_tail_0145.txt,common_crawl/en_tail_0146.txt,common_crawl/en_tail_0147.txt,common_crawl/en_tail_0148.txt,common_crawl/en_tail_0149.txt,common_crawl/en_tail_0150.txt,common_crawl/en_tail_0151.txt,common_crawl/en_tail_0152.txt,common_crawl/en_tail_0153.txt,common_crawl/en_tail_0154.txt,common_crawl/en_tail_0155.txt,common_crawl/en_tail_0156.txt,common_crawl/en_tail_0157.txt,common_crawl/en_tail_0158.txt,common_crawl/en_tail_0159.txt
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 2 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0407 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/common_crawl/dict.1M.txt \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/cc_0407_8g_20file \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--valid=dev.txt \
+--train=common_crawl/en_head_0000.txt,common_crawl/en_head_0001.txt,common_crawl/en_head_0002.txt,common_crawl/en_head_0003.txt,common_crawl/en_head_0004.txt,common_crawl/en_head_0005.txt,common_crawl/en_head_0006.txt,common_crawl/en_head_0007.txt,common_crawl/en_head_0008.txt,common_crawl/en_head_0009.txt,common_crawl/en_head_0010.txt,common_crawl/en_head_0011.txt,common_crawl/en_head_0012.txt,common_crawl/en_head_0013.txt,common_crawl/en_head_0014.txt,common_crawl/en_head_0015.txt,common_crawl/en_head_0016.txt,common_crawl/en_head_0017.txt,common_crawl/en_head_0018.txt,common_crawl/en_head_0019.txt,common_crawl/en_middle_0000.txt,common_crawl/en_middle_0001.txt,common_crawl/en_middle_0002.txt,common_crawl/en_middle_0003.txt,common_crawl/en_middle_0004.txt,common_crawl/en_middle_0005.txt,common_crawl/en_middle_0006.txt,common_crawl/en_middle_0007.txt,common_crawl/en_middle_0008.txt,common_crawl/en_middle_0009.txt,common_crawl/en_middle_0010.txt,common_crawl/en_middle_0011.txt,common_crawl/en_middle_0012.txt,common_crawl/en_middle_0013.txt,common_crawl/en_middle_0014.txt,common_crawl/en_middle_0015.txt,common_crawl/en_middle_0016.txt,common_crawl/en_middle_0017.txt,common_crawl/en_middle_0018.txt,common_crawl/en_middle_0019.txt,common_crawl/en_tail_0000.txt,common_crawl/en_tail_0001.txt,common_crawl/en_tail_0002.txt,common_crawl/en_tail_0003.txt,common_crawl/en_tail_0004.txt,common_crawl/en_tail_0005.txt,common_crawl/en_tail_0006.txt,common_crawl/en_tail_0007.txt,common_crawl/en_tail_0008.txt,common_crawl/en_tail_0009.txt,common_crawl/en_tail_0010.txt,common_crawl/en_tail_0011.txt,common_crawl/en_tail_0012.txt,common_crawl/en_tail_0013.txt,common_crawl/en_tail_0014.txt,common_crawl/en_tail_0015.txt,common_crawl/en_tail_0016.txt,common_crawl/en_tail_0017.txt,common_crawl/en_tail_0018.txt,common_crawl/en_tail_0019.txt
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0407 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/common_crawl/dict.1M.txt \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/cc_0407_8g_10file \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--valid=dev.txt \
+--train=common_crawl/en_head_0000.txt,common_crawl/en_head_0001.txt,common_crawl/en_head_0002.txt,common_crawl/en_head_0003.txt,common_crawl/en_head_0004.txt,common_crawl/en_head_0005.txt,common_crawl/en_head_0006.txt,common_crawl/en_head_0007.txt,common_crawl/en_head_0008.txt,common_crawl/en_head_0009.txt,common_crawl/en_middle_0000.txt,common_crawl/en_middle_0001.txt,common_crawl/en_middle_0002.txt,common_crawl/en_middle_0003.txt,common_crawl/en_middle_0004.txt,common_crawl/en_middle_0005.txt,common_crawl/en_middle_0006.txt,common_crawl/en_middle_0007.txt,common_crawl/en_middle_0008.txt,common_crawl/en_middle_0009.txt,common_crawl/en_tail_0000.txt,common_crawl/en_tail_0001.txt,common_crawl/en_tail_0002.txt,common_crawl/en_tail_0003.txt,common_crawl/en_tail_0004.txt,common_crawl/en_tail_0005.txt,common_crawl/en_tail_0006.txt,common_crawl/en_tail_0007.txt,common_crawl/en_tail_0008.txt,common_crawl/en_tail_0009.txt
+
+
+
+
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0507
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=2 \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0507_bs2
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=4 \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0507_bs4
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=512 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=1 --sample_break_mode=eos \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0508_eos
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=512 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=8 --sample_break_mode=eos \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0508_eos_bs8
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=512 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=16 --sample_break_mode=eos \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0508_eos_bs16
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=512 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=32 --sample_break_mode=eos \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0508_eos_bs32
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=512 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=64 --sample_break_mode=eos \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0508_eos_bs64
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=64 --sample_break_mode=eos \
+--use_dynamic_batching=true \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0508_eos_dynamic_2048
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=4096 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=64 --sample_break_mode=eos \
+--use_dynamic_batching=true \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0508_eos_dynamic_4096
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=6144 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=64 --sample_break_mode=eos \
+--use_dynamic_batching=true \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0508_eos_dynamic_6144
+
+
+/checkpoint/antares/experiments/w2l_tr_lm
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0508 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/tr_20L_fairseq.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 --batchsize=64 --sample_break_mode=eos \
+--use_dynamic_batching=true \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0509_tr_eos_dynamic_2048
+
+
+
+/mnt/vol/gfsai-oregon/langtech/users/qiantong/push_number/launch_distributed_chronos.sh -n 1 -p 8 \
+/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/train_lm_cpp_0519 \
+--lr=0.5 --arch=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/GCNN_14B.arch --adsm_input_size=4096 --adsm_cutoffs=10000,50000 --num_labels=200000 --tokens_per_sample=2048 --reportiters=500 --saveiters=40000 --weightdecay=1e-7 --maxgradnorm=0.1 \
+--datadir=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/ \
+--train=train.txt --valid=dev.txt \
+--dictionary=/mnt/vol/gfsai-flash3-east/ai-group/users/qiantong/lm_data/raw_text/train.dict.200k \
+--rundir=/mnt/vol/gfsai-oregon/ai-group/users/qiantong/lm_exp/model/test_0519
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### fair cluster
+
+/private/home/qiantong/fl_org/flashlight-lm/build/app/lm-old/exec/lm_build_dict --data_train=/private/home/qiantong/CAPIO_LM/data/librispeech/train.txt --n_workers=40 --dictionary=/tmp/dict.txt --write_descriptor=false
+
+/private/home/qiantong/fl_org/flashlight-lm/build/app/lm/exec/lm_build_dict --data_train=/private/home/qiantong/CAPIO_LM/data/librispeech/train.txt --n_workers=40 --dictionary=/tmp/newdict.txt --write_meta=false
+
+
+/private/home/qiantong/fl_org/flashlight-lm/build/app/lm-old/exec/lm_build_dict --data_train=/private/home/qiantong/CAPIO_LM/data/librispeech/test.txt --n_workers=40 --dictionary=/tmp/dict.txt --write_descriptor=false
+
+/private/home/qiantong/fl_org/flashlight-lm/build/app/lm/exec/lm_build_dict --data_train=/private/home/qiantong/CAPIO_LM/data/librispeech/test.txt --n_workers=40 --dictionary=/tmp/newdict.txt --write_meta=false
+
+/private/home/qiantong/fl_org/flashlight-lm/build/app/lm/exec/lm_build_dict --data_train=/private/home/qiantong/CAPIO_LM/data/librispeech/test.txt --n_workers=40 --dictionary=/tmp/newdict_min2.txt --write_meta=false --min_appearence=2
+
+
+/private/home/qiantong/fl_org/flashlight-lm/build/bin/lm/fl_lm_dictionary_builder --data_train=/private/home/qiantong/CAPIO_LM/data/librispeech/test.txt --n_workers=40 --dictionary=/tmp/newdict.txt --write_meta=false
+
+diff /tmp/newdict.txt /tmp/dict.txt
+
+dictionary_builder \
+--data_dir=/tmp \
+--data_train=test1.txt,test2.txt \
+--n_workers=40 \
+--dictionary=dictionary.txt \
+--min_appearence=2 \
+--dictionary_max_size=200000 \
+--write_meta=true 
+
+
+diff /tmp/dict.txt /tmp/newdict.txt
+
+#!/bin/bash
+
+/private/home/qiantong/fl_org/flashlight/build/tasks/language_modeling/TrainLM \
+--logtostderr=true \
+--enable_distributed \
+--lr=0.5 \
+--arch=/private/home/qiantong/train_lm/exp/GCNN_14B.nown.arch \
+--adsm_input_size=4096 \
+--adsm_cutoffs=10000,50000 \
+--num_labels=200000 \
+--tokens_per_sample=2048 \
+--reportiters=500 \
+--saveiters=40000 \
+--weightdecay=1e-7 \
+--maxgradnorm=0.1 \
+--dictionary=/private/home/qiantong/CAPIO_LM/data/librispeech/dict.txt \
+--rundir=/checkpoint/qiantong/fl_lm/test/fl_lm_1 \
+--datadir=/private/home/qiantong/CAPIO_LM/data/librispeech/ \
+--valid=dev.txt \
+--train=train.txt
+
+
+
+About BERT
+- models are all here /checkpoint/antares/experiments/w2l_tr_lm/bert_models/*/log
+- here are commands to test both eos/none and ce/adsm
+### path arch tokens_per_samples batchsize mode num_labels loss_type lr rand_prob/same_prob
+sbatch run_bert.sh bert_12L_eos_200k_as_lr1 bert_12L.arch 512 4 eos 200000 as 1 0.1 0.15
+sbatch run_bert.sh bert_12L_none_200k_as_lr1 bert_12L.arch 512 4 none 200000 as 1 0.1 0.15
+sbatch run_bert.sh bert_12L_eos_30k_ce_lr1 bert_12L_ce.arch 512 4 eos 30000 ce 1 0.1 0.15
+sbatch run_bert.sh bert_12L_none_30k_ce_lr1 bert_12L_ce.arch 512 4 none 30000 ce 1 0.1 0.15
+
+the script /checkpoint/antares/experiments/w2l_tr_lm/run_bert.sh and /checkpoint/antares/experiments/w2l_tr_lm/model_bert.sh
+archs also located in /checkpoint/antares/experiments/w2l_tr_lm (when use them - be sure that future mask is zero transformer, preNorm is 1 - here was actually error in the arch, but let's just repro previous wrong run, don't have fixed version not related to word-stuff experiments)
+
+
+
+## new
+
+https://github.com/fairinternal/flashlight/bloblm_release/compare/668d132..lm_release/7309b83
+
+sbatch launch.sh ronan_sinpos_e128_l6_fc1028_h4_dp0.1_ldp0_nopos_ce lm_train_5df929c --loss_type=ce --data_train=librispeech-lm-norm.txt.lower.shuffle --train_arch_file=sinpos_e128_l6_fc1028_h4_dp0.1_ldp0_nopos_ce.arch --train_optimizer=nag --train_lr=1 --train_warmup_updates=16000 --train_lr_schedule=invsqrt --train_momentum=0.9 --train_weight_decay=0
+
+sbatch /checkpoint/wav2letter/lm_pipeline_debug/launch.sh master_test_2 lm_train_xqt --loss_type=ce --data_train=librispeech-lm-norm.txt.lower.shuffle --train_arch_file=sinpos_e128_l6_fc1028_h4_dp0.1_ldp0_nopos_ce.arch --train_optimizer=nag --train_lr=1 --train_warmup_updates=16000 --train_lr_schedule=invsqrt --train_momentum=0.9 --train_weight_decay=0 --dictionary=/private/home/qiantong/tmp/ls_train_dict.txt 
+
+sbatch /checkpoint/wav2letter/lm_pipeline_debug/launch.sh master_test_6 lm_train_xqt --loss_type=ce --data_train=librispeech-lm-norm.txt.lower.shuffle --train_arch_file=sinpos_e128_l6_fc1028_h4_dp0.1_ldp0_nopos_ce.arch --train_optimizer=nag --train_lr=1 --train_warmup_updates=16000 --train_lr_schedule=invsqrt --train_momentum=0.9 --train_weight_decay=0 --dictionary=/private/home/qiantong/tmp/ls_train_dict.txt --train_save_updates=0
+
+
+sbatch /private/home/qiantong/wav2letter_experiments/bert_lm/run_bert.sh bert_12L_none_30k_ce_lr1 bert_12L_ce.arch 512 4 none 30000 ce 1 0.1 0.15
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,190 @@
+export KENLM_INC=/public/apps/kenlm/110617/gcc.6.3.0/
+export KENLM_ROOT_DIR=/public/apps/kenlm/110617/gcc.6.3.0/build/lib
+
+cmake .. -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake -DFLASHLIGHT_BACKEND=CUDA -DCMAKE_BUILD_TYPE=Release -DCUDA_architecture_build_targets="6.0;7.0;7.0+PTX" -DFL_LIBRARIES_USE_CUDA=ON -DFL_LIBRARIES_USE_KENLM=ON -DFL_LIBRARIES_USE_MKL=ON -DFL_BUILD_TESTS=ON && make -j40
+
+
+cmake .. \
+-DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake \
+-DFLASHLIGHT_BACKEND=CUDA \
+-DCMAKE_BUILD_TYPE=Release \
+-DCUDA_architecture_build_targets="6.0;7.0;7.0+PTX" \
+-DFL_LIBRARIES_USE_CUDA=ON \
+-DFL_LIBRARIES_USE_KENLM=ON \
+-DFL_LIBRARIES_USE_MKL=ON \
+-DFL_BUILD_TESTS=ON 
+
+
+
+
+
+
+
+
+
+
+
+
+
+cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/fl_org/usr \
+  -DCMAKE_BUILD_TYPE=Release -DAF_BUILD_OPENCL=OFF -DAF_BUILD_CPU=OFF \
+  -DAF_BUILD_UNIFIED=OFF -DAF_BUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF \
+  -DCUDA_architecture_build_targets="6.0;7.0;7.0+PTX" \
+  -DcuDNN_LINK_LIBRARY=$CUDNN_LIB_DIR/libcudnn.so.7.6.2 \
+  -DcuDNN_INCLUDE_DIRS=$CUDNN_INCLUDE_DIR \
+  -DCUDA_cublasLt_static_LIBRARY=$CUDA_HOME/lib64/libcublasLt.so.10.1.0.105
+
+
+
+cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/fl_org/usr -DCMAKE_BUILD_TYPE=Release \
+-DFLASHLIGHT_BACKEND=CUDA
+
+
+KENLM_INC=/public/apps/kenlm/110617/gcc.6.3.0/ \
+KENLM_ROOT_DIR=/public/apps/kenlm/110617/gcc.6.3.0/build/lib \
+cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/fl_org/usr \
+ -DFLASHLIGHT_BACKEND=CUDA \
+ -DCMAKE_BUILD_TYPE=Release \
+ -DW2L_BUILD_TESTS=OFF \
+ -DCUDA_architecture_build_targets="6.0;7.0;7.0+PTX" \
+ -DW2L_BUILD_EXPERIMENTAL=OFF \
+ -DW2L_BUILD_SCRIPTS=OFF \
+ -DW2L_LIBRARIES_USE_CUDA=ON \
+ -DW2L_LIBRARIES_USE_KENLM=ON \
+ -DW2L_LIBRARIES_USE_MKL=ON \
+ -DFL_BUILD_TESTS=ON
+
+KENLM_INC=/public/apps/kenlm/110617/gcc.6.3.0/ \
+KENLM_ROOT_DIR=/public/apps/kenlm/110617/gcc.6.3.0/build/lib \
+cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/usr \
+ -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+ -DW2L_BUILD_TESTS=OFF \
+ -DCUDA_architecture_build_targets="6.0;7.0;7.0+PTX" \
+ -DW2L_BUILD_EXPERIMENTAL=OFF \
+ -DW2L_BUILD_SCRIPTS=OFF
+
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test -am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=1
+
+I0627 15:20:22.026456 61670 Test.cpp:318] [Test /private/home/qiantong/push_numbers/lists/dev-other.lst (2864 samples) in 92.5231s (actual decoding time 0.0323s/sample) -- WER: 8.97974, LER: 5.98118]
+
+/private/home/qiantong/fl_org/flashlight/build/tasks/speech_recognition/Test --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=1
+
+[Test /private/home/qiantong/push_numbers/lists/dev-other.lst (2864 samples) in 56.1879s (actual decoding time 0.0388s/sample) -- WER: 8.97974, LER: 5.98118]
+
+
+
+/private/home/qiantong/bci/wav2letter/build/Test --am=/checkpoint/qiantong/ls_200M/100h/815/002_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/dev-other.lst --emission_dir='' --nthread_decoder_am_forward=2
+
+
+/private/home/qiantong/bci/wav2letter/build/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.7643 \
+    --wordscore=1.22242
+
+/private/home/qiantong/fl_org/flashlight/build/tasks/speech_recognition/Decoder \
+    --test=test-other.lst \
+    --datadir=/checkpoint/antares/datasets/librispeech/lists/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=800 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=40 \
+    --nthread_decoder_am_forward=2 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.7643 \
+    --wordscore=1.22242
+
+[Decode test-other.lst (2939 samples) in 275.958s (actual decoding time 3.59s/sample) -- WER: 10.9069, LER: 8.11195]
+
+[Decode test-other.lst (2938 samples) in 275.703s (actual decoding time 3.59s/sample) -- WER: 10.8938, LER: 7.11043]
+[Decode test-other.lst (2938 samples) in 451.452s (actual decoding time 5.93s/sample) -- WER: 10.8938, LER: 7.11043]
+
+
+/private/home/qiantong/bci/wav2letter/build/Decoder \
+    --test=dev-other-37.lst \
+    --datadir=/private/home/qiantong/tmp/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=1 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=1 \
+    --nthread_decoder_am_forward=1 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.7643 \
+    --wordscore=1.22242
+
+[Decode dev-other-37.lst (37 samples) in 21.7149s (actual decoding time 5.89s/sample) -- WER: 7.64228, LER: 5.43247]
+[Decode dev-other-37.lst (37 samples) in 19.0779s (actual decoding time 2.7s/sample) -- WER: 7.64228, LER: 5.43247]
+[Decode dev-other-37.lst (37 samples) in 71.8555s (actual decoding time 1.84s/sample) -- WER: 7.64228, LER: 5.43247]
+[Decode dev-other-37.lst (37 samples) in 4.3856s (actual decoding time 0.0251s/sample) -- WER: 7.47967, LER: 5.34143]
+[Decode dev-other-37.lst (37 samples) in 4.96173s (actual decoding time 0.00649s/sample) -- WER: 20.9756, LER: 13.8088]
+
+/private/home/qiantong/fl_org/flashlight/build/tasks/speech_recognition/Decoder \
+    --test=dev-other-37.lst \
+    --datadir=/private/home/qiantong/tmp/ \
+    --am=/checkpoint/qiantong/ls_200M/100h/149/001_model_#private#home#qiantong#push_numbers#lists#dev-other.lst.bin \
+    --lm=/checkpoint/antares/experiments/librispeech_lms/kenlm/nooverlap_librispeech_unique_4gram_200kvocab.bin \
+    --uselexicon=true \
+    --decodertype=wrd \
+    --lmtype=kenlm \
+    --silscore=0 \
+    --beamsize=1 \
+    --beamsizetoken=80 \
+    --beamthreshold=80 \
+    --nthread_decoder=1 \
+    --nthread_decoder_am_forward=1 \
+    --smearing=max \
+    --emission_dir= \
+    --mintsz=-1 \
+    --lmweight=0.7643 \
+    --wordscore=1.22242
+
+[Decode dev-other-37.lst (37 samples) in 24.2497s (actual decoding time 6.89s/sample) -- WER: 7.64228, LER: 5.43247]
+[Decode dev-other-37.lst (37 samples) in 23.6568s (actual decoding time 3.22s/sample) -- WER: 7.64228, LER: 5.43247]
+[Decode dev-other-37.lst (37 samples) in 81.0261s (actual decoding time 2.07s/sample) -- WER: 7.64228, LER: 5.43247]
+[Decode dev-other-37.lst (37 samples) in 6.04831s (actual decoding time 0.0461s/sample) -- WER: 7.47967, LER: 5.34143]
+[Decode dev-other-37.lst (37 samples) in 6.35896s (actual decoding time 0.0143s/sample) -- WER: 20.9756, LER: 13.8088]
+
+
+
+
+/private/home/qiantong/fl_org/flashlight/build/tasks/speech_recognition/Test -am=/checkpoint/qiantong/ls_200M/100h/998/001_model_dev-other.bin --nthread_decoder_am_forward=2  --test=dev-other.lst --datadir=/checkpoint/antares/datasets/librispeech/lists/
+
+I0704 11:03:20.291915  2270 Test.cpp:325] [Test dev-other.lst (2864 samples) in 190.856s (actual decoding time 0.133s/sample) -- WER: 6.78339, LER: 3.27
+
+/private/home/qiantong/pseudo-labels/wav2letter0214PL/build/Test -am=/checkpoint/qiantong/ls_200M/100h/997/001_model_dev-other.bin --nthread_decoder_am_forward=2  --test=dev-other.lst --datadir=/checkpoint/antares/datasets/librispeech/lists/ --emission_dir=''
+
+I0704 11:29:35.437249  2901 Test.cpp:318] [Test dev-other.lst (2864 samples) in 195.341s (actual decoding time 0.136s/sample) -- WER: 6.0179, LER: 2.87346]
+
+
+

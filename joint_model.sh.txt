@@ -1,0 +1,112 @@
+make -j40 && ~/fl_org/flashlight-trainer/build/bin/lm/fl_lm_train \
+--loss_type=adsm \
+--loss_adsm_input_size=1024 \
+--loss_adsm_cutoffs=10000,50000 \
+--train_arch_file=small_lm_arch \
+--train_optimizer=nag \
+--train_lr=1 \
+--train_warmup_updates=16000 \
+--train_lr_schedule=invsqrt \
+--train_momentum=0.9 \
+--train_weight_decay=0 \
+--dictionary_max_size=200000 \
+--data_dir=/private/home/qiantong/CAPIO_LM/data/librispeech \
+--data_train=dev.txt \
+--data_sample_break_mode=none \
+--data_tokens_per_sample=3072 \
+--data_valid=dev.txt \
+--dictionary=/private/home/qiantong/tmp/ls_train_dict.txt \
+--logtostderr=true \
+--exp_rundir=/tmp \
+--exp_model_name=joint_test \
+--train_arch_dir=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/archs \
+--train_max_grad_norm=0.1 \
+--train_report_updates=1000 \
+--train_save_updates=1000 \
+--train_warmup_init_lr=1e-7
+
+
+
+make -j40 && ~/fl_org/flashlight-trainer/build/bin/fl_joint_train \
+--flagsfile=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/test.cfg
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/test.cfg --ngpu=64 --partition=priority --local
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/1.cfg --ngpu=64 --partition=priority
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/test.cfg --ngpu=64 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/2.cfg --ngpu=64 --partition=priority 
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/3.cfg --ngpu=64 --partition=priority 
+
+
+mpirun -n 8 /private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train train --flagsfile=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/2.cfg --distributed_enable
+
+
+/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/usr/lib/x86_64-linux-gnu/openmpi/include
+
+python3 ~/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/2.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/joint_asr_lm/2 --ngpu=64 --partition=priority
+python3 ~/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/3.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/joint_asr_lm/3 --ngpu=64 --partition=priority
+
+python3 ~/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/4.cfg --ngpu=64 --partition=priority 
+python3 ~/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/5.cfg --ngpu=64 --partition=priority 
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/6.cfg --ngpu=64 --partition=learnfair
+
+
+
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/7.cfg --ngpu=8 --partition=dev
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/7.cfg  --ngpu=64 --partition=priority
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/2_dynamic_mask.cfg --ngpu=8 --partition=dev
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/2_dynamic_mask.cfg --ngpu=64 --partition=priority
+
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/2_dynamic_mask.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/joint_asr_lm/2_dynamic_mask --ngpu=64 --partition=learnfair
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/7.cfg --model_path=/checkpoint/qiantong/wav2letter_experiments/joint_asr_lm/7 --ngpu=64 --partition=learnfair
+
+
+
+make -j40 && ~/fl_org/flashlight-trainer/build/bin/fl_joint_eval --exp_init_model_path=/checkpoint/qiantong/wav2letter_experiments/joint_asr_lm/7/model_last.bin --distributed_enable=false \
+--dictionary_tokens=/checkpoint/antares/wav2letter/recipes/models/seq2seq_tds/librispeech/am/librispeech-train-all-unigram-10000.tokens --dictionary=/checkpoint/antares/wav2letter/recipes/models/seq2seq_tds/librispeech/am/gutenberg-200k-unigram-10000-nbest1.lexicon \
+--data_lm_dir=/private/home/qiantong/CAPIO_LM/data/librispeech --data_lm_valid=wp_dev.txt --data_lm_train=wp_dev.txt --data_asr_dir=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/ --data_asr_valid=dev-clean.lst --data_asr_train=dev-clean.lst
+
+---- s2s test ---
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/s2s_amp.cfg --ngpu=32 --partition=dev 
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/s2s_amp.cfg --ngpu=32 --partition=priority 
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/amp_boost/ls_100h_baseline_s2s_letters_st2_dynbatch_16gpu_amp.cfg --ngpu=16 --partition=priority --hours=10
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/train.py --binary=/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/amp_boost/ls_100h_baseline_s2s_wp_st4_dynbatch_16gpu_amp.cfg --ngpu=16 --partition=priority
+
+----
+
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/wp_amp.cfg --ngpu=64 --partition=priority
+
+
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/letter.cfg --ngpu=64 --partition=priority
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/letter_70M.cfg --ngpu=64 --partition=learnfair
+
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/wp.cfg  --ngpu=64 --partition=learnfair
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/wp_70M.cfg  --ngpu=64 --partition=learnfair
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/wp_30M.cfg  --ngpu=64 --partition=learnfair
+
+
+---- real jobs
+
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/s2s_wp.cfg --ngpu=32 --partition=dev
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/s2s_wp_amp.cfg --ngpu=64 --partition=priority
+
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/100h_s2s_wp.cfg --ngpu=32 --partition=dev
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/100h_s2s_wp_copy.cfg --ngpu=32 --partition=dev
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/100h_s2s_wp_lmstart10000.cfg --ngpu=32 --partition=priority
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/100h_s2s_wp_lmstart0.cfg --ngpu=32 --partition=priority
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=train --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/100h_s2s_wp_lmstart0_norm.cfg --ngpu=32 --partition=priority
+
+
+
+python3 /private/home/qiantong/tmp/train_joint.py --binary=/private/home/qiantong/fl_org/flashlight-trainer/build/bin/fl_joint_train --mode=continue --config=/private/home/qiantong/wav2letter_experiments/joint_asr_lm/100h_s2s_wp.cfg --ngpu=32 --partition=dev --model_path=/checkpoint/qiantong/wav2letter_experiments/joint_asr_lm/100h_s2s_wp
+
+/checkpoint/antares/experiments/fl_new_master/slimIPL/ls_100h_baseline_s2s_wp_st4_final.cfg
+
+
+
+learnfair5038,learnfair5053,learnfair5281,learnfair5286
+

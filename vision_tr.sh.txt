@@ -1,0 +1,783 @@
+/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --logtostderr --distributed_enable=false
+
+--data_dir=/datasets01/imagenet_full_size/061417 
+--data_batch_size=64
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/base_beta2.0.98.cfg --mode=train --ngpu=8 --partition=dev --local 
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/base_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_newinit_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_newinit_lr3e-3_wd0.3_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_newinit_clamp_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_do0.1_beta2.0.99_repro.cfg --mode=train --ngpu=8 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_do0.1_beta2.0.99_repro1.cfg --mode=train --ngpu=8 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_do0.1_beta2.0.99_repro2.cfg --mode=train --ngpu=8 --partition=dev
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_ptinit.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz128.cfg --mode=train --ngpu=8 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_lr.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+make -j40 && /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/eval --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_bsz64_real_cospi_do0.1_fixld_slzt/model
+
+make -j40 && /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_eval --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_bsz64_real_cospi_do0.1_fixld_slzt/model
+
+
+make -j40 && python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz128.cfg --mode=train --ngpu=8 --partition=dev --local
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_re1.0_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_re0.5_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_re0.25_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=dev
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.2_re0.25_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.2_re1.0_do0.1_beta2.0.99.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.2_re0.25_bsz64_do0.1_beta2.0.99.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.2_re1.0_bsz64_do0.1_beta2.0.99.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.2_newre0.25_bsz64_do0.1_beta2.0.99.cfg --mode=train --ngpu=16 --partition=dev
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.0+cm_newre0.25_bsz64_do0.1_beta2.0.99.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.2+cm_newre0.25_bsz64_do0.1_beta2.0.99.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.2+cm_newre0.25_bsz64_beta2.0.99.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.2+cm_newre0.25_bsz64_beta2.0.99_ld0.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.0+cm_newre0.25_bsz64_do0.1_beta2.0.99_nowd.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/visionTransformer_mu0.0+cm_newre0.25_bsz64_do0.1_beta2.0.99_nowd_truncnorm.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.25.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_mu0.8_cm1.0_re0.25.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.25_uinit.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.25_largelr.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.25_largebatch.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.25_ra0.5_uinit.cfg --mode=train --ngpu=16 --partition=dev
+
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.25_ra0.5_uinit.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.25_largebatch.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.25_ra0.5_uinit_ld0.1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_re0.5_ra0.5_uinit_ld0.1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.1.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.1_largebatch.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.1_largelr.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.8_uinit_ld0.1.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.6_ra1.0_uinit_ld0.1.cfg --mode=train --ngpu=16 --partition=dev
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.1_repro.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_rptaug3_ra0.5_uinit_ld0.1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.1_repro1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.1_repro2.cfg --mode=train --ngpu=32 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.1_repro3_reallf.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_cm1.0_mu0.8_re0.5_ra0.5_uinit_ld0.1_repro4_rptaug.cfg --mode=train --ngpu=16 --partition=priority
+
+nvprof /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=55  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12 --logtostderr --distributed_enable=false  --exp_checkpoint_path=/tmp/test/model
+
+
+sbatch --gres=gpu:volta:8 --wrap "echo 'hello' && sleep 259200" --time 1440 --exclusive --partition dev,learnfair --comment debug --mem 450G
+
+
+make -j40 && python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/test.cfg --mode=train --ngpu=8 --partition=dev --local
+
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun  -n 1 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=1e-3 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.999 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun  -n 2 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun  -n 8 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun  -n 8 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+make -j40 && ./bin/imgclass/benchmark 64 32 1
+98
+make -j40 && ./bin/imgclass/benchmark 64 16 0
+186
+make -j40 && ./bin/imgclass/benchmark 128 16 1
+172
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 ./bin/imgclass/benchmark 64 16 0
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 ./bin/imgclass/benchmark 64 16 1 
+
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun  -n 8 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz128.cfg --mode=train --ngpu=8 --partition=dev
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_nomg.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repro.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_b299.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_bias.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_bias_tn.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_bias_do0.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_f32.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_do0.1_fixld_slzt.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_do0.1_fixld_slzt_ln.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_do0.1.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_ld0.2.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_lr5e-4.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_fp32.cfg --mode=train --ngpu=16 --partition=dev
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra1_1.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra2_0.5.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra0.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra1_1_newln.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra1_1_newld_repaug1.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra2_0.5_newld_repaug.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra2_0.5_newld_norepaug.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra2_0.5_newld_repaug_mixup.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_sgd.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_fixld_slzt_ln_ra2_0.5_newld_repaug_mixup_lr.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_do0.1_fixld_slzt_ln_ra2_0.5_newld_repaug_mixup_lr.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_swc0_fixld_slzt_ln_ra2_0.5_newld_repaug_mixup_lr.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_real_cospi_swc1_fixld_slzt_ln_ra2_0.5_newld_repaug_mixup_lr.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_swc0.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_swc1.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_sgd.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+
+make -j40 && /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=128  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=false --logtostderr --distributed_enable=false  --exp_checkpoint_path=/tmp/test/model
+
+I0129 20:08:58.550657 3808570 ImageNetTransformer.cpp:501] Epoch 0 Batch: 400 Throughput 197.57 | : Batch time(ms): 649.48 : Sample Time(ms): 9.77 : Forward Time(ms): 191.90 : Criterion Forward Time(ms): 5.71 : Backward Time(ms): 426.04 : Optimization Time(ms): 20.13 | LR: 2.0096e-05: Avg Train Loss: 6.9428: Train Top5 Accuracy( %): 0.67188: Train Top1 Accuracy( %): 0.10938
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 8 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+I0129 20:19:29.436206 3812834 ImageNetTransformer.cpp:501] Epoch 0 Batch: 600 Throughput 1025.9 | : Batch time(ms): 999.78 : Sample Time(ms): 19.88 : Forward Time(ms): 387.45 : Criterion Forward Time(ms): 8.64 : Backward Time(ms): 573.59 : Optimization Time(ms): 17.17 | LR: 3.0094e-05: Avg Train Loss: 6.7987: Train Top5 Accuracy( %): 1.6621: Train Top1 Accuracy( %): 0.38574
+
+
+dmake -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun  -n 2 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=4  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=false --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+
+
+
+
+/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_warmup_updates=10000 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --train_p_randomerase=0.5 --train_p_mixup=0.8 --train_p_cutmix=1.0  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model --data_prefetch_thread=10 --distributed_world_rank=1 --distributed_world_size=2 --distributed_rndv_filepath=/tmp
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_new_test.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_new_test1.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_new_test2.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_do0.1.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_new_test.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test1.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm.cfg --mode=train --ngpu=16 --partition=priority --gpu16
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_new_test_newra_cm.cfg --mode=train --ngpu=16 --partition=dev --gpu16
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_new_test3.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_new_test4.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz64_new_test_do0.1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_bsz256.cfg --mode=train --ngpu=4 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_bsz128.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_flinit.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_convinit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_nomix.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_nore.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_nora.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_re.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_re1.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_noaug.cfg --mode=train --ngpu=16 --partition=dev
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_noaug.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_noaug1.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_noaug2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_noaug3.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_noaug4.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug4.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug5.cfg --mode=train --ngpu=16 --partition=priority
+ 
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_mix.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_mix1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_mix2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_re.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra3.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra4.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra5.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra6.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra7.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_re1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_re2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_rci.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_ptinit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_ptinit1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_newgelu.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_re0.5.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_re0.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra2x0.8.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_re0.5.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra_cm_re0.5_scale.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_do0.1_new_test_newra1_cm_re0.5_scale.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_new_test_newra1_cm_re0.5_scale.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_re0.5.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_ptinit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_mix_ptinit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_noaug_ptinit.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_noaug2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_mix3.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_re0.25_ptinit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra_ptinit.cfg --mode=train --ngpu=16 --partition=priority
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 ./bin/imgclass/eval  --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/private/home/qiantong/tmp/vitb_pt/
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 ./bin/imgclass/eval  --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_new_do0.1/model
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 ./bin/imgclass/eval  --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_new_rci5/model
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 ./bin/imgclass/eval  --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_new_rci13/model
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 ./bin/imgclass/fl_img_imagenet_eval  --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_new_rci13/model
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 3 ./bin/imgclass/fl_img_imagenet_eval  --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_new_rci13/model
+
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_re0.25_nosmooth.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_ra_nosmooth.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_re0.5_again.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_strong.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_strong.cfg --mode=train --ngpu=16 --partition=priority
+
+
+TODO:
+1. fp32
+2. pure mix
+3. pure re
+4. pure ra
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_fp32.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_aa.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_re0.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_re0.5.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_re0.25.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_re0.25_newrand.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_re0.25_newrand_newparam.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_re0.25_newrand_newparam_rci.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_re0.25_newrand_newparam_flip.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand_fixmean.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_mix.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_mix_ptind.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_mix_ptind_back.cfg --mode=train --ngpu=16 --partition=priority
+
+
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand_fixmean_rci.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_rci.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci.cfg --mode=train --ngpu=16 --partition=priority
+
+
+cp vitt_new_rci.cfg vitt_new_rci1.cfg
+cp vits_new_rci.cfg vits_new_rci1.cfg
+cp vitb_new_do0.1_rci.cfg vitb_new_do0.1_rci1.cfg
+cp vitb_new_rci.cfg vitb_new_rci1.cfg
+cp vitb_bsz64_ra_newrand_fixmean_rci.cfg vitb_bsz64_ra_newrand_fixmean_rci1.cfg
+
+
+cp vitt_new_rci.cfg vitt_new_rci2.cfg
+cp vits_new_rci.cfg vits_new_rci2.cfg
+cp vitb_new_do0.1_rci.cfg vitb_new_do0.1_rci2.cfg
+cp vitb_new_rci.cfg vitb_new_rci2.cfg
+cp vitb_bsz64_ra_newrand_fixmean_rci.cfg vitb_bsz64_ra_newrand_fixmean_rci2.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci1.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_rci1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand_fixmean_rci1.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci2.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_do0.1_rci2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand_fixmean_rci2.cfg --mode=train --ngpu=16 --partition=priority
+
+
+cp vitb_bsz64_ra_newrand_fixmean_rci.cfg vitb_bsz64_ra_newrand_fixmean_rci3.cfg
+cp vitt_new_rci.cfg vitt_new_rci3.cfg
+cp vits_new_rci.cfg vits_new_rci3.cfg
+cp vitb_new_rci.cfg vitb_new_rci3.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci3.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci3.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci3.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand_fixmean_rci3.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci4.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand_fixmean_rci4.cfg --mode=train --ngpu=16 --partition=priority
+
+cp vitb_bsz64_ra_newrand_fixmean_rci.cfg vitb_bsz64_ra_newrand_fixmean_rci5.cfg
+cp vitb_new_rci.cfg vitb_new_rci5.cfg
+cp vits_new_rci.cfg vits_new_rci5.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci5.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand_fixmean_rci5.cfg --mode=train --ngpu=16 --partition=priority
+
+
+cp vitb_bsz64_ra_newrand_fixmean_rci.cfg vitb_bsz64_ra_newrand_fixmean_rci6.cfg
+cp vitb_new_rci.cfg vitb_new_rci6.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci6.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_ra_newrand_fixmean_rci6.cfg --mode=train --ngpu=16 --partition=priority
+
+
+cp vitt_new_rci.cfg vitt_new_rci7.cfg
+cp vits_new_rci.cfg vits_new_rci7.cfg
+cp vitb_new_rci.cfg vitb_new_rci7.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci7.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci7.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci7.cfg --mode=train --ngpu=16 --partition=dev
+
+
+cp vitt_new_rci.cfg vitt_new_rci8.cfg
+cp vits_new_rci.cfg vits_new_rci8.cfg
+cp vitb_new_rci.cfg vitb_new_rci8.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci8.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci8.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci8.cfg --mode=train --ngpu=16 --partition=priority
+
+
+cp vitt_new_rci.cfg vitt_new_rci9.cfg
+cp vits_new_rci.cfg vits_new_rci9.cfg
+cp vitb_new_rci.cfg vitb_new_rci9.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci9.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci9.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci9.cfg --mode=train --ngpu=16 --partition=priority
+
+cp vitt_new_rci.cfg vitt_new_rci10.cfg
+cp vits_new_rci.cfg vits_new_rci10.cfg
+cp vitb_new_rci.cfg vitb_new_rci10.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci10.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci10.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci10.cfg --mode=train --ngpu=16 --partition=priority
+
+
+cp vitb_bsz64_re0.25_newrand_newparam_rci.cfg vitb_re0.25.cfg
+cp vitb_bsz64_ra_newrand_fixmean_rci.cfg vitb_ra.cfg
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_re0.25.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_ra.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_re0.25_oldinit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_ra_oldinit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_ra_new.cfg --mode=train --ngpu=16 --partition=priority
+
+cp vitb_bsz64_re0.25_newrand_newparam_rci.cfg vitb_re0.25_1.cfg
+cp vitb_bsz64_ra_newrand_fixmean_rci.cfg vitb_ra_1.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_re0.25_1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_ra_1.cfg --mode=train --ngpu=16 --partition=priority
+
+
+cp vitt_new_rci.cfg vitt_new_rci11.cfg
+cp vits_new_rci.cfg vits_new_rci11.cfg
+cp vitb_new_rci.cfg vitb_new_rci11.cfg
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci11.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci11.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci11.cfg --mode=train --ngpu=16 --partition=dev
+
+cp vitb_new_rci.cfg vitb_new_rci12.cfg
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci12.cfg --mode=train --ngpu=16 --partition=dev
+
+
+
+cp vitt_new_rci.cfg vitt_new_rci13.cfg
+cp vits_new_rci.cfg vits_new_rci13.cfg
+cp vitb_new_rci.cfg vitb_new_rci13.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci13.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_new_rci13.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci13.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new1.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_nore.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_nore1.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_nore_norepaug.cfg --mode=train --ngpu=8 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_nore1.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vits_nore1.cfg --mode=train --ngpu=16 --partition=priority
+
+
+cp vitb_new_rci13.cfg vitb_new_rci_norastd.cfg
+cp vitb_new_rci13.cfg vitb_new_rci_tnstd0.01.cfg
+cp vits_new_rci13.cfg vits_new_rci_tnstd0.01.cfg
+cp vitt_new_rci13.cfg vitt_new_rci_tnstd0.01.cfg
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_norastd.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_tnstd0.01.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/svits_new_rci_tnstd0.01.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_rci_tnstd0.01.cfg --mode=train --ngpu=8 --partition=priority
+
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_bsz64_fp32.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_new_bsz128_fp32.cfg --mode=train --ngpu=8 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_new.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_new_ptinit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_new_shuffle.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_new_shuffle1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_new_shuffle_scaleparam.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_new_shuffle_scaleparam2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_new_shuffle_scaleparam_limit.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_ptind.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_bsz64_repaug_noaug_ptind_back.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed41_ptind.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_harder.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_lessreg.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_newmix.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_do0.1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_do0.05.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_ld0.12.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_ld0.2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_newnew.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed47_ptind_newnew1.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed41.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed42.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed43.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed41_1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed41_2.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed41_3.cfg --mode=train --ngpu=16 --partition=dev
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed41_transrand_light.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_new_rci_seed41_transrand_light_mix.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_new.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_ptind.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_re0.25_new.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_ra_new.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_mix_re.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_mix_ra.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_mix_ra_back.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_ra_re.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_ra_re1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_mix_ra_light.cfg --mode=train --ngpu=16 --partition=dev
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_mix_re_ra.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_ra.cfg --mode=train --ngpu=16 --partition=dev
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_re.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_re_ra.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_ra_new.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_ra_new1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_ra_ptind.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_ra_ptind_harder.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_repaug_mix_ra_ptind_harder_s1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_nore_norepaug1.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_nore_norepaug2.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_nore_norepaug1_bsz64.cfg --mode=train --ngpu=16 --partition=priority
+
+
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_newnew.cfg --mode=train --ngpu=8 --partition=priority
+python3 /private/home/qiantong/fl_org/flashlight-vision-tr/scripts/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_transformer --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_newnew_nore_norepaug.cfg --mode=train --ngpu=8 --partition=priority
+
+
+------------ master ------------
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master.cfg --mode=train --ngpu=16 --partition=dev
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_neweq.cfg --mode=train --ngpu=16 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_th6.cfg --mode=train --ngpu=16 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_th6_lessra.cfg --mode=train --ngpu=16 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_th6_lessra_seed47.cfg --mode=train --ngpu=16 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_th6_lessra_seed139.cfg --mode=train --ngpu=16 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_noaug.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_noaug2.cfg --mode=train --ngpu=16 --partition=priority
+
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_newnew_noaug_bsz128.cfg --mode=train --ngpu=8 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_master_th6.cfg --mode=train --ngpu=8 --partition=priority
+
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_master.cfg --mode=train --ngpu=16 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitt_master_nore_norepaug.cfg --mode=train --ngpu=16 --partition=priority
+
+
+
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_s1.cfg --mode=train --ngpu=16 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_s47.cfg --mode=train --ngpu=16 --partition=dev
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_s139.cfg --mode=train --ngpu=16 --partition=dev
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_s513.cfg --mode=train --ngpu=16 --partition=priority
+python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_s4399.cfg --mode=train --ngpu=16 --partition=priority
+
+
+
+## vitb
+
+make -j40 && /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+thpt: 220+
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 1 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+thpt: 90+
+
+make -j40 && mpirun -n 1 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 8 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=12  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+rm -rf /tmp/rndv/*
+
+for i in `seq 1 $(($1 - 1))`
+do
+	echo "--distributed_world_rank=$i --distributed_world_size=$1"
+    /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=3  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model --data_prefetch_thread=6 --distributed_rndv_filepath=/tmp/rndv --distributed_world_rank=$i --distributed_world_size=$1 &
+done
+
+/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=768 --model_mlp_size=3072 --model_heads=3  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model --data_prefetch_thread=6 --distributed_rndv_filepath=/tmp/rndv --distributed_world_rank=0 --distributed_world_size=$1
+
+sh ~/tmp/vitb.sh 8 --data_prefetch_thread=10
+thpt: 1700+
+
+
+sh ~/tmp/vitb.sh 8 --data_prefetch_thread=6
+thpt: 1870+
+
+## vitt
+
+make -j40 && /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=64  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=192 --model_mlp_size=768 --model_heads=3  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+thpt: 530+
+
+make -j40 && /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=128  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=192 --model_mlp_size=768 --model_heads=3  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model
+
+thpt: 720+
+
+make -j40 && /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=128  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=192 --model_mlp_size=768 --model_heads=3  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model --data_prefetch_thread=20
+
+thpt: 740+
+
+
+
+rm -rf /tmp/rndv/*
+
+for i in `seq 1 $(($1 - 1))`
+do
+	echo "--distributed_world_rank=$i --distributed_world_size=$1"
+    /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=128  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=192 --model_mlp_size=768 --model_heads=3  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model --data_prefetch_thread=10 --distributed_rndv_filepath=/tmp/rndv --distributed_world_rank=$i --distributed_world_size=$1 &
+done
+
+/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=128  --train_lr=5e-4 --train_beta1=0.9 --train_beta2=0.99 --train_epochs=300 --train_dropout=0.1 --train_layerdrop=0.1  --model_layers=12 --model_hidden_emb_size=192 --model_mlp_size=768 --model_heads=3  --fl_amp_use_mixed_precision=true --logtostderr --distributed_enable=true  --exp_checkpoint_path=/tmp/test/model --data_prefetch_thread=10 --distributed_rndv_filepath=/tmp/rndv --distributed_world_rank=0 --distributed_world_size=$1
+
+
+sh ~/tmp/vitt.sh 4
+thpt: 2470+
+I0405 22:21:38.229388 4063869 ImageNetTransformer.cpp:556] Epoch 0 Batch: 200 Throughput 2473.6 | : Batch time(ms): 206.99 : Sample Time(ms): 15.13 : Forward Time(ms): 78.63 : Criterion Forward Time(ms): 15.51 : Backward Time(ms): 116.30 : Optimization Time(ms): 15.18 | LR: 1e-06: Avg Train Loss: 6.9443
+
+sh ~/tmp/vitt.sh 8
+thpt: 3200+
+I0405 22:25:34.956015 4065787 ImageNetTransformer.cpp:556] Epoch 0 Batch: 300 Throughput 3231.1 | : Batch time(ms): 316.92 : Sample Time(ms): 24.58 : Forward Time(ms): 108.35 : Criterion Forward Time(ms): 33.71 : Backward Time(ms): 177.93 : Optimization Time(ms): 28.54 | LR: 1e-06: Avg Train Loss: 6.9399
+
+------------ pytorch ------------
+
+python main.py --eval --resume https://dl.fbaipublicfiles.com/deit/deit_base_patch16_224-b5f2ef4d.pth --data-path /datasets01/imagenet_full_size/061417/
+python main.py --eval --resume /checkpoint/gab/experiments/35484148/checkpoint.pth --data-path /datasets01/imagenet_full_size/061417/
+
+python -m torch.distributed.launch --nproc_per_node=4 --use_env main.py --model deit_small_patch16_224 --batch-size 256 --data-path /path/to/imagenet --output_dir /path/to/save
+
+python main.py --model deit_base_patch16_224 --batch-size 64 --data-path /datasets01/imagenet_full_size/061417/ --output_dir /tmp/vitb
+python main.py --model deit_base_patch16_224 --batch-size 128 --data-path /datasets01/imagenet_full_size/061417/ --output_dir /tmp/vitb
+
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --ngpus=8 --nodes=1 --partition=priority --comment=ICML
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --batch-size=128 --ngpus=8 --nodes=1 --partition=priority --comment=ICML --use_volta32
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --opt=sgd --lr=1e-2 --warmup-epochs=0 --momentum=0.9
+
+
+python main.py --model deit_base_patch16_224 --batch-size 64 --data-path /datasets01/imagenet_full_size/061417/ --output_dir /tmp/vitb --world_size=2 --world_rank=0
+python main.py --model deit_base_patch16_224 --batch-size 64 --data-path /datasets01/imagenet_full_size/061417/ --output_dir /tmp/vitb --world_size=2 --world_rank=1
+
+
+
+batch time: 409.703ms
+smp time: 52.2276ms
+fwd time: 177.2ms
+bwd time: 170.572ms
+optim time: 9.49251ms
+Throughput/GPU: 156.211 images/s
+
+batch time: 263.68ms
+smp time: 12.318ms
+fwd time: 99.2324ms
+bwd time: 140.925ms
+optim time: 11.0055ms
+Throughput/GPU: 242.719 images/s
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=None --mixup-prob=0 --reprob=0 --noaug
+
+aa='rand-m9-mstd0.5-inc1', batch_size=64, clip_grad=None, color_jitter=0.4, cooldown_epochs=10, cutmix=1.0, cutmix_minmax=None, data_path='/datasets01/imagenet_full_size/061417/', data_set='IMNET', decay_epochs=30, decay_rate=0.1, device='cuda', dist_eval=False, dist_url='env://', distillation_alpha=0.5, distillation_tau=1.0, distillation_type='none', distributed=False, drop=0.0, drop_path=0.1, epochs=300, eval=False, finetune='', inat_category='name', input_size=224, lr=0.0005, lr_noise=None, lr_noise_pct=0.67, lr_noise_std=1.0, min_lr=1e-05, mixup=0.8, mixup_mode='batch', mixup_prob=1.0, mixup_switch_prob=0.5, model='deit_base_patch16_224', model_ema=True, model_ema_decay=0.99996, model_ema_force_cpu=False, momentum=0.9, num_workers=10, opt='adamw', opt_betas=None, opt_eps=1e-08, output_dir='/tmp/vitb', patience_epochs=10, pin_mem=True, recount=1, remode='pixel', repeated_aug=True, reprob=0.25, resplit=False, resume='', sched='cosine', seed=0, smoothing=0.1, start_epoch=0, teacher_model='regnety_160', teacher_path='', train_interpolation='bicubic', warmup_epochs=5, warmup_lr=1e-06, weight_decay=0.05, world_rank=0, world_size=1
+
+
+python run_with_submitit.py --model deit_small_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICCV
+36618459
+
+python run_with_submitit.py --model deit_tiny_patch16_224 --data-path /datasets01/imagenet_full_size/061417/  --ngpus=8 --nodes=1 --batch-size 128 --partition=priority --comment=ICCV
+36618460
+
+python run_with_submitit.py --model deit_tiny_patch16_224 --data-path /datasets01/imagenet_full_size/061417/  --ngpus=8 --nodes=1 --batch-size 128 --partition=priority --comment=ICCV  --reprob=0. --no-repeated-aug
+38441117
+
+python run_with_submitit.py --model deit_tiny_patch16_224 --data-path /datasets01/imagenet_full_size/061417/  --ngpus=8 --nodes=1 --batch-size 128 --partition=priority --comment=ICCV  --reprob=0. --no-repeated-aug --resume /checkpoint/qiantong/experiments/38441117/checkpoint.pth
+
+make -j40 && /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/eval --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/private/home/qiantong/tmp/vitb_pt/
+
+
+python run_with_submitit.py --model deit_small_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICCV  --reprob=0. --no-repeated-aug
+
+
+I think so, what I did are just 2 things:
+1. set this to true https://fburl.com/jy5dnsji
+2. set this to false https://fburl.com/nred3fft
+
+1. fl: /checkpoint/qiantong/fl_experiments/vision_tr/vitb_bsz64_repaug_noaug/qiantong.err
+2. pt: /checkpoint/qiantong/experiments/36264140/36264140_0_log.out
+
+
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=None --mixup-prob=1 --reprob=0 --noaug
+36296876
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa= --mixup-prob=0 --reprob=0.25
+36297222
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=rand-m9-mstd0.5-inc1 --mixup-prob=0 --reprob=0
+36297223
+
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=None --mixup-prob=1 --reprob=0 --noaug --no-repeated-aug
+36737114
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa= --mixup-prob=0 --reprob=0.25 --no-repeated-aug
+36737115
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=rand-m9-mstd0.5-inc1 --mixup-prob=0 --reprob=0 --no-repeated-aug
+36737116
+
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa= --mixup-prob=0 --reprob=0. --no-repeated-aug
+36887799
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa= --mixup-prob=0 --reprob=0.5 --no-repeated-aug
+36887800
+
+
+
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa= --mixup-prob=1 --reprob=0.25 --no-repeated-aug
+37553453
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=rand-m9-mstd0.5-inc1 --mixup-prob=1 --reprob=0 --no-repeated-aug
+37553455
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=rand-m9-mstd0.5-inc1 --mixup-prob=0 --reprob=0.25 --no-repeated-aug
+37553456
+
+
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa= --mixup-prob=1 --reprob=0.25
+37589482
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=rand-m9-mstd0.5-inc1 --mixup-prob=1 --reprob=0.
+37589487
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=rand-m9-mstd0.5-inc1 --mixup-prob=0 --reprob=0.25
+37589488
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=rand-m9-mstd0.5-inc1 --mixup-prob=1 --reprob=0.25 --no-repeated-aug
+37589489
+
+
+
+python run_with_submitit.py --model deit_base_patch16_224 --data-path /datasets01/imagenet_full_size/061417/ --partition=priority --comment=ICML --aa=rand-m9-mstd0.5-inc1 --mixup-prob=1 --reprob=0.25
+vitb_repro: 37655732
+
+
+

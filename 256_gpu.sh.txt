@@ -1,0 +1,100 @@
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/1.cfg --ngpu=256 --partition=rasr
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/2.cfg --ngpu=8 --partition=dev
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/3.cfg --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/4.cfg --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/6.cfg --ngpu=128 --partition=rasr
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/5.cfg --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/7.cfg --ngpu=128 --partition=rasr
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/8.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/9.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/15.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/10.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/11.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/12.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/12.cfg --ngpu=16 --partition=dev
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/13.cfg --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/14.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/16.cfg --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/20.cfg --ngpu=128 --partition=rasr
+
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/3 --ngpu=128 --partition=rasr --mode=continue
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/4 --ngpu=128 --partition=rasr --mode=continue
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/5 --ngpu=128 --partition=rasr --mode=continue
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/7 --ngpu=128 --partition=rasr --mode=continue
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/7 --ngpu=128 --partition=rasr --mode=continue
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/6 --ngpu=128 --partition=rasr --mode=continue --extra=' --lr_decay_step=40'
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/7 --ngpu=128 --partition=rasr --mode=continue --extra=' --lr_decay_step=40'
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/9 --ngpu=64 --partition=rasr --mode=continue
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/10 --ngpu=64 --partition=rasr --mode=continue
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/256_GPU/11 --ngpu=64 --partition=rasr --mode=continue
+
+
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/256_GPU/7.cfg --ngpu=128 --partition=rasr
+
+
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/256_GPU/9/003_model_last.bin --datadir='' --test=/private/home/qiantong/push_numbers/lists/test-other.lst --emission_dir='' --nthread_decoder_am_forward=2 --uselexicon=false
+
+
+-- new
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/15.cfg --ngpu=64 --partition=rasr --local
+
+
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/15.cfg --ngpu=64 --partition=rasr --local
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/17.cfg --ngpu=128 --partition=rasr --local
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/18.cfg --ngpu=128 --partition=rasr --local
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/20.cfg --ngpu=128 --partition=rasr --local
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/21.cfg --ngpu=128 --partition=rasr --local
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/22.cfg --ngpu=128 --partition=rasr --local
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/checkpoint/wav2letter/transfer_learning/code/exec/Train_fl5cea975_w2l1e0f696 --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/23.cfg --ngpu=128 --partition=rasr --local
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/24.cfg --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/25.cfg --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/24 --ngpu=128 --partition=rasr
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/32.cfg --ngpu=128 --partition=rasr
+
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/26.cfg --ngpu=64 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/30.cfg --ngpu=64 --partition=priority
+
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/27.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/checkpoint/wav2letter/transfer_learning/code/exec/Train_fl5cea975_w2l1e0f696 --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/28.cfg --ngpu=64 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/29.cfg --ngpu=64 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=train --config=/private/home/qiantong/wav2letter_experiments/256_GPU/31.cfg --ngpu=64 --partition=priority
+
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/27 --ngpu=64 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/28 --ngpu=64 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/30 --ngpu=64 --partition=priority
+
+
+
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/9 --ngpu=64 --partition=priority --local
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/13 --ngpu=128 --partition=rasr
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/20 --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/21 --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/22 --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter_transfre_learning/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/25 --ngpu=128 --partition=rasr --extra=" --batchsize=2"
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/16 --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=contipython3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/19 --ngpu=128 --partition=rasr
+nue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/17 --ngpu=128 --partition=rasr
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/wav2letter_experiments/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/wav2letter_experiments/256_GPU/18 --ngpu=128 --partition=rasr
+
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py --binary=/private/home/qiantong/tania/wav2letter/build/Train --mode=continue --config=/checkpoint/qiantong/ls_200M/100h/957 --partition=priority --ngpu=64 --local
+
+
+
+

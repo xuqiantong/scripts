@@ -1,0 +1,80 @@
+Standalone /checkpoint/gab/experiments/speech/libri/january2020/lr0.03_lrc0.03_lrd1200_lrds500_bs5_mgn1.0_G32_wmup40000_adagrad_b10.95_b20.99_mfb80_wdnetstride4_3x5_small_archEG_GLU6x2048_TR24x768_DO0.3_LD0.3_WDNET_Train_0125_w2w_CTC/001_model_last.bin gab-sa-model-200k.bin gab-sa-dict-200k.lst --targetlex=/private/home/locronan/libri++/lm/words-all.lst
+
+
+
+
+
+
+Hey Qiantong, here are the resource that can help you 
+
+Here is the librivox API - https://librivox.org/api/info
+For author info, you would need https://librivox.org/api/feed/authors?id=52 
+
+For retrieving all the reader, you can see - /mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/librivox/Russian/krasavitse-librivox_64kb_mp3_speaker_data.json
+
+the pickle file we use for text generation also has the main reader for each book, but sometime I saw main reader in "LibriVox Volunteers" (for example - https://fburl.com/mu0pyj42). You need to figure out what's happening there and how to make sure we have no overlap with train set. I'm not sure how LibriSpeech ppl got gender info (you would have to check). Also, sometimes a single book or a different volume of the book has a separate page which we need to dedupe. 
+
+How to train mix-lm - https://fb.quip.com/jQU9APatbHKy#RILACAnVxaM
+
+
+
+Librispeech split dev/test criterion:
+- after collecting the correct reference, rank speakers by WER
+- select same amount of speakers in to dev/test
+- balace length of audio per speaker
+- balance gender of each speaker
+
+
+LibriLight filter criterion:
+- Remove corrupted
+- Remove audios with UNK, or > 1 speakers
+- Dedup books with similar titles
+
+
+My plan:
+1. filter books
+- group by authors
+- filter titles by version and pick the latest version
+- get a list of valid books
+2. select speakers into dev/test
+- group by readers and compute duration per sreader
+- select speakers (with > 20min audios) covers (min(10% of the data, 20 hrs)) audio into dev/test
+- reduce speaker duration variance 
+- split the data left equally into dev and test.
+
+
+TODO:
+- get gender
+- clean/other partition?
+
+
+things to do:
+- Download ebooks from domains not marked `Yes` in https://fb.quip.com/2GmjAAPaBXH4#aScACAOXg3O
+- Only need to look at French and Spanish
+- Preferred format: txt > epub > pdf
+- Sample work can be found in column K in https://docs.google.com/spreadsheets/d/1z22hL0lLqTG9o-QYlnsm-1dgJPYfPYjEL43prJOOv-Q/edit#gid=1980928671
+- I've downloaded some and marked the format, please only take care of the books marked `NO` in column I
+
+
+ma2008unsupervised,yu2010unsupervised,manohar2015semi,liao2013large
+
+
+We are devloping a gender classifier of speakers. Could you please help us verify its output?
+- A json file describing the .wav files of each speaker. `/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/split/speaker_classifier/Polish_speakers.json`
+- A list of predicted gender of each speaker, 0 - female, 1 - male. `/mnt/vol/gfsai-oregon/ai-group/users/vineelkpratap/lv/split/speaker_classifier/Polish_speakers_gender.lst`
+Please listen to some of them to see if our prediction make sense.
+
+
+
+
+must-C paper: https://www.aclweb.org/anthology/N19-1202.pdf
+https://cris.fbk.eu/retrieve/handle/11582/319654/29817/3045.pdf
+https://arxiv.org/pdf/1910.03320.pdf
+https://arxiv.org/pdf/1910.10663.pdf
+https://arxiv.org/pdf/1911.04283.pdf
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9053431
+
+
+
+
+

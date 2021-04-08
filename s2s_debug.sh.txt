@@ -1,0 +1,94 @@
+python3 /private/home/qiantong/pseudo-labels/runmpi.py /private/home/qiantong/pseudo-labels/low_resource/100h/950.cfg --ngpu=8 --partition=learnfair
+python3 /private/home/qiantong/pseudo-labels/runmpi.py /private/home/qiantong/pseudo-labels/low_resource/100h/951.cfg --ngpu=8 --partition=learnfair
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/1.cfg --ngpu=8 --partition=dev
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/2.cfg --ngpu=8 --partition=priority
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/3.cfg --ngpu=8 --partition=dev
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/4.cfg --ngpu=8 --partition=priority
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/5.cfg --ngpu=8 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/6.cfg --ngpu=8 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/7.cfg --ngpu=8 --partition=dev
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/8.cfg --ngpu=8 --partition=dev
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/10.cfg --ngpu=8 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/11.cfg --ngpu=8 --partition=priority
+python3 /private/home/qiantong/wav2letter_experiments/run.py /private/home/qiantong/wav2letter_experiments/s2s_padding/12.cfg --ngpu=8 --partition=priority
+
+python3 /private/home/qiantong/wav2letter_experiments/run.py /checkpoint/qiantong/wav2letter_experiments/s2s_padding/2 --ngpu=8 --partition=priority --mode=continue
+
+
+baseline: 
+6: 
+10: dp0.1
+11: do0
+
+sample target:
+7. no pad fix + sampletarget 0.1
+8. no pad fix + sampletarget 0.3
+9. 7 + do0.1
+12. 9 + pad fix
+
+
+
+## test
+
+-- baseline 
+
+
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=1 --uselexicon=false
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=2 --uselexicon=false
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=4 --uselexicon=false
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=8 --uselexicon=false
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=16 --uselexicon=false
+
+I0722 14:54:00.703380 30407 Test.cpp:402] [Test dev-other.lst (2864 samples) in 89.4842s (actual decoding time 0.0312s/sample) -- WER: 12.4872, LER: 6.16317]
+I0722 14:55:28.606811 42916 Test.cpp:402] [Test dev-other.lst (2864 samples) in 85.3881s (actual decoding time 0.0298s/sample) -- WER: 12.4558, LER: 6.1203]
+I0722 14:56:47.521307 55336 Test.cpp:402] [Test dev-other.lst (2864 samples) in 76.3899s (actual decoding time 0.0267s/sample) -- WER: 12.446, LER: 6.11992]
+I0722 14:58:05.985095 66286 Test.cpp:402] [Test dev-other.lst (2864 samples) in 75.761s (actual decoding time 0.0265s/sample) -- WER: 12.4637, LER: 6.1312]
+I0722 14:59:21.530647 77213 Test.cpp:402] [Test dev-other.lst (2864 samples) in 73.0791s (actual decoding time 0.0255s/sample) -- WER: 12.7542, LER: 6.38275]
+
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=1 --uselexicon=false --dataorder=input
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=2 --uselexicon=false --dataorder=input
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=4 --uselexicon=false --dataorder=input
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=8 --uselexicon=false --dataorder=input
+/checkpoint/antares/experiments/ipl/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/1/001_model_librispeech#dev-other.bin --test=dev-other.lst --batchsize=16 --uselexicon=false --dataorder=input
+
+I0722 15:09:53.012987 15298 Test.cpp:402] [Test dev-other.lst (2864 samples) in 91.9317s (actual decoding time 0.0321s/sample) -- WER: 12.4872, LER: 6.16317]
+I0722 15:11:21.075417 28475 Test.cpp:402] [Test dev-other.lst (2864 samples) in 85.483s (actual decoding time 0.0298s/sample) -- WER: 12.4637, LER: 6.13008]
+I0722 15:12:42.264453 40893 Test.cpp:402] [Test dev-other.lst (2864 samples) in 78.6259s (actual decoding time 0.0275s/sample) -- WER: 12.4657, LER: 6.1406]
+I0722 15:14:01.919740 52089 Test.cpp:402] [Test dev-other.lst (2864 samples) in 77.1302s (actual decoding time 0.0269s/sample) -- WER: 12.4617, LER: 6.13722]
+I0722 15:15:15.983791 62779 Test.cpp:402] [Test dev-other.lst (2864 samples) in 71.4489s (actual decoding time 0.0249s/sample) -- WER: 12.7561, LER: 6.38539]
+
+-- proper padding
+
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=1
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=2
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=4
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=8
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=16
+
+I0722 15:20:49.293244 25477 Test.cpp:323] [Test dev-other.lst (2864 samples) in 135.027s (actual decoding time 0.0471s/sample) -- WER: 12.4519, LER: 6.0842]
+[Test dev-other.lst (2864 samples) in 101.037s (actual decoding time 0.0353s/sample) -- WER: 12.4637, LER: 6.09812]
+[Test dev-other.lst (2864 samples) in 90.4754s (actual decoding time 0.0316s/sample) -- WER: 12.5226, LER: 6.16843]
+[Test dev-other.lst (2864 samples) in 83.9663s (actual decoding time 0.0293s/sample) -- WER: 12.764, LER: 6.38764]
+[Test dev-other.lst (2864 samples) in 77.7893s (actual decoding time 0.0272s/sample) -- WER: 12.9328, LER: 6.54143]
+
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=1 --dataorder=input
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=2 --dataorder=input
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=4 --dataorder=input
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=8 --dataorder=input
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/3/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=16 --dataorder=input
+
+[Test dev-other.lst (2864 samples) in 114.539s (actual decoding time 0.04s/sample) -- WER: 12.4519, LER: 6.0842]
+[Test dev-other.lst (2864 samples) in 101.327s (actual decoding time 0.0354s/sample) -- WER: 12.4578, LER: 6.09135]
+[Test dev-other.lst (2864 samples) in 92.9468s (actual decoding time 0.0325s/sample) -- WER: 12.5265, LER: 6.16617]
+[Test dev-other.lst (2864 samples) in 92.2132s (actual decoding time 0.0322s/sample) -- WER: 12.7444, LER: 6.37599]
+[Test dev-other.lst (2864 samples) in 88.1256s (actual decoding time 0.0308s/sample) -- WER: 12.9014, LER: 6.52677]
+
+
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/6/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=1
+/private/home/qiantong/wav2letter_experiments/wav2letter/build/Test --am=/checkpoint/qiantong/wav2letter_experiments/s2s_padding/6/001_model_librispeech#dev-other.bin --test=dev-other.lst --uselexicon=false --batchsize=8
+
+I0723 17:00:49.496130 77519 Test.cpp:330] [Test dev-other.lst (2864 samples) in 46.3417s (actual decoding time 0.0162s/sample) -- WER: 12.1379, LER: 6.09135]
+I0723 16:59:01.493649 77431 Test.cpp:330] [Test dev-other.lst (2864 samples) in 38.2323s (actual decoding time 0.0133s/sample) -- WER: 12.0829, LER: 6.03081]
