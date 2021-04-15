@@ -586,6 +586,24 @@ python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashligh
 python3 /tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_s4399.cfg --mode=train --ngpu=16 --partition=priority
 
 
+python3 /private/home/qiantong/tmp/train_vision_tr.py --binary=/private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_vit --config=/private/home/qiantong/fl_org/experiments/vision_tr/vitb_master_s47.cfg --mode=train --ngpu=16 --partition=dev
+
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_eval --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_master_s47/model
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_eval --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/checkpoint/qiantong/fl_experiments/vision_tr/vitb_master_th6_lessra_seed47/model
+
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 /private/home/qiantong/fl_org/flashlight-vision-tr/build/bin/imgclass/fl_img_imagenet_eval --data_dir=/datasets01/imagenet_full_size/061417 --data_batch_size=150 --logtostderr --exp_checkpoint_path=/private/home/qiantong/tmp/vitb_pt/
+
+bin/imgclass/fl_img_imagenet_vit \
+--data_dir=/datasets01/imagenet_full_size/061417 \
+--fl_amp_use_mixed_precision=true \
+--data_prefetch_thread=6 \
+--train_seed=47 \
+--distributed_enable=false \
+--exp_checkpoint_path=/tmp/test \
+--logtostderr
+
 
 ## vitb
 
@@ -654,6 +672,13 @@ I0405 22:21:38.229388 4063869 ImageNetTransformer.cpp:556] Epoch 0 Batch: 200 Th
 sh ~/tmp/vitt.sh 8
 thpt: 3200+
 I0405 22:25:34.956015 4065787 ImageNetTransformer.cpp:556] Epoch 0 Batch: 300 Throughput 3231.1 | : Batch time(ms): 316.92 : Sample Time(ms): 24.58 : Forward Time(ms): 108.35 : Criterion Forward Time(ms): 33.71 : Backward Time(ms): 177.93 : Optimization Time(ms): 28.54 | LR: 1e-06: Avg Train Loss: 6.9399
+
+
+
+
+
+
+
 
 ------------ pytorch ------------
 

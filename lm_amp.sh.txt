@@ -20,13 +20,49 @@ sbatch launch_8gpus.sh cv_adae512_sinpos_l8_h8_fc1024_dp0.3_ldp0_as_3 \
 
 /checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae512_sinpos_l8_h8_fc1024_dp0-3_ldp0.cpp
 
-/checkpoint/wav2letter/transfer_learning/transformer_lms
-models/cv_adae512_sinpos_l8_h8_fc1024_dp0.3_ldp0_as_3
+/checkpoint/wav2letter/transfer_learning/transformer_lms/models/cv_adae512_sinpos_l8_h8_fc1024_dp0.3_ldp0_as_3
 
-----------
+[epoch=88 batch=53700/612] | Run Time: 00:00:15 | Batch Time(ms): 52.35 | Sample Time(ms): 0.06 | Forward Time(ms): 13.62 | Criterion Forward Time(ms): 3.04 | Backward Time(ms): 31.03 | Optimization Time(ms): 7.57 | Throughput (Token/Sec): 155661.01 | Learning Rate 0.192989 | Loss: 4.68 PPL: 107.89 | Valid Loss: 5.27 Valid PPL: 193.94
+
+
+
+---------- fp 32 baseline ------
 
 make -j40 && rm -rf /tmp/lm/ && \
-mpirun -n 8 /private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
+/private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
+  --logtostderr=true \
+  --distributed_enable=false \
+  --exp_rundir=/tmp/lm \
+  --exp_model_name=lm \
+  --data_dir= \
+  --data_sample_break_mode=none \
+  --data_tokens_per_sample=3072 \
+  --train_max_grad_norm=0.1 \
+  --train_report_updates=1000 \
+  --train_save_updates=10000 \
+  --train_warmup_init_lr=1e-7 \
+  --loss_type=adsm \
+  --loss_adsm_input_size=512 \
+  --loss_adsm_cutoffs=10000,50000 \
+  --train_arch_file=/checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae512_sinpos_l8_h8_fc1024_dp0-3_ldp0.so \
+  --train_optimizer=nag \
+  --train_lr=1 \
+  --train_warmup_updates=2000 \
+  --train_lr_schedule=invsqrt \
+  --train_momentum=0.9 \
+  --train_weight_decay=0 \
+  --data_train=/checkpoint/wav2letter/data/commonvoice/text/train.txt \
+  --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt \
+  --dictionary=/checkpoint/wav2letter/transfer_learning/transformer_lms/dicts/cv.dict \
+  --train_report_updates=300 \
+  --train_save_updates=30000 \
+  --data_tokens_per_sample=256 \
+  --data_batch_size=4
+
+I0408 14:43:47.066540 2359126 Trainer.cpp:310] [epoch=1 batch=1200/4843] | Run Time: 00:00:11 | Batch Time(ms): 37.95 | Sample Time(ms): 0.05 | Forward Time(ms): 12.79 | Criterion Forward Time(ms): 2.84 | Backward Time(ms): 19.18 | Optimization Time(ms): 5.88 | Throughput (Token/Sec): 26878.44 | Learning Rate 0.599500 | Loss: 6.78 PPL: 878.84 | Valid Loss: 6.44 Valid PPL: 625.97
+
+make -j40 && rm -rf /tmp/lm/ && \
+/usr/mpi/gcc/openmpi-4.0.4rc3/bin/mpirun -n 8 /private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
   --logtostderr=true \
   --distributed_enable=true \
   --exp_rundir=/tmp/lm \
@@ -51,20 +87,19 @@ mpirun -n 8 /private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_t
   --data_train=/checkpoint/wav2letter/data/commonvoice/text/train.txt \
   --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt \
   --dictionary=/checkpoint/wav2letter/transfer_learning/transformer_lms/dicts/cv.dict \
-  --train_report_updates=300 \
-  --train_save_updates=300 \
+  --train_report_updates=500 \
+  --train_save_updates=30000 \
   --data_tokens_per_sample=256 \
-  --data_batch_size=4 \
-  --fl_amp_use_mixed_precision=false
+  --data_batch_size=4
 
+I0408 14:45:23.666692 2359751 Trainer.cpp:310] [epoch=1 batch=300/612] | Run Time: 00:00:15 | Batch Time(ms): 51.33 | Sample Time(ms): 0.13 | Forward Time(ms): 16.11 | Criterion Forward Time(ms): 3.03 | Backward Time(ms): 28.22 | Optimization Time(ms): 6.81 | Throughput (Token/Sec): 158976.42 | Learning Rate 0.149500 | Loss: 7.87 PPL: 2607.12 | Valid Loss: 6.84 Valid PPL: 936.83
 
-I0401 21:42:49.843291 1120915 Trainer.cpp:271] [epoch=1 batch=1200/4843] | Run Time: 00:00:11 | Batch Time(ms): 38.45 | Sample Time(ms): 0.06 | Forward Time(ms): 13.16 | Criterion Forward Time(ms): 2.94 | Backward Time(ms): 18.97 | Optimization Time(ms): 6.20 | Throughput (Token/Sec): 26526.83 | Learning Rate 0.599500 | Loss: 6.78 PPL: 878.85 | Valid Loss: 6.44 Valid PPL: 626.05
-
+---------- fp 16
 
 make -j40 && rm -rf /tmp/lm/ && \
-mpirun -n 8 /private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
+/private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
   --logtostderr=true \
-  --distributed_enable=true \
+  --distributed_enable=false \
   --exp_rundir=/tmp/lm \
   --exp_model_name=lm \
   --data_dir= \
@@ -88,9 +123,7 @@ mpirun -n 8 /private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_t
   --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt \
   --dictionary=/checkpoint/wav2letter/transfer_learning/transformer_lms/dicts/cv.dict \
   --train_report_updates=300 \
-  --train_save_updates=300 \
-  --data_tokens_per_sample=256 \
-  --data_batch_size=4 \
+  --train_save_updates=30000 \
   --fl_amp_use_mixed_precision=true
 
 
@@ -126,4 +159,195 @@ make -j40 && rm -rf /tmp/lm/ && \
   --data_batch_size=4 \
   --fl_amp_use_mixed_precision=true \
   --fl_optim_mode=O1
+
+
+
+---- random
+
+make -j40 && rm -rf /tmp/lm/ && \
+/private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
+  --logtostderr=true \
+  --distributed_enable=false \
+  --exp_rundir=/tmp/lm \
+  --exp_model_name=lm \
+  --data_dir= \
+  --data_sample_break_mode=none \
+  --data_tokens_per_sample=4096 \
+  --train_max_grad_norm=0.1 \
+  --train_report_updates=1000 \
+  --train_save_updates=10000 \
+  --train_warmup_init_lr=1e-7 \
+  --loss_type=adsm \
+  --loss_adsm_input_size=512 \
+  --loss_adsm_cutoffs=10000,50000 \
+  --train_arch_file=/checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae512_sinpos_l8_h8_fc1024_dp0-3_ldp0.so \
+  --train_optimizer=nag \
+  --train_lr=1 \
+  --train_warmup_updates=2000 \
+  --train_lr_schedule=invsqrt \
+  --train_momentum=0.9 \
+  --train_weight_decay=0 \
+  --data_train=/checkpoint/wav2letter/data/commonvoice/text/train.txt \
+  --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt \
+  --dictionary=/checkpoint/wav2letter/transfer_learning/transformer_lms/dicts/cv.dict \
+  --train_report_updates=300 \
+  --train_save_updates=30000 \
+  --data_tokens_per_sample=256 \
+  --data_batch_size=32 
+
+I0409 13:37:34.439182 2587126 Trainer.cpp:310] [epoch=5 batch=2700/606] | Run Time: 00:00:59 | Batch Time(ms): 197.22 | Sample Time(ms): 0.07 | Forward Time(ms): 74.74 | Criterion Forward Time(ms): 17.17 | Backward Time(ms): 115.88 | Optimization Time(ms): 6.46 | Throughput (Token/Sec): 41374.25 | Learning Rate 0.860822 | Scale factor 1.000000 | Loss: 6.23 PPL: 507.66 | Valid Loss: 5.99 Valid PPL: 398.42
+
+make -j40 && rm -rf /tmp/lm/ && \
+/private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
+  --logtostderr=true \
+  --distributed_enable=false \
+  --exp_rundir=/tmp/lm \
+  --exp_model_name=lm \
+  --data_dir= \
+  --data_sample_break_mode=none \
+  --data_tokens_per_sample=4096 \
+  --train_max_grad_norm=0.1 \
+  --train_report_updates=1000 \
+  --train_save_updates=10000 \
+  --train_warmup_init_lr=1e-7 \
+  --loss_type=adsm \
+  --loss_adsm_input_size=512 \
+  --loss_adsm_cutoffs=10000,50000 \
+  --train_arch_file=/checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae512_sinpos_l8_h8_fc1024_dp0-3_ldp0.so \
+  --train_optimizer=nag \
+  --train_lr=1 \
+  --train_warmup_updates=2000 \
+  --train_lr_schedule=invsqrt \
+  --train_momentum=0.9 \
+  --train_weight_decay=0 \
+  --data_train=/checkpoint/wav2letter/data/commonvoice/text/train.txt \
+  --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt \
+  --dictionary=/checkpoint/wav2letter/transfer_learning/transformer_lms/dicts/cv.dict \
+  --train_report_updates=300 \
+  --train_save_updates=30000 \
+  --data_tokens_per_sample=256 \
+  --data_batch_size=32 \
+  --fl_amp_use_mixed_precision=true
+
+
+
+
+--- plugin
+
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=~/fl_org/usr -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake -DFL_BACKEND=CUDA -DFL_PLUGIN_MODULE_SRC_PATH=/checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae1024_sinpos_l16_h8_fc4096_dp0-1_ldp0_amp.cpp
+
+
+
+---------- CC LM
+
+/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/transformer_lms/models/cc_adae1024_sinpos_l16_h8_fc4096_dp0.1_ldp0/lm.log
+
+make -j40 && rm -rf /tmp/lm/ && \
+/private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
+  --logtostderr=true \
+  --distributed_enable=false \
+  --exp_rundir=/tmp/lm \
+  --exp_model_name=lm \
+  --data_dir= \
+  --data_sample_break_mode=none \
+  --data_tokens_per_sample=3072 \
+  --train_max_grad_norm=0.1 \
+  --train_report_updates=1000 \
+  --train_save_updates=10000 \
+  --train_warmup_init_lr=1e-7 \
+  --loss_type=adsm \
+  --loss_adsm_input_size=1024 \
+  --loss_adsm_cutoffs=10000,50000 \
+  --train_arch_file=/checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae512_sinpos_l8_h8_fc1024_dp0-3_ldp0.so \
+  --train_optimizer=nag \
+  --train_lr=1 \
+  --train_warmup_updates=2000 \
+  --train_lr_schedule=invsqrt \
+  --train_momentum=0.9 \
+  --train_weight_decay=0 \
+  --data_train=/checkpoint/wav2letter/data/commonvoice/text/train.txt \
+  --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt \
+  --dictionary=/checkpoint/wav2letter/transfer_learning/transformer_lms/dicts/cv.dict \
+  --train_report_updates=300 \
+  --train_save_updates=30000 \
+  --data_batch_size=1 
+
+I0409 16:44:13.460705 2690530 Trainer.cpp:310] [epoch=1 batch=600/1615] | Run Time: 00:03:23 | Batch Time(ms): 677.65 | Sample Time(ms): 0.07 | Forward Time(ms): 269.97 | Criterion Forward Time(ms): 9.44 | Backward Time(ms): 388.48 | Optimization Time(ms): 19.06 | Throughput (Token/Sec): 4531.84 | Learning Rate 0.299500 | Scale factor 1.000000 | Loss: 7.00 PPL: 1094.35 | Valid Loss: 6.66 Valid PPL: 783.12
+
+make -j40 && rm -rf /tmp/lm/ && \
+/private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
+  --logtostderr=true \
+  --distributed_enable=false \
+  --exp_rundir=/tmp/lm \
+  --exp_model_name=lm \
+  --data_dir= \
+  --data_sample_break_mode=none \
+  --data_tokens_per_sample=3072 \
+  --train_max_grad_norm=0.1 \
+  --train_warmup_init_lr=1e-7 \
+  --loss_type=adsm \
+  --loss_adsm_input_size=1024 \
+  --loss_adsm_cutoffs=10000,50000 \
+  --train_arch_file=/checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae1024_sinpos_l16_h8_fc4096_dp0-1_ldp0_amp.so \
+  --train_optimizer=nag \
+  --train_lr=1 \
+  --train_warmup_updates=2000 \
+  --train_lr_schedule=invsqrt \
+  --train_momentum=0.9 \
+  --train_weight_decay=0 \
+  --data_train=/checkpoint/wav2letter/data/commonvoice/text/train.txt \
+  --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt \
+  --dictionary=/checkpoint/wav2letter/transfer_learning/transformer_lms/dicts/cv.dict \
+  --train_report_updates=300 \
+  --train_save_updates=30000 \
+  --data_batch_size=1  \
+  --fl_amp_use_mixed_precision=true
+
+
+I0409 17:05:12.250429 2707068 Trainer.cpp:869] saving model checkpoint (epoch=1 batch=600) to: /tmp/lm/lm.bin
+I0409 17:05:35.408254 2707068 Trainer.cpp:310] [epoch=1 batch=600/1615] | Run Time: 00:01:45 | Batch Time(ms): 351.96 | Sample Time(ms): 0.07 | Forward Time(ms): 151.54 | Criterion Forward Time(ms): 9.33 | Backward Time(ms): 178.68 | Optimization Time(ms): 21.58 | Throughput (Token/Sec): 8725.40 | Learning Rate 0.299500 | Scale factor 33966.000000 | Loss: 235591.32 PPL: inf | Valid Loss: 6.66 Valid PPL: 782.57
+
+make -j40 && rm -rf /tmp/lm/ && \
+/private/home/qiantong/fl_org/flashlight_master/build/bin/lm/fl_lm_train \
+  --logtostderr=true \
+  --distributed_enable=false \
+  --exp_rundir=/tmp/lm \
+  --exp_model_name=lm \
+  --data_dir= \
+  --data_sample_break_mode=none \
+  --data_tokens_per_sample=3072 \
+  --train_max_grad_norm=0.1 \
+  --train_warmup_init_lr=1e-7 \
+  --loss_type=adsm \
+  --loss_adsm_input_size=1024 \
+  --loss_adsm_cutoffs=10000,50000 \
+  --train_arch_file=/checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae512_sinpos_l8_h8_fc1024_dp0-3_ldp0.so \
+  --train_optimizer=nag \
+  --train_lr=1 \
+  --train_warmup_updates=2000 \
+  --train_lr_schedule=invsqrt \
+  --train_momentum=0.9 \
+  --train_weight_decay=0 \
+  --data_train=/checkpoint/wav2letter/data/commonvoice/text/train.txt \
+  --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt \
+  --dictionary=/checkpoint/wav2letter/transfer_learning/transformer_lms/dicts/cv.dict \
+  --train_report_updates=300 \
+  --train_save_updates=30000 \
+  --data_batch_size=1  \
+  --fl_amp_use_mixed_precision=true \
+  --fl_optim_mode=O1
+
+
+bin/lm/fl_lm_test \
+  --train_arch_file=/checkpoint/wav2letter/transfer_learning/transformer_lms/arch/adae1024_sinpos_l16_h8_fc4096_dp0-1_ldp0_amp.so \
+  --exp_init_model_path=/checkpoint/qiantong/fl_lm/cc_amp_plugin/lm.bin \
+  --dictionary=/checkpoint/qiantong/fl_lm/cc_dict.txt \
+  --dictionary_max_size=200000 \
+  --data_valid=/checkpoint/wav2letter/data/commonvoice/text/dev.txt
+
+
+
+
+
+
 

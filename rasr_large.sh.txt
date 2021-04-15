@@ -117,6 +117,10 @@ python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /priv
 python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR64x768_DO0.1_LD0.1_CTC_sinpos_newdb2_warmup.cfg --partition=priority,learnfair
 
 
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_newdb_fp32.cfg --partition=priority,learnfair
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_newdb1_fp32.cfg --partition=priority,learnfair
+
+python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train --ngpu 24 --config /private/home/qiantong/fl_org/experiments/rasr_sfx/EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_newdb2.cfg --partition=dev
 
 
 
@@ -126,10 +130,7 @@ python3 /private/home/qiantong/fl_org/experiments/rasr_sfx/run.py --binary /priv
 
 
 
-
-
-
-make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train train --flagsfile=/private/home/qiantong/fl_org/experiments/rasr_sfx/baseline_repaug.cfg --logtostderr=1  --rundir=/tmp/baseline_repaug --enable_distributed
+make -j40 && /usr/mpi/gcc/openmpi-4.0.4rc3/bin/orterun -n 2 /private/home/qiantong/fl_org/flashlight-sfx/build/bin/asr/fl_asr_train train --flagsfile=/private/home/qiantong/fl_org/experiments/rasr_sfx/test_EG_GLU1x2048_S3_TR36x1024_DO0.1_LD0.1_CTC_sinpos_newdb2.cfg --logtostderr=1  --rundir=/tmp/baseline_repaug --enable_distributed --fl_amp_use_mixed_precision
 
 
 

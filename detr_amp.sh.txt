@@ -1,0 +1,24 @@
+mkdir -p ~/data/coco/
+python3 /private/home/qiantong/fl_org/flashlight_master/flashlight/app/objdet/scripts/prepare_coco.py -o ~/data/coco/
+
+
+mkdir -p /tmp/eval/ # This is where we dump arrayfire arrayfire arrays to be evaluated
+make -j40 && ./fl_img_coco_detr train --exp_rundir /tmp \
+--eval_dir /tmp/eval \
+--eval_command "LD_LIBRARY_PATH=/private/home/padentomasello/usr/lib/:$LD_LIBRARY_PATH ~/.conda/envs/coco/bin/python3.8  ~/code/flashlight/flashlight/app/objdet/scripts/eval_coco.py" \
+--data_dir $HOME/data/coco/ \
+--distributed_enable=false \
+--metric_iters=100 \
+--nomodel_pretrained \
+--fl_amp_use_mixed_precision=true \
+--fl_optim_mode=O1
+
+
+make -j40 && ./fl_img_coco_detr train --exp_rundir /tmp \
+--eval_dir /tmp/eval \
+--eval_command "LD_LIBRARY_PATH=/private/home/padentomasello/usr/lib/:$LD_LIBRARY_PATH ~/.conda/envs/coco/bin/python3.8  ~/code/flashlight/flashlight/app/objdet/scripts/eval_coco.py" \
+--data_dir $HOME/data/coco/ \
+--distributed_enable=false \
+--metric_iters=100 \
+--nomodel_pretrained \
+--fl_amp_use_mixed_precision=false
