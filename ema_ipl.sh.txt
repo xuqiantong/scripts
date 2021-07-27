@@ -1,0 +1,681 @@
+python3 /checkpoint/antares/experiments/fl_new_master/scripts/train_new_nccl28.py --dirname=/checkpoint/antares/experiments/fl_new_master/ --binary=/checkpoint/antares/experiments/fl_new_master/fl_slimIPL/build_v2/bin/asr/fl_asr_train --mode=train --config=/checkpoint/antares/experiments/fl_new_master/slimIPL/slimIPL_ls_10h_ctc_letters_st3_slimIPL_16gpu_960h_dp05_dyndp.cfg --ngpu=16 --partition=priority --hours=72 --extra="--slimIPL_start=20000 --slimIPL_unsup_updates=10 --slimIPL_type=fixed-pre-cache --slimIPL_fixed_cache_updates=1000 --slimIPL_fixed_cache_update_prob=0.1 —saug_tmaskt=25 —saug_tmaskn=20"
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema_qt.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_base_qt.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_only_ema_qt.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_only_ema99_qt.cfg --ngpu=32 --partition=learnlab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_base.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_r100.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_r1000.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_c5000.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_c2000.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_c8000.cfg --ngpu=32 --partition=learnlab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema0.8.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema99.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema0.999.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema0.99975.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema_r100.cfg --ngpu=32 --partition=learnlab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_base.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_base_laterpl.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_base_laterpl_ema.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_only_ema.cfg --ngpu=32 --partition=devlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_only_ema99.cfg --ngpu=32 --partition=devlab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_b15_10sup_lv_base.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_b15_10sup_lv_base_ema.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_b15_10sup_lv_only_ema.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_b15_lv_base.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_b15_lv_ema.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_b15_lv_only_ema.cfg --ngpu=32 --partition=learnlab
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_b15_10sup_lv_only_ema999.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_b15_lv_only_ema999.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_b15_10sup_lv_only_ema9999.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_b15_lv_only_ema9999.cfg --ngpu=32 --partition=learnlab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_base.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_base_ema.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_dedup_lv_base.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_dedup_lv_ema.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_dedup_lv_only_ema.cfg --ngpu=32 --partition=learnlab
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10.cfg --ngpu=32 --partition=learnlab
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_dedup_lv_base.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_dedup_lv_base_ema.cfg --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_dedup_lv_only_ema.cfg --ngpu=32 --partition=prioritylab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/debug_ls_10sup_dedup_lv_base.cfg --ngpu=32 --partition=devlab --hours=2
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/debug_ls_10sup_dedup_lv_bsz100.cfg --ngpu=32 --partition=prioritylab --hours=2
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/debug_10sup_dedup_lv_base.cfg --ngpu=32 --partition=prioritylab --hours=24
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_b20_lv_base.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesupno.cfg --ngpu=32 --partition=learnlab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b20_usesupno.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b20_usesupno.cfg --ngpu=32 --partition=learnlab
+
+b20|b10_usesup|ls_10sup_lv_base_laterpl_ema
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_b10_lv_base.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_b10_lv_ema999.cfg --ngpu=32 --partition=learnlab
+
+
+--------- 1h -------
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_1sup_b20_lv_base.cfg --ngpu=32 --partition=devlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_1sup_b20_lv_ema999.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_1sup_lv_only_ema9999_b20_usesupno.cfg --ngpu=32 --partition=learnlab
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_1sup_b10_lv_base.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_1sup_b10_lv_ema999.cfg --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=train --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_1sup_lv_only_ema9999_b10_usesupno.cfg --ngpu=32 --partition=learnlab
+
+
+
+-------- continue
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema0.8.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/10sup_lv_ema0.8 --ngpu=32 --partition=learnlab --extra="--batching_max_duration=150000"
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema_qt.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/10sup_lv_ema_qt --ngpu=32 --partition=learnlab --extra="--batching_max_duration=150000"
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_only_ema_qt.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/10sup_lv_only_ema_qt --ngpu=32 --partition=learnlab --extra="--batching_max_duration=150000"
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_base.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/10sup_lv_base_qt --ngpu=32 --partition=devlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_lv_ema.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/10sup_lv_ema_qt --ngpu=32 --partition=learnlab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_base.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base --ngpu=32 --partition=prioritylab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_base_laterpl.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base_laterpl --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_base_laterpl_ema.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base_laterpl_ema --ngpu=32 --partition=prioritylab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_b15_lv_base.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/10sup_b15_lv_base_copy --ngpu=32 --partition=devlab --local --extra="--rndv_filepath=/tmp --enable_distributed=false"
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_dedup_lv_base.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/10sup_dedup_lv_base --ngpu=32 --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/10sup_dedup_lv_ema.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/10sup_dedup_lv_ema --ngpu=32 --partition=prioritylab
+
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema --ngpu=32 --partition=devlab --extra="--train=/checkpoint/antares/experiments/fl_new_master/lists/ls_10h.lst --slimIPL_use_sup=true"
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_base.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_base --ngpu=32 --partition=prioritylab --extra="--train=/checkpoint/antares/experiments/fl_new_master/lists/ls_10h.lst --slimIPL_use_sup=true --slimIPL_unsup_updates=10"
+
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_base.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_base --ngpu=32 --partition=devlab --local --extra="--enable_distributed=false"
+python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_only_ema.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema --ngpu=32 --partition=devlab --local --extra="--enable_distributed=false"
+
+
+---- test
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base_laterpl_ema/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst --show
+
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b20_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b20_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b20_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b20_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b20_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b20_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b20_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b20_usesupno/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b10_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b10_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b10_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b10_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b10_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b10_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b10_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b10_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+CUDA_VISIBLE_DEVICES=1 /private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_b10_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+CUDA_VISIBLE_DEVICES=1 /private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_b10_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+CUDA_VISIBLE_DEVICES=1 /private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_b10_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+CUDA_VISIBLE_DEVICES=1 /private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_b10_lv_base/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+CUDA_VISIBLE_DEVICES=0 /private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_b10_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+CUDA_VISIBLE_DEVICES=0 /private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_b10_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+CUDA_VISIBLE_DEVICES=0 /private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_b10_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+CUDA_VISIBLE_DEVICES=0 /private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_b10_lv_ema999/001_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_lv_only_ema9999_b10_usesupno/002_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_lv_only_ema9999_b10_usesupno/002_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/dev-other.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_lv_only_ema9999_b10_usesupno/002_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-clean.lst
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_1sup_lv_only_ema9999_b10_usesupno/002_model_dev-other.bin --logtostderr --emission_dir='' --arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so --test=/checkpoint/wav2letter/data/librispeech/lists/test-other.lst
+
+
+---- decode
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base_laterpl_ema/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_10sup_lv_base_laterpl_ema \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+--uselexicon=true \
+--lexicon=<...>/lexicon.txt \
+
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_10sup_lv_base_laterpl_ema
+
+--------------------------------------
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_base/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_b20_lv_base \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_b20_lv_ema  \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema_b10_usesup  \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema9999_b10_usesup  \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_b20_lv_ema999  \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema9999_b10_usesupno  \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_b20_lv_ema9  \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b20_usesupno/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema_b20_usesupno  \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/sweep.py \
+--binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b20_usesupno/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-other.lst \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema9999_b20_usesupno  \
+--n=120 \
+--partition=learnlab \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_b20_lv_base
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_b20_lv_ema
+ 
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema_b10_usesup
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema9999_b10_usesup
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_b20_lv_ema999
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_b20_lv_ema9
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema9999_b10_usesupno
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema_b20_usesupno
+
+python3 /private/home/qiantong/wav2letter_experiments/wav2letter-dev/decoder_sweep/collect.py \
+--logdir=/checkpoint/qiantong/decoder_sweep \
+--prefix=ls_dedup_10sup_lv_only_ema9999_b20_usesupno
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_base/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-other.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.1 --wordscore=-1.02
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_base/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.1 --wordscore=-1.02
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_base/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.1 --wordscore=-1.02
+
+-- 
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-other.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2 --wordscore=-0.04
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2 --wordscore=-0.04
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2 --wordscore=-0.04
+
+-- 
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-other.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=1.24 --wordscore=-1.55
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=1.24 --wordscore=-1.55
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema_b10_usesup/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=1.24 --wordscore=-1.55
+
+-- 
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-other.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=1.27 --wordscore=-1.43
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=1.27 --wordscore=-1.43
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesup/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=1.27 --wordscore=-1.43
+
+--
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-other.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.43 --wordscore=-2
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.43 --wordscore=-2
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema999/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.43 --wordscore=-2
+
+--
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-other.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.64 --wordscore=-1.6
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.64 --wordscore=-1.6
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_b20_lv_ema9/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.64 --wordscore=-1.6
+
+--
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-other.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.22 --wordscore=-0.1
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=dev-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.22 --wordscore=-0.1
+
+/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_decode \
+--arch=/checkpoint/antares/experiments/fl_new_master/plugin/ctc_letters_st3_ls100h_slimIPL_dp05_dyndp.so \
+--am=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_only_ema9999_b10_usesupno/001_model_dev-other.bin \
+--lm=/checkpoint/wav2letter/transfer_learning/aws/icassp_paper/lms/lm_librispeech_kenlm_word_4g_200kvocab.bin \
+--decodertype=wrd \
+--datadir=/checkpoint/wav2letter/data/librispeech/lists \
+--test=test-clean.lst \
+--beamsize=3000 --beamthreshold=100 --beamsizetoken=15 \
+--nthread_decoder=15 --nthread_decoder_am_forward=2 \
+--emission_dir='' \
+--lmweight=2.22 --wordscore=-0.1
+
+
+----- to tatiana
+
+
+make -j40 && python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_dedup_10sup_lv_base.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_dedup_10sup_lv_base --ngpu=32 --partition=prioritylab --local --extra="--enable_distributed=false --batching_max_duration=40000"
+make -j40 && python3 /private/home/qiantong/fl_org/experiments/ema_ipl/run.py --dirname=/checkpoint/qiantong/fl_experiments --binary=/private/home/qiantong/fl_org/flashlight-slimipl/build/bin/asr/fl_asr_train --mode=continue --config=/private/home/qiantong/fl_org/experiments/ema_ipl/ls_10sup_lv_base_laterpl_ema.cfg --model_path=/checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base_laterpl_ema --ngpu=32 --partition=prioritylab --local --extra="--enable_distributed=false --batching_max_duration=100000"
+
+
+
+fs3cmd ls s3://dl.fbaipublicfiles.com/wav2letter/antares/ema_ipl
+
+fs3cmd sync -p --multipart-chunk-size-mb=100 /checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base s3://dl.fbaipublicfiles.com/wav2letter/antares/ema_ipl/
+fs3cmd sync -p --multipart-chunk-size-mb=100 /checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base_laterpl s3://dl.fbaipublicfiles.com/wav2letter/antares/ema_ipl/
+fs3cmd sync -p --multipart-chunk-size-mb=100 /checkpoint/qiantong/fl_experiments/ema_ipl/ls_10sup_lv_base_laterpl_ema s3://dl.fbaipublicfiles.com/wav2letter/antares/ema_ipl/
+
+fs3cmd sync -p --multipart-chunk-size-mb=100 /private/home/antares/.fairusers_aws/credentials s3://dl.fbaipublicfiles.com/wav2letter/antares/ema_ipl/credentials
+
+
+
+
+/private/home/qiantong/fl_org/experiments/sinkhorn
+- ksink_tr36_w0.cfg
+- ksink_tr36_w0_otlhistsil.cfg
+- ksink_tr36_w0_otlhistsil_ipl.cfg

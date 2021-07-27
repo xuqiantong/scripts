@@ -82,6 +82,12 @@ module load intel/mkl/2020.3.279
 module load kenlm/010421/gcc.9.3.0
 
 
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=~/fl_org/usr -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake -DFL_BACKEND=CUDA -DFL_BUILD_ALL_APPS=ON
+
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=~/fl_org/usr -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake -DFL_BACKEND=CUDA -DFL_BUILD_APP_ASR=ON
+
+cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=~/fl_org/usr -DArrayFire_DIR=/checkpoint/jacobkahn/usr/share/ArrayFire/cmake -DFL_BACKEND=CUDA -DFL_BUILD_APP_IMGCLASS=ON
+
 
 ./examples/simple_streaming_asr_example -input_files_base_path ~/tmp/inf/data_vi/ -input_audio_file 0000000098.wav
 

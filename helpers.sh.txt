@@ -67,7 +67,9 @@ sudo find . -name "*" -delete
 
 find . -name "*.pdf" -print0 | xargs -0 rm
 
+find . -name "*.bin" -print0 | xargs -0 rm
 
+find . -name '*wer' -print0 | xargs head
 
 ######### line operation in batch #########
 
@@ -178,14 +180,14 @@ module load openmpi/3.0.0/gcc.6.3.0
 
 while :; do clear; date; squeue -o "%.20i %.9P %148j %.8u %.2t %.10M %.6D %R" -u $USER | awk -v ll=60 'NR < ll {print} END {if (NR > ll) {print "... and", NR - ll, "more"}}'; read -p "Press enter to continue"; done
 
-squeue -o "%.10i %.9P %75j %.8u %.2t %.10M %.6D %R" -u qiantong
+squeue -o "%.18i %.9P %75j %.8u %.2t %.10M %.6D %R" -u qiantong
 
 conda activate pt
 
 sudo sysctl -w kernel.core_pattern="/private/home/$USER/cores/core_%e.%p"
 ulimit -c unlimited
 
-sbatch --gres=gpu:volta:8 --wrap "echo 'hello' && sleep 259200" --constraint volta32gb --time 4200 --exclusive --partition priority --comment debug --mem 450G
+sbatch --gres=gpu:volta:8 --wrap "echo 'hello' && sleep 259200" --constraint volta32gb --time 4200 --exclusive --partition devlab --comment debug --mem 450G
 
 
 
@@ -218,3 +220,8 @@ awk '{s = ""; for (i=4; i<= NF; i++) s= s $i; print s}'
 du -hs * | sort -hr
 
 find . -regex '.*\.\(cpp\|hpp\|cu\|cuh\|c\|h\)' -exec clang-format-8 -style=file -assume-filename=.clang-format -i {} \;
+
+
+
+
+

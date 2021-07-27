@@ -1,0 +1,133 @@
+/checkpoint/vineelkpratap/wav2letter_experiments/sink1/baseline_new
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/sinkhorn/baseline.cfg --partition=devlab
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/sinkhorn/baseline_960.cfg --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/sinkhorn/baseline_tds.cfg --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/sinkhorn/baseline_tds_k7.cfg --partition=devlab
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/sinkhorn/tds_k7.cfg --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/sinkhorn/tds_k3.cfg --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/sinkhorn/tds_k3_c1.cfg --partition=prioritylab
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --config /private/home/qiantong/fl_org/experiments/sinkhorn/baseline_tds_222.cfg --partition=prioritylab
+
+
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_baseline_960w.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_baseline_960w_1000.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_baseline_960w_10000.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_baseline_agress1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_baseline_agress2.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tds_k3.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tds_k3_3.4.7.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tds_k3_aggress1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tds_k3_aggress1.5.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tds_k3_aggress2.cfg
+
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tds_k3_aggress1_saug1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tds_k3_aggress1_saug2.cfg
+
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_baseline.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w0.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w0_otlhistsil.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w0_emb1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w0_sinpos.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w10_emb1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w10.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w100.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w100_saug1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr_w100_emb1.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr24_w0.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr36_w0.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr36_w0_otlhistsil.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr72_w0.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr72_w0_otlhistsil.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr36_w0_h8.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr36_h8.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr36_otlhistsil.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr36_w0_otlhistsil_ipl.cfg
+
+--otl_hist_sil=true
+
+
+
+/private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/wav2letter_experiments/sinkhorn/ksink_tr_w0_otlhistsil/001_model_dev-other.lst.bin --test=train-all.lst --emission_dir= --show > /checkpoint/qiantong/wav2letter_experiments/sinkhorn/ksink_tr_w0_otlhistsil/raw_pl.txt
+
+/private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/wav2letter_experiments/sinkhorn/ksink_tds_k3_aggress1_saug2/001_model_dev-other.lst.bin --test=train-all.lst --emission_dir= --show --lexicon=/private/home/qiantong/fl_org/experiments/sinkhorn/train960+dev-5000w-unk.lex > /checkpoint/qiantong/wav2letter_experiments/sinkhorn/ksink_tds_k3_aggress1_saug2/raw_pl.txt
+
+/private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_test --nthread_decoder_am_forward=2 --am=/checkpoint/qiantong/wav2letter_experiments/sinkhorn/ksink_tds_k3_aggress1_saug2/001_model_dev-other.lst.bin --test=train-all.lst --emission_dir= --show --lexicon=/private/home/qiantong/fl_org/experiments/sinkhorn/train960+dev-5000w-unk.lex > /checkpoint/qiantong/wav2letter_experiments/sinkhorn/ksink_tds_k3_aggress1_saug2/raw_pl.txt
+
+
+
+/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_test --am=/checkpoint/qiantong/wav2letter_experiments/sinkhorn/ksink_tr_w0_otlhistsil/001_model_dev-other.lst.bin --test=dev-other.lst --emission_dir=
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=learnlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tr12_otlhistsil_ipl.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/ksink_tds_k3_aggress1_saug2_ipl.cfg
+
+
+
+
+---- unsup
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 40 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/unsup_baseline.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 40 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/unsup_baseline_histsil.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 40 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/unsup_baseline_silp0.8.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight-sinkhorn/build/bin/asr/fl_asr_train --ngpu 40 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/unsup_sh_silp0.8.cfg
+
+
+
+----- sil
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_baseline.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_tr12.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_tr12_d0.1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_tr12_d0.2.cfg
+
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_baseline.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_baseline_largeRF.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr12.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr12_nols.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr12_saug1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr12_saug2.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr12_w10.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr12_w80.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr12_nols.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr12_w80_nols.cfg
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr36_nols.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr36_w80_nols.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr36_w10_nols.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr36_w10_nols_saug1.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr36_w10_nols_saug2.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=devlab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_tr36_nols_saug1.cfg
+
+
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_ctc_tr12.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_ctc_tr12_oracle.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_ctc_tr12_new.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_ctc_tr12_new_oracle.cfg
+
+
+-- to run
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_asg_baseline_largeRF_oracle.cfg
+python3 /private/home/qiantong/fl_org/experiments/sinkhorn/run.py --binary /private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train --ngpu 16 --partition=prioritylab --config /private/home/qiantong/fl_org/experiments/sinkhorn/sil_baseline_largeRF.cfg
+
+
+
+/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_train train --flagsfile=/private/home/qiantong/fl_org/experiments/sinkhorn/sil_baseline_asg.cfg --logtostderr --rundir=/tmp/asg_test
+
+/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_test --am=/checkpoint/vineelkpratap/wav2letter_experiments/sil_ctc/baseline_asg/001_model_dev-other.lst.sil.bin --test=dev-other.lst.sil --emission_dir= --show
+/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_test --am=/checkpoint/vineelkpratap/wav2letter_experiments/sil_ctc/baseline_asg/001_model_dev-other.lst.sil.bin --test=train-clean-100.lst.sil --emission_dir= --show
+/private/home/qiantong/fl_org/flashlight_master/build/bin/asr/fl_asr_test --am=/checkpoint/vineelkpratap/wav2letter_experiments/sil_ctc/baseline_asg/001_model_dev-other.lst.sil.bin --test=train-clean-100.lst.sil --emission_dir= --show --otl_tgt_mu=2.775 --otl_tgt_std=0.03 --uselexicon=false
+

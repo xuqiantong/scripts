@@ -1,0 +1,112 @@
+make -j40 && bin/benchmark --log_verbose
+
+----- ViTBase -----
+Throughput: 55.59
+
+Batch Time(ms): 1151.26
+Model Forward Time(ms): 392.68
+Criterion Forward Time(ms): 0.12
+Backward Time(ms): 752.61
+Optimization Time(ms): 5.79Memory Manager Stats
+Type: CachingMemoryManager
+Device: 1, Capacity: 15.89 GiB, Allocated: 10.83 GiB, Cached: 10.14 GiB
+Total native calls: 166(mallocs), 0(frees)
+
+----- ResNet34 -----
+Throughput: 410.87
+
+Batch Time(ms): 623.07
+Model Forward Time(ms): 171.08
+Criterion Forward Time(ms): 0.39
+Backward Time(ms): 448.11
+Optimization Time(ms): 3.47Memory Manager Stats
+Type: CachingMemoryManager
+Device: 1, Capacity: 15.89 GiB, Allocated: 14.66 GiB, Cached: 14.36 GiB
+Total native calls: 242(mallocs), 166(frees)
+
+----- ResNet50 -----
+Throughput: 181.43
+
+Batch Time(ms): 507.07
+Model Forward Time(ms): 126.82
+Criterion Forward Time(ms): 0.40
+Backward Time(ms): 374.96
+Optimization Time(ms): 4.86Memory Manager Stats
+Type: CachingMemoryManager
+Device: 1, Capacity: 15.89 GiB, Allocated: 13.89 GiB, Cached: 13.64 GiB
+Total native calls: 422(mallocs), 242(frees)
+
+----- Detr -----
+Throughput: 5.66
+
+Batch Time(ms): 353.43
+Model Forward Time(ms): 76.60
+Criterion Forward Time(ms): 2.24
+Backward Time(ms): 262.45
+Optimization Time(ms): 12.04Memory Manager Stats
+Type: CachingMemoryManager
+Device: 1, Capacity: 15.89 GiB, Allocated: 4.02 GiB, Cached: 3.66 GiB
+
+
+make -j40 && bin/benchmark --distributed_enable=true --distributed_world_rank=0 --distributed_world_size=2 --distributed_rndv_filepath=/tmp --log_verbose
+make -j40 && bin/benchmark --distributed_enable=true --distributed_world_rank=1 --distributed_world_size=2 --distributed_rndv_filepath=/tmp --log_verbose
+
+
+----- ViTBase -----
+Throughput: 110.56
+
+Batch Time(ms): 1157.78
+Model Forward Time(ms): 392.78
+Criterion Forward Time(ms): 0.13
+Backward Time(ms): 758.36
+Optimization Time(ms): 6.46Memory Manager Stats
+Type: CachingMemoryManager
+Device: 0, Capacity: 15.89 GiB, Allocated: 10.83 GiB, Cached: 10.14 GiB
+Total native calls: 166(mallocs), 0(frees)
+
+----- ResNet34 -----
+Throughput: 807.80
+
+Batch Time(ms): 633.82
+Model Forward Time(ms): 175.29
+Criterion Forward Time(ms): 0.38
+Backward Time(ms): 454.34
+Optimization Time(ms): 3.78Memory Manager Stats
+Type: CachingMemoryManager
+Device: 0, Capacity: 15.89 GiB, Allocated: 14.66 GiB, Cached: 14.36 GiB
+Total native calls: 243(mallocs), 166(frees)
+
+----- ResNet50 -----
+Throughput: 354.63
+
+Batch Time(ms): 518.85
+Model Forward Time(ms): 128.35
+Criterion Forward Time(ms): 0.37
+Backward Time(ms): 384.71
+Optimization Time(ms): 5.38Memory Manager Stats
+Type: CachingMemoryManager
+Device: 0, Capacity: 15.89 GiB, Allocated: 13.89 GiB, Cached: 13.64 GiB
+Total native calls: 423(mallocs), 243(frees)
+
+----- Detr -----
+Throughput: 10.89
+
+Batch Time(ms): 367.41
+Model Forward Time(ms): 77.72
+Criterion Forward Time(ms): 3.79
+Backward Time(ms): 272.44
+Optimization Time(ms): 13.34Memory Manager Stats
+Type: CachingMemoryManager
+Device: 0, Capacity: 15.89 GiB, Allocated: 4.02 GiB, Cached: 3.66 GiB
+Total native calls: 635(mallocs), 423(frees)
+
+
+bash /private/home/qiantong/wav2letter_experiments/wav2letter-dev/benchmark/run.sh /private/home/qiantong/fl_org/flashlight_master/build/bin/benchmark /checkpoint/qiantong/fl_experiments/benchmark 
+
+bash /private/home/qiantong/wav2letter_experiments/wav2letter-dev/benchmark/trigger.sh /private/home/qiantong/fl_org/flashlight_master/build/bin/benchmark /checkpoint/qiantong/fl_experiments/benchmark 1
+
+
+
+
+
+
