@@ -1,0 +1,600 @@
+PYTHONPATH=. PREFIX=base_dense HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m --config-dir examples/wav2vec/config/xlsr2/pretraining --config-name wav2vec2_large_librivox_small model.moe_freq=2 model.moe_expert_count=8 optimization.max_update=200 distributed_training.distributed_world_size=8 hydra/launcher=submitit_slurm +run_config=aws_slurm_1 &
+PYTHONPATH=. PREFIX=base_moe HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m --config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws model.moe_freq=2 model.moe_expert_count=8 optimization.max_update=200 distributed_training.distributed_world_size=8 hydra/launcher=submitit_slurm +run_config=aws_slurm_1 &
+
+
+------------------------------ pretrain ------------------------------
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=125000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_dense_new_node2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=125000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=125000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+--- gateweight 
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_gateweight0.05 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.05 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_gateweight0.1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.1 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_gateweight0.5 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.5 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_gateweight1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=1 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_gateweight5 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=5 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_gateweight1_1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+common.seed=41 criterion.moe_gate_loss_wt=1 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_gateweight1_2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+common.seed=43 criterion.moe_gate_loss_wt=1 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+
+
+--- bsz
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_ufreq2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[2] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_ufreq4 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k_ufreq2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 optimization.update_freq=[2] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k_ufreq4 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+-- do
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_do0.05 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.dropout=0.05 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_do0.1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.dropout=0.1 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_do0.2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.dropout=0.2 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k_do0.05 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.dropout=0.05 \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k_do0.1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.dropout=0.1 \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k_do0.2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 +task.use_provisional_aws_cluster=true \
+model.dropout=0.2 \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+---- lr
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_ufreq2_lr2x HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[2] optimization.lr=[0.0009] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k_ufreq2_lr2x HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 optimization.update_freq=[2] optimization.lr=[0.0009] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_ufreq2_lr4x HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[2] optimization.lr=[0.0018] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k_ufreq2_lr4x HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 optimization.update_freq=[2] optimization.lr=[0.0018] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+--- gate + lr + bsz
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_update50k_up4_lr2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=50000 optimization.update_freq=[4] optimization.lr=[0.0009] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_up4_lr2_gateweight0.03 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.03 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_up4_lr2_gateweight0.05 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.05 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_up4_lr2_gateweight0.1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.1 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_up4_lr2_gateweight0.3 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.03 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_up4_lr2_gateweight0.5 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.5 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_up4_lr2_gateweight1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=1 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_update50k_up4_lr2_gateweight5 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=5 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=50000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+PYTHONPATH=. PREFIX=ma_small_dense_node2_up4_lr2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name dense_new_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12655 \
+optimization.max_update=125000 optimization.update_freq=[4] optimization.lr=[0.0009] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_up4_lr2_gateweight0.03 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.03 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=125000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_up4_lr2_gateweight0.3 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=0.3 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=125000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+PYTHONPATH=. PREFIX=ma_small_moe_node2_up4_lr2_gateweight1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/pretraining --config-name moe_config_aws \
+distributed_training.distributed_world_size=16 distributed_training.distributed_port=12654 \
+criterion.moe_gate_loss_wt=1 optimization.lr=[0.0009] \
+model.moe_freq=2 model.moe_expert_count=16 optimization.max_update=125000 optimization.update_freq=[4] +task.use_provisional_aws_cluster=true \
+model.encoder_embed_dim=512 model.encoder_ffn_embed_dim=2048 model.encoder_attention_heads=8 model.encoder_layers=6 \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 &
+
+
+
+------------------------------ ft ------------------------------
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_mt200k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_new_node2/0/checkpoints/checkpoint_1_125000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_mt400k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_new_node2/0/checkpoints/checkpoint_1_125000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+---
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_mt300k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=300000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2/0/checkpoints/checkpoint_1_120000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_mt200k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2/0/checkpoints/checkpoint_1_120000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2/0/checkpoints/checkpoint_1_120000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+---
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_up50k_mt400k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_node2_update50k/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_up50k_mt200k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_node2_update50k/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_update50k_ufreq2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_node2_update50k_ufreq2/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_update50k_ufreq4 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_node2_update50k_ufreq4/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+--- 
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_up50k_mt300k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=300000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_up50k_mt400k HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_gateweight0.05 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_gateweight0.05/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_gateweight0.1_1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_gateweight0.1/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_gateweight0.5_1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_gateweight0.5/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_gateweight1_1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_gateweight1/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_gateweight5_1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_gateweight5/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_ufreq2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_ufreq2/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_ufreq4 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_ufreq4/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_ufreq4_cmf4 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +model.capacity_multiply_factor=4 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_ufreq4/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_ufreq4_cmf8 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +model.capacity_multiply_factor=8 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_ufreq4/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_gateweight1_s41 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_gateweight1_1/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_gateweight1_s43 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_gateweight1_2/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+-- lr
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_update50k_ufreq2_lr2x HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_node2_update50k_ufreq2_lr2x//0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_update50k_ufreq2_lr4x HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_node2_update50k_ufreq2_lr4x//0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_ufreq2_lr2x HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_ufreq2_lr2x/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_ufreq2_lr4x HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_ufreq2_lr4x/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+-- bsz + gate + lr
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_update50k_up4_lr2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_node2_update50k_up4_lr2/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_up4_lr2_gateweight0.03 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_up4_lr2_gateweight0.03/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_up4_lr2_gateweight0.1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_up4_lr2_gateweight0.1/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_up4_lr2_gateweight0.3 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_up4_lr2_gateweight0.3/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_update50k_up4_lr2_gateweight1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_update50k_up4_lr2_gateweight0.1/0/checkpoints/checkpoint_1_50000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+--- 125k
+
+PYTHONPATH=. PREFIX=ft_ma_small_dense_node2_up4_lr2 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=200000 distributed_training.distributed_world_size=16 \
+model.moe_freq=0 +task.use_provisional_aws_cluster=true model.moe_w2v_path=false \
+model.w2v_path=/fsx/qiantong/logs/ma_small_dense_node2_up4_lr2/0/checkpoints/checkpoint_1_125000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_up4_lr2_gateweight0.03 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_up4_lr2_gateweight0.03/0/checkpoints/checkpoint_1_125000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_up4_lr2_gateweight0.3 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_up4_lr2_gateweight0.3/0/checkpoints/checkpoint_1_125000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+PYTHONPATH=. PREFIX=ft_ma_small_moe_node2_up4_lr2_gateweight1 HYDRA_FULL_ERROR=1 nohup python fairseq_cli/hydra_train.py -m \
+--config-dir examples/wav2vec/config/xlsr2/finetuning/asr_cv --config-name russian_moe_aws \
+dataset.max_tokens=400000 distributed_training.distributed_world_size=16 \
+model.moe_freq=2 model.moe_expert_count=16 +task.use_provisional_aws_cluster=true \
+model.w2v_path=/fsx/qiantong/logs/ma_small_moe_node2_up4_lr2_gateweight1/0/checkpoints/checkpoint_1_125000.pt \
+hydra/launcher=submitit_slurm +run_config=aws_slurm_2 distributed_training.distributed_port=$[${RANDOM}%30000+30000]  &
+
+
+
+
+
+
+
+

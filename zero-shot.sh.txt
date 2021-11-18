@@ -1,0 +1,1207 @@
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_22lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='espeak_22lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12367 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/espeak_22lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='espeak_25lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+for f in /checkpoint/qiantong/w2v/zero_shot/espeak*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_18lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='phonetisaurus_18lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12363 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/phonetisaurus_18lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_21lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='phonetisaurus_21lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/phonetisaurus_21lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_37lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='phonetisaurus_37lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/phonetisaurus_37lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_40lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='phonetisaurus_40lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12365 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/phonetisaurus_40lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+for f in /checkpoint/qiantong/w2v/zero_shot/phonetisaurus_*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_18lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='wtf_phonetisaurus_18lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/wtf_phonetisaurus_18lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_21lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='wtf_phonetisaurus_21lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/wtf_phonetisaurus_21lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_37lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='wtf_phonetisaurus_37lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/wtf_phonetisaurus_37lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_40lang_m10 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='wtf_phonetisaurus_40lang_m10' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/wtf_phonetisaurus_40lang_m10 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+for f in /checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_6lang_all \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='wtf_phonetisaurus_6lang_all' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/wtf_phonetisaurus_6lang_all \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_40lang_m100 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='wtf_phonetisaurus_40lang_m100' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/wtf_phonetisaurus_40lang_m100 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+for f in /checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_6lang_all*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+for f in /checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_40lang_m100*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_babel19_all \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='wtf_phonetisaurus_babel19_all' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/wtf_phonetisaurus_babel19_all \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[1e-6],[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_it \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+for f in /checkpoint/qiantong/w2v/zero_shot/wtf_phonetisaurus_babel19_all/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+
+
+
+
+
+
+
+
+
+------ supervised
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_Bengali \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='phonetisaurus_Bengali' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/phonetisaurus_Bengali \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_Bengali \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+for f in /checkpoint/qiantong/w2v/zero_shot/phonetisaurus_Bengali*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_Zulu \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='phonetisaurus_Zulu' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/phonetisaurus_Zulu \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev_Zulu \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+for f in /checkpoint/qiantong/w2v/zero_shot/phonetisaurus_Zulu*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10_it \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='espeak_25lang_m10_it' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10_it \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10_it1 \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='espeak_25lang_m10_it1' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10_it1 \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10_tt \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='espeak_25lang_m10_tt' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12366 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10_tt \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    optimization.lr="[5e-6],[1e-5],[5e-5]" \
+    optimization.max_update=30000 \
+    task.normalize=true \
+    dataset.valid_subset=dev \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+for f in /checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10_it*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+for f in /checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10_tt*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---- word decoding
+
+# espeak
+python examples/speech_recognition/new/infer.py \
+--config-dir examples/speech_recognition/new/conf --config-name infer \
+dataset.gen_subset=dev_tt \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.tt.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_tt.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/tt/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+decoding.lmweight=2 decoding.wordscore=1
+
+CUDA_VISIBLE_DEVICES=0 python examples/speech_recognition/new/infer.py \
+--config-dir examples/speech_recognition/new/conf --config-name infer \
+dataset.gen_subset=dev_tt \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.tt.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_map2_tt.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/tt/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+decoding.lmweight=2 decoding.wordscore=1
+
+CUDA_VISIBLE_DEVICES=1 python examples/speech_recognition/new/infer.py \
+--config-dir examples/speech_recognition/new/conf --config-name infer \
+dataset.gen_subset=dev_tt \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.tt.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_map_tt.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/tt/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+decoding.lmweight=2 decoding.wordscore=1
+
+---
+python examples/speech_recognition/new/infer.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/decode_tt_wrd \
+hydra.launcher.partition=learnlab \
+dataset.gen_subset=dev_tt \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.tt.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_tt.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/tt/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+--config-dir examples/speech_recognition/new/conf --config-name infer
+
+python examples/speech_recognition/new/infer.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/decode_tt_wrd_map \
+hydra.launcher.partition=learnlab \
+dataset.gen_subset=dev_tt \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.tt.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_map_tt.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/tt/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+--config-dir examples/speech_recognition/new/conf --config-name infer
+
+python examples/speech_recognition/new/infer.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/decode_tt_wrd_map2 \
+hydra.launcher.partition=learnlab \
+dataset.gen_subset=dev_tt \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.tt.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_map2_tt.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/tt/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+--config-dir examples/speech_recognition/new/conf --config-name infer
+
+python examples/speech_recognition/new/infer.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/decode_ky_wrd \
+hydra.launcher.partition=learnlab \
+dataset.gen_subset=dev_ky \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.ky.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_ky.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/ky/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+--config-dir examples/speech_recognition/new/conf --config-name infer
+
+--- it
+
+CUDA_VISIBLE_DEVICES=1 python examples/speech_recognition/new/infer.py \
+--config-dir examples/speech_recognition/new/conf --config-name infer \
+dataset.gen_subset=dev_it \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.it.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_it.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/it/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+decoding.lmweight=2 decoding.wordscore=4
+
+python examples/speech_recognition/new/infer.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/decode_it_wrd1 \
+hydra.launcher.partition=learnlab \
+dataset.gen_subset=dev_it \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.it.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_it.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/it/train.wrd.bin \
+decoding.beam=800 decoding.beamsizetoken=20 decoding.beamthreshold=50 \
+--config-dir examples/speech_recognition/new/conf --config-name infer
+
+python examples/speech_recognition/new/infer.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/decode_it_wrd_map \
+hydra.launcher.partition=learnlab \
+dataset.gen_subset=dev_it \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/espeak_25lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/espeak_25lang_m10/dict.it.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/espeak_25lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/espeak_25lang_m10/lexicon_wrd_map_it.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/it/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+--config-dir examples/speech_recognition/new/conf --config-name infer
+
+
+# phonetisaurus
+python examples/speech_recognition/new/infer.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_40lang_m10/2/decode_tt_wrd \
+hydra.launcher.partition=learnlab \
+dataset.gen_subset=dev_tt \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/phonetisaurus_40lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/phonetisaurus_40lang_m10/dict.tt.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_40lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/phonetisaurus_40lang_m10/lexicon_wrd_tt.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/tt/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+--config-dir examples/speech_recognition/new/conf --config-name infer
+
+python examples/speech_recognition/new/infer.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_40lang_m10/2/decode_ky_wrd \
+hydra.launcher.partition=learnlab \
+dataset.gen_subset=dev_ky \
+task=audio_pretraining \
+task.data=/private/home/qiantong/w2v/data/phonetisaurus_40lang_m10 task.labels=phn \
+task.labels_dict=/private/home/qiantong/w2v/data/phonetisaurus_40lang_m10/dict.ky.wrd.txt \
+common_eval.path=/checkpoint/qiantong/w2v/zero_shot/phonetisaurus_40lang_m10/2/checkpoints/checkpoint_best.pt \
+common_eval.post_process=none \
+common_eval.quiet=false \
+decoding.type=kenlm \
+decoding.lexicon=/private/home/qiantong/w2v/data/phonetisaurus_40lang_m10/lexicon_wrd_ky.lst \
+decoding.lmpath=/checkpoint/michaelauli/asr/cv-corpus-6.1-16khz/ky/train.wrd.bin \
+decoding.beam=300 decoding.beamsizetoken=20 decoding.beamthreshold=30 \
+--config-dir examples/speech_recognition/new/conf --config-name infer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------ new MLS final
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final1_en \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_final_en' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12351 \
+    checkpoint.best_checkpoint_metric=uer \
+    checkpoint.no_epoch_checkpoints=False \
+    checkpoint.no_save_optimizer_state=True \
+    checkpoint.keep_last_epochs=100 \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-en \
+    task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-en/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/en/train.phn.bin \
+    +task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.0,0.1,0.2,0.3" \
+    optimization.lr="[1e-4],[1e-5]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final1_it \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_final_it' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12350 \
+    checkpoint.best_checkpoint_metric=uer \
+    checkpoint.no_epoch_checkpoints=False \
+    checkpoint.no_save_optimizer_state=True \
+    checkpoint.keep_last_epochs=100 \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-it \
+    task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-it/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/it/train.phn.bin \
+    +task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.0,0.1,0.2,0.3" \
+    optimization.lr="[1e-4],[1e-5]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final1_de \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_final_de' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12352 \
+    checkpoint.best_checkpoint_metric=uer \
+    checkpoint.no_epoch_checkpoints=False \
+    checkpoint.no_save_optimizer_state=True \
+    checkpoint.keep_last_epochs=100 \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-de \
+    task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-de/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/de/train.phn.bin \
+    +task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.0,0.1,0.2,0.3" \
+    optimization.lr="[1e-4],[1e-5]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final1_es \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_final_es' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12353 \
+    checkpoint.best_checkpoint_metric=uer \
+    checkpoint.no_epoch_checkpoints=False \
+    checkpoint.no_save_optimizer_state=True \
+    checkpoint.keep_last_epochs=100 \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-es \
+    task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-es/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/es/train.phn.bin \
+    +task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.0,0.1,0.2,0.3" \
+    optimization.lr="[1e-4],[1e-5]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final1_fr \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_final_fr' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12354 \
+    checkpoint.best_checkpoint_metric=uer \
+    checkpoint.no_epoch_checkpoints=False \
+    checkpoint.no_save_optimizer_state=True \
+    checkpoint.keep_last_epochs=100 \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-fr \
+    task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-fr/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/fr/train.phn.bin \
+    +task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.0,0.1,0.2,0.3" \
+    optimization.lr="[1e-4],[1e-5]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final1_nl \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_final_nl' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12355 \
+    checkpoint.best_checkpoint_metric=uer \
+    checkpoint.no_epoch_checkpoints=False \
+    checkpoint.no_save_optimizer_state=True \
+    checkpoint.keep_last_epochs=100 \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl \
+    task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/nl/train.phn.bin \
+    +task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.0,0.1,0.2,0.3" \
+    optimization.lr="[1e-4],[1e-5]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final1_pt \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_final_pt' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12356 \
+    checkpoint.best_checkpoint_metric=uer \
+    checkpoint.no_epoch_checkpoints=False \
+    checkpoint.no_save_optimizer_state=True \
+    checkpoint.keep_last_epochs=100 \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-pt \
+    task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-pt/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/pt/train.phn.bin \
+    +task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.0,0.1,0.2,0.3" \
+    optimization.lr="[1e-4],[1e-5]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+for f in /checkpoint/qiantong/w2v/zero_shot/newmls_final1_pt*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+for f in /checkpoint/qiantong/w2v/zero_shot/newmls_final1_nl*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+for f in /checkpoint/qiantong/w2v/zero_shot/newmls_final1_fr*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+for f in /checkpoint/qiantong/w2v/zero_shot/newmls_final1_it*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_map_joint_pt \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_map_joint_pt' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12376 \
+    checkpoint.best_checkpoint_metric=uer \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/map-joint-pt \
+    task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-pt/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/pt/train.phn.bin \
+    +task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.0,0.1,0.2,0.3" \
+    optimization.lr="[1e-5],[1e-4],[1e-3]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+for f in /checkpoint/qiantong/w2v/zero_shot/newmls_map_joint_pt*/*/hydra_train.log
+do
+  echo $f
+  grep "_best_uer" $f | tail -n 2
+done
+
+
+--- test
+
+fairseq-hydra-train \
+    hydra/launcher=submitit_local \
+    hydra.sweep.dir=/tmp/local \
+    distributed_training.distributed_world_size=1 \
+    checkpoint.best_checkpoint_metric=uer \
+	+task=audio_pretraining \
+    +task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-pt \
+    +task.labels=phn \
+    +task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/joint-pt/dict.phn.txt \
+    +task.kenlm_path=/private/home/qiantong/w2v/data/new_mls/10h/pt/train.phn.bin \
+    task.eval_wer=True \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates=10000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=0 \
+    dataset.validate_interval=1 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_1h
+
+    dataset.validate_interval_updates=10000 \
+
+fairseq-hydra-train \
+    --multirun hydra/launcher=submitit_slurm \
+    hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final_pt \
+    hydra.launcher.gpus_per_node=4 hydra.launcher.tasks_per_node=1 \
+    hydra.launcher.mem_gb=400 \
+    hydra.launcher.timeout_min=4320 \
+    hydra.launcher.cpus_per_task=10 \
+    hydra.launcher.name='newmls_final_pt' \
+    hydra.launcher.partition=learnlab \
+    hydra.launcher.constraint=volta32gb \
+    distributed_training.distributed_port=12356 \
+    checkpoint.best_checkpoint_metric=uer \
+    checkpoint.no_epoch_checkpoints=False \
+    checkpoint.no_save_optimizer_state=True \
+    checkpoint.keep_last_epochs=50 \
+    task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-pt \
+    task.labels=phn \
+    model.w2v_path=/checkpoint/qiantong/w2v/xlsr_53_56k.pt \
+    model.freeze_finetune_updates="10000" \
+    +model.final_dropout="0.1,0.2,0.3" \
+    optimization.lr="[1e-4],[1e-5]" \
+    optimization.max_update=25000 \
+    task.normalize=true \
+    dataset.valid_subset=valid \
+    dataset.validate_after_updates=10000 \
+    dataset.validate_interval=10 \
+    --config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/config/finetuning \
+    --config-name vox_10h
+
+
+
+--------------------------- kaldi ------------------------------------
+
+conda activate /private/home/abaevski/.conda/envs/fairseq-20210102
+export KALDI_ROOT=/private/home/abaevski/src/pykaldi/tools/kaldi
+
+
+#  train fst
+python /private/home/qiantong/w2vu/fairseq-py/examples/speech_recognition/kaldi/kaldi_initializer.py kaldi_root=$KALDI_ROOT fst_dir=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/phn_to_phn lm_arpa=/private/home/qiantong/w2v/data/new_mls/10h/nl/train.phn.arpa wav2letter_lexicon=/private/home/qiantong/w2v/data/new_mls/10h/map-joint-nl/lexicon.lst data_dir=/private/home/qiantong/w2v/data/new_mls/10h/nl in_labels=phn
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/speech_recognition/kaldi/kaldi_initializer.py kaldi_root=$KALDI_ROOT fst_dir=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_intersection lm_arpa=/private/home/qiantong/w2v/data/new_mls/10h/nl/train.phn.arpa wav2letter_lexicon=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl/lexicon_intersection.lst data_dir=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl in_labels=phn
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/speech_recognition/kaldi/kaldi_initializer.py kaldi_root=$KALDI_ROOT fst_dir=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_full_map lm_arpa=/private/home/qiantong/w2v/data/new_mls/10h/nl/train.phn.arpa wav2letter_lexicon=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl/lexicon_fullmap.lst data_dir=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl in_labels=phn
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/speech_recognition/kaldi/kaldi_initializer.py kaldi_root=$KALDI_ROOT fst_dir=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_candidate lm_arpa=/private/home/qiantong/w2v/data/new_mls/10h/nl/train.phn.arpa wav2letter_lexicon=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl/lexicon_candidate0.txt data_dir=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl in_labels=phn
+
+
+# viterbi
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/w2vu_generate.py \
+--config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/config/generate --config-name viterbi \
+fairseq.common.user_dir=/private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised \
+fairseq.task.data=/private/home/qiantong/w2v/data/new_mls/10h/joint-nl \
++fairseq.task.labels_dict=/private/home/qiantong/w2v/data/new_mls/10h/nl/dict.phn.txt \
+fairseq.common_eval.path=/checkpoint/qiantong/w2v/zero_shot/newmls_final_nl/4/checkpoints/checkpoint_best.pt \
+fairseq.common_eval.quiet=false \
+fairseq.dataset.gen_subset=valid2 results_path=/tmp/nl
+
+
+# alexei
+
+lg=SW python fairseq_cli/unsup_generate.py --config-dir /private/home/abaevski/fairseq-py-dev/configs/unsup/generate --config-name kenlm_phones_kaldi_multi viterbi_transcript='' kaldi_decoder_config.num_threads=16 kaldi_decoder_config.acoustic_scale=1.3007399891489082 blank_temp=2.9305894620222936 fairseq.dataset.gen_subset=valid kaldi_decoder_config.output_dict=/checkpoint/michaelauli/aconneau/unsupasr/data/lm/SW/filtered/fst/phnc_to_phnc_sil_04/kaldi_dict.lm.phones.filtered.04.txt kaldi_decoder_config.hlg_graph_path=/checkpoint/michaelauli/aconneau/unsupasr/data/lm/SW/filtered/fst/phnc_to_phnc_sil_04/HLG.phnc.lm.phones.filtered.04.fst
+
+
+# decode
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/w2vu_generate.py \
+--config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/config/generate --config-name kenlm_phones_kaldi_multi \
+kaldi_decoder_config.num_threads=16 kaldi_decoder_config.acoustic_scale=1.3007399891489082 results_path=/tmp/nl \
+fairseq.dataset.gen_subset=valid2 \
+kaldi_decoder_config.output_dict=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_full_map/kaldi_dict.train.phn.txt \
+kaldi_decoder_config.hlg_graph_path=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_full_map/HLG.phn.train.phn.fst
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/w2vu_generate.py \
+--config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/config/generate --config-name kenlm_phones_kaldi_multi \
+kaldi_decoder_config.num_threads=16 kaldi_decoder_config.acoustic_scale=1.3007399891489082 results_path=/tmp/nl \
+fairseq.dataset.gen_subset=valid2 \
+kaldi_decoder_config.output_dict=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_candidate/kaldi_dict.train.phn.txt \
+kaldi_decoder_config.hlg_graph_path=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_candidate/HLG.phn.train.phn.fst
+
+# sweep
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/w2vu_generate.py \
+hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final_nl/4/kd_decode \
+--config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/config/generate --config-name kenlm_phones_kaldi_multi --cfg hydra
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/w2vu_generate.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final_nl/4/kd_decode_intersection \ 
+--config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/config/generate --config-name kenlm_phones_kaldi_multi
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/w2vu_generate.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final_nl/4/kd_decode_map \
+kaldi_decoder_config.output_dict=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_full_map/kaldi_dict.train.phn.txt \
+kaldi_decoder_config.hlg_graph_path=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_full_map/HLG.phn.train.phn.fst \
+--config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/config/generate --config-name kenlm_phones_kaldi_multi
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/w2vu_generate.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final_nl/4/kd_decode_map1 \
+kaldi_decoder_config.output_dict=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_full_map/kaldi_dict.train.phn.txt \
+kaldi_decoder_config.hlg_graph_path=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_full_map/HLG.phn.train.phn.fst \
+--config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/config/generate --config-name kenlm_phones_kaldi_multi
+
+python /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/w2vu_generate.py \
+--multirun hydra/launcher=submitit_slurm hydra/sweeper=ax +run_config=fb_slurm_1 is_ax=true \
+hydra.sweep.dir=/checkpoint/qiantong/w2v/zero_shot/newmls_final_nl/4/kd_decode_candidate \
+kaldi_decoder_config.output_dict=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_candidate/kaldi_dict.train.phn.txt \
+kaldi_decoder_config.hlg_graph_path=/private/home/qiantong/w2v/data/new_mls/10h/nl/fst/lexicon_candidate/HLG.phn.train.phn.fst \
+--config-dir /private/home/qiantong/w2vu/fairseq-py/examples/wav2vec/unsupervised/config/generate --config-name kenlm_phones_kaldi_multi
+
+
+
+780G    newmls_final1_es
+739G    newmls_final1_pt
+684G    newmls_final1_de
+678G    newmls_final1_nl
+600G    newmls_final1_fr
+591G    newmls_final1_it
+360G    mls_joint_26_m10_nopt
+
+
+for i in 1 3  5 6 4 7
+do
+    rm -rf $i/checkpoints
+done
+
+
+WBA4J1C53JBG79389
+

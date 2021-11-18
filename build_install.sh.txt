@@ -124,10 +124,32 @@ manifold get --parallel -j 10 fair_speech_models/tree/utils/manifoldfs /tmp/mani
 chmod +x /tmp/manifoldfs;
 
 
+source /private/home/qiantong/w2vu/init.sh
+
+
+
+sed '1d' train.tsv | awk '{s+=$2}END{print s/(16000*3600)}'
 
 
 
 
+# build kenlm
+# /path/to/kenlm
+
+# build flashlight python bindings
+cd /data/home/qiantong/flashlight/bindings/python
+rm -rf build/* flashlight.egg-info
+
+KENLM_ROOT=/path/to/kenlm USE_CUDA=1 USE_MKL=1 USE_KENLM=1 python3 setup.py install
+pip3 install -e .
 
 
+
+# build flashlight python bindings
+cd /data/home/qiantong/flashlight/bindings/python
+rm -rf build/* flashlight.egg-info
+
+KENLM_ROOT=/data/home/qiantong/kenlm USE_CUDA=1 USE_MKL=0 USE_KENLM=1 python3 setup.py install
+
+pip3 install -e .
 

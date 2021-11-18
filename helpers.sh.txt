@@ -202,6 +202,7 @@ ssh -N -f -L 8888:localhost:8888 devfair
 ## tensorboard
 
 ssh -L 6007:localhost:6007 devfair
+ssh -L 6007:localhost:6007 27f7001a-4501-4171-9305-256f09b4fa38
 
 
 ############## Useful links ############
@@ -220,6 +221,15 @@ awk '{s = ""; for (i=4; i<= NF; i++) s= s $i; print s}'
 du -hs * | sort -hr
 
 find . -regex '.*\.\(cpp\|hpp\|cu\|cuh\|c\|h\)' -exec clang-format-8 -style=file -assume-filename=.clang-format -i {} \;
+
+
+
+
+
+fs3cmd ls s3://dl.fbaipublicfiles.com/wav2letter/rasr_release
+
+aws s3 ls s3://dl.fbaipublicfiles.com/wav2letter/rasr_release
+
 
 
 

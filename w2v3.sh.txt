@@ -1,0 +1,1318 @@
+## pretrain
+
+rsync -chavzP --stats qiantong@27f7001a-4501-4171-9305-256f09b4fa38:/fsx/qiantong/beit/beit /checkpoint/qiantong/beit/cyclical
+rsync -chavzP --stats qiantong@2de53a84-9663-4897-86a4-580b91addcc9:/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9 /checkpoint/qiantong/beit/cyclical
+
+rsync -chavzP --stats qiantong@27f7001a-4501-4171-9305-256f09b4fa38:/fsx/qiantong/beit/finetuning /checkpoint/qiantong/beit/part_ft
+
+
+PREFIX=imagenet_1k_50e_triphase_wu10k WARMUP=10000 sbatch run_pretraining.sh
+PREFIX=imagenet_1k_50e_triphase_wu1k WARMUP=1000 sbatch run_pretraining.sh
+PREFIX=imagenet_1k_50e_triphase_wu3k WARMUP=3000 sbatch run_pretraining.sh
+
+
+/private/home/abaevski/.conda/envs/fairseq-20210102/bin/python run_cyclical.py \
+        --data_path /datasets01/imagenet_full_size/061417 --output_dir /tmp --log_dir /tmp --num_mask_patches 75 \
+        --model beit_base_patch16_224 \
+        --target_layers '[9,10,11]' \
+        --ema_decay_init 0.9 --ema_decay 0.9998 --ema_start_at 10000 \
+        --batch_size 24 --lr 0.1 --warmup_epochs 10 --epochs 10 \
+        --clip_grad 3.0 --drop_path 0.0 --layer_scale_init_value 0.1 \
+        --layer_results 'fc' \
+        --var_w0 0. --var_w1 0. \
+        --aug_level=1 \
+        --imagenet_default_mean_and_std
+
+
+python run_cyclical.py \
+        --data_path /datasets01/imagenet_full_size/061417 --output_dir /tmp --log_dir /tmp --num_mask_patches 75 \
+        --model beit_base_patch16_224 \
+        --target_layers '[9,10,11]' \
+        --ema_decay 0.9998 --ema_start_at 0 \
+        --batch_size 24 --lr 0.1 --warmup_epochs 10 --epochs 10 \
+        --clip_grad 3.0 --drop_path 0.0 --layer_scale_init_value 0.1 \
+        --layer_results 'fc' \
+        --var_w0 0. --var_w1 0. \
+        --imagenet_default_mean_and_std --device='cpu'
+
+
+############################################################ cyclical ############################################################
+
+LR=$lr DECAY=$ema EMA_START=0 LAYERS='[6,7,8,9,10,11]' CHECKPOINT=/private/home/qiantong/w2vu/unilm_fork/beit/pretraining/imagenet_1k_150e/checkpoint-149.pth PREFIX=imagenet_1k_150e_triphase sbatch run_cyclical.sh
+
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu3k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu3k sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu1k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu1k sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu10k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu10k sbatch run_cyclical.sh
+
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu3k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu3k_l2 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu1k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu1k_l2 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu10k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu10k_l2 sbatch run_cyclical.sh
+
+ls imagenet_1k_50e_triphase_wu*k_l2/\[6\,7\,8\,9\,10\,11\]/0.9998/0/1.5e-3/checkpoint-249.pth
+
+for l1 in 0.12 0.07 0.17 0.22 0.27 0.32
+do
+  L1=$l1 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu3k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu3k_l1$l1 sbatch run_cyclical.sh
+done
+
+ls imagenet_1k_50e_triphase_wu3k_l10.*/\[6\,7\,8\,9\,10\,11\]/0.9998/0/1.5e-3/checkpoint-249.pth
+
+
+------------- w2v scratch
+
+for l1 in 0.5 1 2 4 
+do
+  NMASK=120 L1=$l1 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1${l1}_t6_nm120 sbatch --job-name=scratch_l1${l1}_t6_nm120 run_cyclical.sh
+done
+
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l2_t6_nm120 sbatch --job-name=scratch_l2_t6_nm120 run_cyclical.sh
+
+
+ls scratch_wu3k_l10.*/\[6\,7\,8\,9\,10\,11\]/0.9998/0/1.5e-3/checkpoint-299.pth
+
+
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_wu3k_l2 sbatch run_cyclical.sh
+
+ls scratch_wu3k_l2/\[6\,7\,8\,9\,10\,11\]/0.9998/0/1.5e-3/checkpoint-299.pth
+
+
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l2_t6 sbatch --job-name=scratch_l2_t6 run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=scratch_l2_t5 sbatch --job-name=scratch_l2_t5 run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[8,9,10,11]' PREFIX=scratch_l2_t4 sbatch --job-name=scratch_l2_t4 run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l2_t3 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[10,11]' PREFIX=scratch_l2_t2 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[11]' PREFIX=scratch_l2_t1 sbatch run_cyclical.sh
+
+ls scratch_l2_t*/*/0.9998/0/1.5e-3/checkpoint-299.pth
+
+
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=scratch_l1_t5 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[8,9,10,11]' PREFIX=scratch_l1_t4 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[10,11]' PREFIX=scratch_l1_t2 sbatch run_cyclical.sh
+DECAY=0.9998 EMA_START=0 LAYERS='[11]' PREFIX=scratch_l1_t1 sbatch run_cyclical.sh
+
+for nmask in 35 45 55 65 75 85 95
+do
+  NMASK=$nmask DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm$nmask sbatch run_cyclical.sh
+done
+
+ls scratch_l1_t*/*/0.9998/0/1.5e-3/checkpoint-299.pth
+
+for nmask in 100 105 110 115 120 125 130
+do
+  NMASK=$nmask DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm$nmask sbatch run_cyclical.sh
+done
+
+*********** 
+NMASK=120 SEED=43 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm120_s43 sbatch --job-name=scratch_l1_t6_nm120_s43 run_cyclical.sh
+NMASK=120 SEED=41 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm120_s41 sbatch --job-name=scratch_l1_t6_nm120_s41 run_cyclical.sh
+NMASK=120 SEED=43 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_nm120_s43 sbatch --job-name=scratch_l1_t3_nm120_s43 run_cyclical.sh
+NMASK=120 SEED=41 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_nm120_s41 sbatch --job-name=scratch_l1_t3_nm120_s41 run_cyclical.sh
+
+NMASK=120 SEED=43 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm120_s43_nomean sbatch --job-name=scratch_l1_t6_nm120_s43_nomean run_cyclical_nomean.sh
+NMASK=120 SEED=41 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm120_s41_nomean sbatch --job-name=scratch_l1_t6_nm120_s41_nomean run_cyclical_nomean.sh
+NMASK=120 SEED=43 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_nm120_s43_nomean sbatch --job-name=scratch_l1_t3_nm120_s43_nomean run_cyclical_nomean.sh
+NMASK=120 SEED=41 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_nm120_s41_nomean sbatch --job-name=scratch_l1_t3_nm120_s41_nomean run_cyclical_nomean.sh
+
+ls /checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm*/'[6,7,8,9,10,11]'/0.9998/0/1.5e-3/checkpoint-299.pth
+
+
+DROPPATH=0 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_dp0 sbatch --job-name=scratch_l1_t3_dp0 run_cyclical.sh
+DROPPATH=0 LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_dp0_fc sbatch --job-name=scratch_l1_t3_dp0_fc run_cyclical.sh
+LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_fc sbatch --job-name=scratch_l1_t3_fc run_cyclical.sh
+
+
+for var_w in 0.1 0.5 1 5 10 
+do
+  VAR_W0=$var_w DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_var0w$var_w sbatch --job-name=scratch_l1_t3_var0$var_w run_cyclical.sh
+done
+
+for var_w in 0.1 0.5 1 5 10 
+do
+  VAR_W1=$var_w DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_var1w$var_w sbatch --job-name=scratch_l1_t3_var1$var_w run_cyclical.sh
+done
+
+ls /checkpoint/qiantong/beit/cyclical/scratch_l1_t3_var?w*/'[9,10,11]'/0.9998/0/1.5e-3/checkpoint-299.pth
+
+for nmask in 85 95 100 105 110 115 120 125 130
+do
+  NMASK=$nmask DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_nm$nmask sbatch --job-name=scratch_l1_t3_nm$nmask run_cyclical.sh
+done
+
+for nmask in 140 150 160 
+do
+  NMASK=$nmask DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_nm$nmask sbatch --job-name=scratch_l1_t3_nm$nmask run_cyclical.sh
+done
+
+LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[11]' PREFIX=scratch_l1_t1_fc sbatch --job-name=scratch_l1_t1_fc run_cyclical.sh
+LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[10,11]' PREFIX=scratch_l1_t2_fc sbatch --job-name=scratch_l1_t2_fc run_cyclical.sh
+LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[8,9,10,11]' PREFIX=scratch_l1_t4_fc sbatch --job-name=scratch_l1_t4_fc run_cyclical.sh
+LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=scratch_l1_t5_fc sbatch --job-name=scratch_l1_t5_fc run_cyclical.sh
+LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_fc sbatch --job-name=scratch_l1_t6_fc run_cyclical.sh
+LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[5,6,7,8,9,10,11]' PREFIX=scratch_l1_t7_fc sbatch --job-name=scratch_l1_t7_fc run_cyclical.sh
+LAYERRES='fc' DECAY=0.9998 EMA_START=0 LAYERS='[4,5,6,7,8,9,10,11]' PREFIX=scratch_l1_t8_fc sbatch --job-name=scratch_l1_t8_fc run_cyclical.sh
+
+
+ls /checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm*/'[9,10,11]'/0.9998/0/1.5e-3/checkpoint-299.pth
+ls /checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm*/'[9,10,11]'/0.9998/0/1.5e-3/checkpoint-159.pth
+
+ls /checkpoint/qiantong/beit/cyclical/scratch_l1_t?_fc/*/0.9998/0/1.5e-3/checkpoint-299.pth
+
+
+MIN_MPB=4 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_minmpb4 sbatch --job-name=scratch_l1_t3_minmpb4 run_cyclical.sh
+MAX_MPB=64 MIN_MPB=4 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_minmpb4_maxmpb64 sbatch --job-name=scratch_l1_t3_minmpb4_maxmpb64 run_cyclical.sh
+MAX_MPB=16 MIN_MPB=4 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_minmpb4_maxmpb16 sbatch --job-name=scratch_l1_t3_minmpb4_maxmpb16 run_cyclical.sh
+MAX_MPB=4 MIN_MPB=4 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_minmpb4_maxmpb4 sbatch --job-name=scratch_l1_t3_minmpb4_maxmpb4 run_cyclical.sh
+
+/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_minmpb4*/'[9,10,11]'/0.9998/0/1.5e-3
+
+
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[11]' PREFIX=scratch_l1_t1_nm120 sbatch --job-name=scratch_l1_t1_nm120 run_cyclical.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[10,11]' PREFIX=scratch_l1_t2_nm120 sbatch --job-name=scratch_l1_t2_nm120 run_cyclical.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[8,9,10,11]' PREFIX=scratch_l1_t4_nm120 sbatch --job-name=scratch_l1_t4_nm120 run_cyclical.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=scratch_l1_t5_nm120 sbatch --job-name=scratch_l1_t5_nm120 run_cyclical.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[5,6,7,8,9,10,11]' PREFIX=scratch_l1_t7_nm120 sbatch --job-name=scratch_l1_t7_nm120 run_cyclical.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[4,5,6,7,8,9,10,11]' PREFIX=scratch_l1_t8_nm120 sbatch --job-name=scratch_l1_t8_nm120 run_cyclical.sh
+
+for augl in 0 1 2 3 4
+do
+  AUGLEVEL=${augl} NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm120_augl$augl sbatch --job-name=scratch_l1_t6_nm120_augl$augl run_cyclical.sh
+done
+
+
+L1=1 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l11_t6_nm120_p1 sbatch --job-name=scratch_l11_t6_nm120_p1 run_cyclical.sh
+L1=2 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1 sbatch --job-name=scratch_l12_t6_nm120_p1 run_cyclical.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l2_t6_nm120_p1 sbatch --job-name=scratch_l2_t6_nm120_p1 run_cyclical.sh
+
+WARMUP=30 LR=2e-3 L1=2 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_wu30_lr2e3 sbatch --job-name=scratch_l12_t6_nm120_p1_wu30_lr2e3 run_cyclical.sh
+LR=2e-3 L1=2 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_wu30_lr2e3_tri sbatch --job-name=scratch_l12_t6_nm120_p1_wu30_lr2e3_tri run_cyclical_tri.sh
+LR=1e-3 L1=2 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_wu30_lr1e3_tri sbatch --job-name=scratch_l12_t6_nm120_p1_wu30_lr1e3_tri run_cyclical_tri.sh
+
+------------ joint
+
+python run_cyclical_joint.py \
+    --data_path /datasets01/imagenet_full_size/061417 --output_dir /tmp/test_qt --log_dir /tmp/test_qt --num_mask_patches 75 \
+    --model beit_base_joint_patch16_224 \
+    --discrete_vae_weight_path /private/home/abaevski/data/dall_e --vae_loss_weight 1.0 --vae_layer -2 \
+    --target_layers '[6,7,8,9,10,11]' \
+    --ema_decay 0.9998 --ema_start_at 0 \
+    --batch_size 24 --lr 1.5e-3 --warmup_epochs 10 --epochs 100 \
+    --clip_grad 3.0 --drop_path 0.1 --layer_scale_init_value 0.1 \
+    --imagenet_default_mean_and_std
+
+
+DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=test sbatch run_cyclical_joint.sh
+
+for weight in 0.001 0.01 0.05 0.1 0.5 1 2 10 
+do
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=base_vaew$weight sbatch run_cyclical_joint.sh
+done
+
+for weight in 0.001 0.01 0.05 0.1 0.5 1 2 10 
+do
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=base_e200_vaew$weight sbatch run_cyclical_joint.sh
+done
+
+for lr in 3e-4 7.5e-4 1.5e-3 3e-3 7.5e-3
+do
+  LR=$lr DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=base_e200_lr$lr sbatch run_cyclical_joint.sh
+done
+
+ls /checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew*/*/75/0.9998/0/1.5e-3/checkpoint-199.pth
+
+ls /checkpoint/qiantong/beit/cyclical_joint/base_e200_lr*/1.0/75/0.9998/0/*/checkpoint-199.pth
+
+
+for weight in 100
+do
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[11]' PREFIX=base_t1_e200_mix$weight sbatch --job-name=base_t1_e200_mix$weight run_cyclical_joint.sh
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[10,11]' PREFIX=base_t2_e200_mix$weight sbatch --job-name=base_t2_e200_mix$weight run_cyclical_joint.sh
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=base_t3_e200_mix$weight sbatch --job-name=base_t3_e200_mix$weight run_cyclical_joint.sh
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[8,9,10,11]' PREFIX=base_t4_e200_mix$weight sbatch --job-name=base_t4_e200_mix$weight run_cyclical_joint.sh
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=base_t5_e200_mix$weight sbatch --job-name=base_t5_e200_mix$weight run_cyclical_joint.sh
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=base_t6_e200_mix$weight sbatch --job-name=base_t6_e200_mix$weight run_cyclical_joint.sh
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[5,6,7,8,9,10,11]' PREFIX=base_t7_e200_mix$weight sbatch --job-name=base_t7_e200_mix$weight run_cyclical_joint.sh
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[4,5,6,7,8,9,10,11]' PREFIX=base_t8_e200_mix$weight sbatch --job-name=base_t8_e200_mix$weight run_cyclical_joint.sh
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[3,4,5,6,7,8,9,10,11]' PREFIX=base_t9_e200_mix$weight sbatch --job-name=base_t9_e200_mix$weight run_cyclical_joint.sh
+done
+
+ls /checkpoint/qiantong/beit/cyclical_joint/base_t?_e200_mix100/100/75/0.9998/0/1.5e-3/checkpoint-199.pth
+
+
+for weight in 10 50 100 150 200 
+do
+  VAE_W=$weight DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=base_t3_e200_mix$weight sbatch --job-name=base_t3_e200_mix$weight run_cyclical_joint.sh
+done
+
+ls /checkpoint/qiantong/beit/cyclical_joint/base_t3_e200_mix*/*/75/0.9998/0/1.5e-3/checkpoint-199.pth
+
+
+for layer in -1 -2 -3 -4 -5 -6 -7 -8 -9
+do
+  VAE_L=$layer VAE_W=100 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=base_t3_e200_mix100_beitl$layer sbatch --job-name=base_t3_e200_mix100_beitl$layer run_cyclical_joint.sh
+done
+
+
+
+
+
+---------------- aws
+
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_t6_nm120_bsz64 sbatch --job-name=scratch_bsz4096_t6_nm120_bsz64 run_cyclical_aws.sh
+
+
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_t6_nm120 sbatch --job-name=scratch_bsz4096_t6_nm120 run_cyclical_aws.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[11]' PREFIX=scratch_bsz4096_t1_nm120 sbatch --job-name=scratch_bsz4096_t1_nm120 run_cyclical_aws.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[10,11]' PREFIX=scratch_bsz4096_t2_nm120 sbatch --job-name=scratch_bsz4096_t2_nm120 run_cyclical_aws.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_bsz4096_t3_nm120 sbatch --job-name=scratch_bsz4096_t3_nm120 run_cyclical_aws.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[8,9,10,11]' PREFIX=scratch_bsz4096_t4_nm120 sbatch --job-name=scratch_bsz4096_t4_nm120 run_cyclical_aws.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=scratch_bsz4096_t5_nm120 sbatch --job-name=scratch_bsz4096_t5_nm120 run_cyclical_aws.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[5,6,7,8,9,10,11]' PREFIX=scratch_bsz4096_t7_nm120 sbatch --job-name=scratch_bsz4096_t7_nm120 run_cyclical_aws.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[4,5,6,7,8,9,10,11]' PREFIX=scratch_bsz4096_t8_nm120 sbatch --job-name=scratch_bsz4096_t8_nm120 run_cyclical_aws.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[3,4,5,6,7,8,9,10,11]' PREFIX=scratch_bsz4096_t9_nm120 sbatch --job-name=scratch_bsz4096_t9_nm120 run_cyclical_aws.sh
+
+LR=3e-3 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_t6_nm120_lr3e3 sbatch --job-name=scratch_bsz4096_t6_nm120_lr3e3 run_cyclical_aws.sh
+LR=5e-3 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_t6_nm120_lr5e3 sbatch --job-name=scratch_bsz4096_t6_nm120_lr5e3 run_cyclical_aws.sh
+
+CHECKPOINT=/fsx/qiantong/beit/scratch_bsz4096_t6_nm120/checkpoint-299.pth PREFIX=scratch_bsz4096_t6_nm120 sbatch --job-name=ft_scratch_bsz4096_t6_nm120 run_finetuning_aws.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_bsz4096_t6_nm120/checkpoint-299.pth PREFIX=scratch_bsz4096_t6_nm120_bsz64 sbatch --job-name=ft_scratch_bsz4096_t6_nm120_bsz64 run_finetuning_aws.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_bsz4096_t6_nm120/checkpoint-299.pth PREFIX=scratch_bsz4096_t6_nm120 sbatch --job-name=ft_scratch_bsz4096_t6_nm120 run_finetuning_aws_n2.sh
+
+for i in 1 2 3 4 5 7 8 9
+do 
+  CHECKPOINT=/fsx/qiantong/beit/scratch_bsz4096_t${i}_nm120/checkpoint-299.pth PREFIX=scratch_bsz4096_t${i}_nm120 sbatch --job-name=ft_scratch_bsz4096_t${i}_nm120 run_finetuning_aws_n2.sh
+done
+
+
+EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_bsz4096_e800_t3_nm120 sbatch --job-name=scratch_e800_bsz4096_t3_nm120 run_cyclical_aws.sh
+LR=3e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3 sbatch --job-name=scratch_bsz4096_e800_t3_nm120_lr3e3 run_cyclical_aws.sh
+EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120 sbatch --job-name=scratch_e800_bsz4096_t6_nm120 run_cyclical_aws.sh
+LR=3e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr3e3 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr3e3 run_cyclical_aws.sh
+
+
+
+NMASK=120 SEED=43 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm120_s43_nomean sbatch --job-name=scratch_l1_t6_nm120_s43_nomean run_cyclical_aws_n2_nomean.sh
+NMASK=120 SEED=41 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l1_t6_nm120_s41_nomean sbatch --job-name=scratch_l1_t6_nm120_s41_nomean run_cyclical_aws_n2_nomean.sh
+NMASK=120 SEED=43 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_nm120_s43_nomean sbatch --job-name=scratch_l1_t3_nm120_s43_nomean run_cyclical_aws_n2_nomean.sh
+NMASK=120 SEED=41 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_nm120_s41_nomean sbatch --job-name=scratch_l1_t3_nm120_s41_nomean run_cyclical_aws_n2_nomean.sh
+
+MAX_MPB=16 MIN_MPB=4 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_minmpb4_maxmpb16 sbatch --job-name=scratch_l1_t3_minmpb4_maxmpb16 run_cyclical_aws_n2.sh
+MAX_MPB=8 MIN_MPB=4 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_minmpb4_maxmpb8 sbatch --job-name=scratch_l1_t3_minmpb4_maxmpb8 run_cyclical_aws_n2.sh
+MAX_MPB=4 MIN_MPB=4 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_l1_t3_minmpb4_maxmpb4 sbatch --job-name=scratch_l1_t3_minmpb4_maxmpb4 run_cyclical_aws_n2.sh
+
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[11]' PREFIX=scratch_l1_t1_nm120 sbatch --job-name=scratch_l1_t1_nm120 run_cyclical_aws_n2.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[10,11]' PREFIX=scratch_l1_t2_nm120 sbatch --job-name=scratch_l1_t2_nm120 run_cyclical_aws_n2.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[8,9,10,11]' PREFIX=scratch_l1_t4_nm120 sbatch --job-name=scratch_l1_t4_nm120 run_cyclical_aws_n2.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=scratch_l1_t5_nm120 sbatch --job-name=scratch_l1_t5_nm120 run_cyclical_aws_n2.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[5,6,7,8,9,10,11]' PREFIX=scratch_l1_t7_nm120 sbatch --job-name=scratch_l1_t7_nm120 run_cyclical_aws_n2.sh
+NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[4,5,6,7,8,9,10,11]' PREFIX=scratch_l1_t8_nm120 sbatch --job-name=scratch_l1_t8_nm120 run_cyclical_aws_n2.sh
+
+
+
+
+
+LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[11]' PREFIX=scratch_bsz4096_e800_t1_nm120_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t1_nm120_lr2e3 run_cyclical_aws.sh
+LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[10,11]' PREFIX=scratch_bsz4096_e800_t2_nm120_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t2_nm120_lr2e3 run_cyclical_aws.sh
+LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[9,10,11]' PREFIX=scratch_bsz4096_e800_t3_nm120_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t3_nm120_lr2e3 run_cyclical_aws.sh
+LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[8,9,10,11]' PREFIX=scratch_bsz4096_e800_t4_nm120_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t4_nm120_lr2e3 run_cyclical_aws.sh
+LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t5_nm120_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t5_nm120_lr2e3 run_cyclical_aws.sh
+LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3 run_cyclical_aws.sh
+LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[5,6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t7_nm120_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t7_nm120_lr2e3 run_cyclical_aws.sh
+
+
+LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t5_nm120_tri_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t5_nm120_tri_lr2e3 run_cyclical_aws_tristage.sh
+LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_tri_lr2e3 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_tri_lr2e3 run_cyclical_aws_tristage.sh
+
+LR=3e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_tri_lr3e3 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_tri_lr3e3 run_cyclical_aws_tristage.sh
+
+
+LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_wu40 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_wu40 run_cyclical_aws.sh
+LR=2e-3 WARMUP=80 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_wu80 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_wu80 run_cyclical_aws.sh
+LR=6e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr6e3_wu40 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr6e3_wu40 run_cyclical_aws.sh
+LR=6e-3 WARMUP=80 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr6e3_wu80 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr6e3_wu80 run_cyclical_aws.sh
+
+
+LR=3e-3 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_t1_nm120_lr3e3 sbatch --job-name=scratch_bsz4096_t1_nm120_lr3e3 run_cyclical_aws.sh
+ARCH='beit_large_patch16_224' LR=3e-3 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l_bsz4096_t1_nm120_lr3e3 sbatch --job-name=scratch_l_bsz4096_t1_nm120_lr3e3 run_cyclical_aws.sh
+ARCH='beit_huge_patch16_224' LR=3e-3 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_h_bsz4096_t1_nm120_lr3e3 sbatch --job-name=scratch_h_bsz4096_t1_nm120_lr3e3 run_cyclical_aws.sh
+
+EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120 sbatch --job-name=scratch_bsz2048_t6_nm120 run_cyclical_n2.sh
+
+VAR_W0=0.1 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.1 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.1 run_cyclical_n2.sh
+VAR_W0=0.5 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.5 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.5 run_cyclical_n2.sh
+VAR_W0=1 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw1 sbatch --job-name=scratch_bsz2048_t6_nm120_vw1 run_cyclical_n2.sh
+VAR_W0=5 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw5 sbatch --job-name=scratch_bsz2048_t6_nm120_vw5 run_cyclical_n2.sh
+
+VAR_W0=0.5 VAR_M0=0.25 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.5_vm0.25 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.5_vm0.25 run_cyclical_n2.sh
+VAR_W0=0.5 VAR_M0=0.75 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.5_vm0.75 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.5_vm0.75 run_cyclical_n2.sh
+VAR_W0=0.5 VAR_M0=1 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.5_vm1 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.5_vm1 run_cyclical_n2.sh
+
+
+
+
+
+EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120 sbatch --job-name=scratch_bsz2048_t6_nm120 run_cyclical_n2.sh
+
+VAR_W0=0.01 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.01 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.01 run_cyclical_n2.sh
+VAR_W0=0.05 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.05 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.05 run_cyclical_n2.sh
+VAR_W0=0.1 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.1 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.1 run_cyclical_n2.sh
+VAR_W0=0.2 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.2 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.2 run_cyclical_n2.sh
+VAR_W0=0.4 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.4 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.4 run_cyclical_n2.sh
+VAR_W0=0.5 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.5 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.5 run_cyclical_n2.sh
+VAR_W0=1 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw1 sbatch --job-name=scratch_bsz2048_t6_nm120_vw1 run_cyclical_n2.sh
+
+VAR_W0=0.1 VAR_M0=0.25 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.1_vm0.25 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.1_vm0.25 run_cyclical_n2.sh
+VAR_W0=0.1 VAR_M0=0.75 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.1_vm0.75 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.1_vm0.75 run_cyclical_n2.sh
+VAR_W0=0.1 VAR_M0=1 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_vw0.1_vm1 sbatch --job-name=scratch_bsz2048_t6_nm120_vw0.1_vm1 run_cyclical_n2.sh
+
+
+for i in $(seq 69 76)
+do 
+ rm ${i}.err ${i}.out
+done
+
+MIN_MPB=30 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_minmpb30 sbatch --job-name=scratch_bsz2048_t6_nm120_minmpb30 run_cyclical_n2.sh
+MIN_MPB=32 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_minmpb32 sbatch --job-name=scratch_bsz2048_t6_nm120_minmpb32 run_cyclical_n2.sh
+MIN_MPB=48 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_minmpb48 sbatch --job-name=scratch_bsz2048_t6_nm120_minmpb48 run_cyclical_n2.sh
+MIN_MPB=64 EPOCHS=300 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz2048_t6_nm120_minmpb64 sbatch --job-name=scratch_bsz2048_t6_nm120_minmpb64 run_cyclical_n2.sh
+
+
+LR=2e-3 L1=0.5 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l105_t6_nm120_tri_lr2e3 sbatch --job-name=scratch_bsz4096_e800_l105_t6_nm120_tri_lr2e3 run_cyclical_aws_tristage.sh
+LR=2e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3 run_cyclical_aws_tristage.sh
+LR=2e-3 L1=1.5 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l115_t6_nm120_tri_lr2e3 sbatch --job-name=scratch_bsz4096_e800_l115_t6_nm120_tri_lr2e3 run_cyclical_aws_tristage.sh
+LR=2e-3 L1=2 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3 sbatch --job-name=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3 run_cyclical_aws_tri.sh
+LR=1e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3 run_cyclical_aws_tri.sh
+LR=1.5e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3 run_cyclical_aws_tri.sh
+
+LR=1.5e-3 L1=1.5 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l115_t6_nm120_tri_lr15e3 sbatch --job-name=scratch_bsz4096_e800_l115_t6_nm120_tri_lr15e3 run_cyclical_aws_tri.sh
+LR=1.5e-3 L1=2 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr15e3 sbatch --job-name=scratch_bsz4096_e800_l12_t6_nm120_tri_lr15e3 run_cyclical_aws_tri.sh
+LR=2e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3 run_cyclical_aws_tri.sh
+LR=2.5e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr25e3 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr25e3 run_cyclical_aws_tri.sh
+
+
+VAR_W0=0.01 LR=2e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001 run_cyclical_aws_tri.sh
+VAR_W0=0.01 LR=1e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001 run_cyclical_aws_tri.sh
+
+
+L1=1 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l11 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l11 run_cyclical_aws.sh
+L1=1.5 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l115 run_cyclical_aws.sh
+L1=2 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l12 run_cyclical_aws.sh
+
+WARMUP=80 L1=1 LR=3e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr3e3_l11_wu80 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr3e3_l11_wu80 run_cyclical_aws.sh
+
+WARMUP=80 L1=1 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l11_wu80 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l11_wu80 run_cyclical_aws.sh
+WARMUP=80 L1=1.5 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_wu80 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_wu80 run_cyclical_aws.sh
+
+
+L1=1 LR=2e-3 WARMUP=80 EPOCHS=1600 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e1600_t6_nm120_lr2e3_l11 sbatch --job-name=scratch_bsz4096_e1600_t6_nm120_lr2e3_l11 run_cyclical_aws.sh
+L1=2 LR=2e-3 WARMUP=80 EPOCHS=1600 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e1600_t6_nm120_lr2e3_l12 sbatch --job-name=scratch_bsz4096_e1600_t6_nm120_lr2e3_l12 run_cyclical_aws.sh
+
+SEED=21 LR=1.5e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s21 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_p1_s21 run_cyclical_aws_tri.sh
+SEED=41 LR=1.5e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s41 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_p1_s41 run_cyclical_aws_tri.sh
+LR=1.5e-3 L1=1 EPOCHS=1600 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e1600_l11_t6_nm120_tri_lr15e3 sbatch --job-name=scratch_bsz4096_e1600_l11_t6_nm120_tri_lr15e3_p1 run_cyclical_tri.sh
+
+SEED=22 LR=1.5e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s22 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_p1_s22 run_cyclical_aws_tri.sh
+SEED=42 LR=1.5e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s42 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_p1_s42 run_cyclical_aws_tri.sh
+
+---- p1
+
+L1=1.5 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1 run_cyclical_aws.sh
+VAR_W0=0.01 LR=2e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1 run_cyclical_aws_tri.sh
+
+L1=2 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1 run_cyclical_aws.sh
+L1=2.5 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1 run_cyclical_aws.sh
+L1=3 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1 run_cyclical_aws.sh
+L1=1 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l11_p1 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l11_p1 run_cyclical_aws.sh
+
+VAR_W0=0.01 LR=2e-3 L1=2 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1 sbatch --job-name=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1 run_cyclical_aws_tri.sh
+
+VAR_W0=0.01 LR=1e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1 run_cyclical_aws_tri.sh
+VAR_W0=0.01 LR=1e-3 L1=2 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1 sbatch --job-name=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1 run_cyclical_aws_tri.sh
+
+LR=1e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1 run_cyclical_aws_tri.sh
+LR=1e-3 L1=2 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1 sbatch --job-name=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1 run_cyclical_aws_tri.sh
+
+LR=1e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1 run_cyclical_aws_tri.sh
+
+L1=2 NMASK=120 DECAY=0.9998 EMA_START=5 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_anl5 sbatch --job-name=scratch_l12_t6_nm120_p1_anl5 run_cyclical.sh
+L1=2 NMASK=120 DECAY=0.9998 EMA_START=10 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_anl10 sbatch --job-name=scratch_l12_t6_nm120_p1_anl10 run_cyclical.sh
+L1=2 NMASK=120 DECAY=0.9998 EMA_START=40 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_anl40 sbatch --job-name=scratch_l12_t6_nm120_p1_anl40 run_cyclical.sh
+
+
+SEED=21 L1=2 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21 run_cyclical_aws.sh
+SEED=41 L1=2 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41 run_cyclical_aws.sh
+
+
+
+--- ema tuning
+
+L1=2 NMASK=120 DECAY_INIT=0.9 DECAY=0.9998 EMA_START=5000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_5k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_5k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.9 DECAY=0.9998 EMA_START=10000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_10k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_10k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.9 DECAY=0.9998 EMA_START=30000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_30k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.9 DECAY=0.9998 EMA_START=50000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_50k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_50k run_cyclical_aws_n2.sh
+
+L1=2 NMASK=120 DECAY_INIT=0.9 DECAY=0.9999 EMA_START=30000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_30k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.9 DECAY=0.9999 EMA_START=10000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_10k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_10k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.9 DECAY=0.9999 EMA_START=50000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_50k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_50k run_cyclical_aws_n2.sh
+
+L1=2 NMASK=120 DECAY_INIT=0.6 DECAY=0.9999 EMA_START=30000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay06_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay06_09999_30k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.7 DECAY=0.9999 EMA_START=30000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay07_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay07_09999_30k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.8 DECAY=0.9999 EMA_START=30000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay08_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay08_09999_30k run_cyclical_aws_n2.sh
+
+L1=2 NMASK=120 DECAY_INIT=0.6 DECAY=0.9998 EMA_START=30000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay06_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay06_09998_30k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.7 DECAY=0.9998 EMA_START=30000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay07_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay07_09998_30k run_cyclical_aws_n2.sh
+L1=2 NMASK=120 DECAY_INIT=0.8 DECAY=0.9998 EMA_START=30000 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_l12_t6_nm120_p1_decay08_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay08_09998_30k run_cyclical_aws_n2.sh
+
+
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09998_10k/checkpoint-199.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_10k_test sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_10k_test run_finetuning_aws.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09998_10k/checkpoint-199.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_10k_test_n2 sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_10k_test_n2 run_finetuning_aws_n2.sh
+
+
+
+
+---- 1600e
+
+L1=2 LR=2e-3 WARMUP=40 EPOCHS=1600 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e1600_t6_nm120_lr2e3_l12_p1 sbatch --job-name=scratch_bsz4096_e1600_t6_nm120_lr2e3_l12_p1 run_cyclical_n4.sh
+
+L1=1 LR=1e-3 WARMUP=80 EPOCHS=1600 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e1600_l11_t6_nm120_tri_lr1e3_p1 sbatch --job-name=scratch_bsz4096_e1600_l11_t6_nm120_tri_lr1e3_p1 run_cyclical_n4_tri.sh
+
+---------- vitl
+
+scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3
+
+WARMUP=40 L1=1 LR=6e-4 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4 sbatch --job-name=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4 run_cyclical_n8_vitl_tri.sh
+WARMUP=40 L1=1 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e4 sbatch --job-name=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3 run_cyclical_n8_vitl_tri.sh
+WARMUP=40 L1=1 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr2e4 sbatch --job-name=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr2e3 run_cyclical_n8_vitl_tri.sh
+
+VAR_W0=0.005 WARMUP=60 L1=2 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr1e3_l12_wu46_vw0005_tri sbatch --job-name=large_bsz4096_e800_t6_nm120_lr1e3_l12_wu46_vw0005_tri run_cyclical_n8_vitl_tri.sh
+
+
+VAR_W0=0.005 WARMUP=40 L1=1 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_vw005 sbatch --job-name=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_vw005 run_cyclical_n8_vitl_tri.sh
+VAR_W0=0.005 VAR_M0=0.25 WARMUP=40 L1=1 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_vw005_vm25 sbatch --job-name=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_vw005_vm25 run_cyclical_n8_vitl_tri.sh
+
+L1=2 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l12 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l12 run_cyclical_n8_vitl.sh
+L1=2 LR=1.5e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr15e3_l12 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr15e3_l12 run_cyclical_n8_vitl.sh
+L1=2 LR=1e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr1e3_l12 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr1e3_l12 run_cyclical_n8_vitl.sh
+L1=2 LR=6e-4 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr6e4_l12 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr6e4_l12_p1 run_cyclical_n8_vitl.sh
+
+L1=2 LR=6e-4 WARMUP=80 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr6e4_l12_p1 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr6e4_l12_p1 run_cyclical_n8_vitl.sh
+L1=2 LR=1e-3 WARMUP=80 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr1e3_l12_p1 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr1e3_l12_p1 run_cyclical_n8_vitl.sh
+L1=2 LR=1.5e-3 WARMUP=80 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr15e3_l12_p1 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr15e3_l12_p1 run_cyclical_n8_vitl.sh
+
+WARMUP=40 L1=1 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr1e3_l11_wu40 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr1e3_l11_wu40 run_cyclical_n8_vitl.sh
+WARMUP=40 L1=1 LR=1.5e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr15e3_l11_wu40 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr15e3_l11_wu40 run_cyclical_n8_vitl.sh
+WARMUP=40 L1=1 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l11_wu40 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l11_wu40 run_cyclical_n8_vitl.sh
+
+VAR_W0=0.01 WARMUP=40 L1=1 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l11_wu40_vw001 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l11_wu40_vw001 run_cyclical_n8_vitl.sh
+VAR_W0=0.01 WARMUP=40 L1=2 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu40_vw001 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu40_vw001 run_cyclical_n8_vitl.sh
+WARMUP=40 L1=2 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu40 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu40 run_cyclical_n8_vitl.sh
+
+VAR_W0=0.01 WARMUP=40 L1=1 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l11_wu40_vw001_tri sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l11_wu40_vw001_tri run_cyclical_n8_vitl_tri.sh
+VAR_W0=0.01 WARMUP=40 L1=1 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr1e3_l11_wu40_vw001_tri sbatch --job-name=large_bsz4096_e800_t6_nm120_lr1e3_l11_wu40_vw001_tri run_cyclical_n8_vitl_tri.sh
+
+WARMUP=40 L1=1 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr1e3_l11_wu40_vw001_tri sbatch --job-name=large_bsz4096_e800_t6_nm120_lr1e3_l11_wu40_tri run_cyclical_n8_vitl_tri.sh
+
+
+
+
+VAR_W0=0.005 WARMUP=60 L1=2 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu60_vw0005 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu60_vw0005 run_cyclical_n8_vitl.sh
+VAR_M0=0.25 VAR_W0=0.01 WARMUP=60 L1=2 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu60_vw001_vm025 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu60_vw001_vm025 run_cyclical_n8_vitl.sh
+
+VAR_W0=0.005 WARMUP=60 L1=2 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr1e3_l12_wu46_vw0005_tri sbatch --job-name=large_bsz4096_e800_t6_nm120_lr1e3_l12_wu46_vw0005_tri run_cyclical_n8_vitl_tri.sh
+
+
+VAR_M0=0.25 VAR_W0=0.01 WARMUP=60 L1=2 LR=2e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu60_vw001_vm025 sbatch --job-name=large_bsz4096_e800_t6_nm120_lr2e3_l12_wu60_vw001_vm025 run_cyclical_n8_vitl.sh
+VAR_M0=0.25 VAR_W0=0.01 WARMUP=60 L1=2 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_t6_nm120_lr1e3_l12_wu46_vw001_vm025_tri sbatch --job-name=large_bsz4096_e800_t6_nm120_lr1e3_l12_wu46_vw001_vm025_tri run_cyclical_n8_vitl_tri.sh
+
+
+
+
+WARMUP=40 L1=1 LR=6e-4 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_l11_t6_nm120_tri_lr6e4 sbatch --job-name=large_bsz4096_e800_l11_t6_nm120_tri_lr6e4 run_cyclical_n8_vitl_tri.sh
+WARMUP=40 L1=1 LR=1e-3 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_l11_t6_nm120_tri_lr1e3 sbatch --job-name=large_bsz4096_e800_l11_t6_nm120_tri_lr1e3 run_cyclical_n8_vitl_tri.sh
+
+
+/data/home/abaevski/miniconda/envs/fairseq-20211103
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4 run_finetuning_n2.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_wd  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_wd run_finetuning_n4_e100.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_wd_16g  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_wd_16g run_finetuning_n4_e100_16g.sh
+
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50 run_finetuning_n2.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wd  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wd run_finetuning_n2.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_km  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_km run_finetuning_n2_km.sh
+
+WARMUP=5 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wu5  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wu5 run_finetuning_n2.sh
+WARMUP=20 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wu20  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wu20 run_finetuning_n2.sh
+
+LR=1e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_lr1e3  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_lr1e3 run_finetuning_n2.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_lr2e3  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_lr2e3 run_finetuning_n2.sh
+LR=5e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_lr5e3  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_lr5e3 run_finetuning_n2.sh
+
+WARMUP=20 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wu20  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wu20 run_finetuning_n2.sh
+
+WARMUP=5 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wd_wu5  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wd_wu5 run_finetuning_n2.sh
+WARMUP=5 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wd_wu5_1  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wd_wu5_1 run_finetuning_n2.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_e50  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_e50 run_finetuning_n2.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_e50_wd  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_e50_wd run_finetuning_n2.sh
+WARMUP=5 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_e50_wd_wu5  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_e50_wd_wu5 run_finetuning_n2.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_wd  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr1e3_wd run_finetuning_n4_e100.sh
+
+
+############################################################ ft ############################################################
+
+rm */checkpoint-*/*
+rm 1*/*/checkpoint-*/*
+
+rm */d*
+rm 1*/*/d*
+
+
+CHECKPOINT='/private/home/qiantong/w2vu/unilm_fork/beit/cyclical/imagenet_1k_150e_triphase/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-149.pth' FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt PREFIX=150e_150e_triphase_top6_0.9998_lr1.5e-3 sbatch run_finetuning.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu1k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu1k sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu3k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu3k sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/pretraining/imagenet_1k_50e_triphase_wu10k/checkpoint-49.pth PREFIX=imagenet_1k_50e_triphase_wu10k sbatch run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/imagenet_1k_50e_triphase_wu1k/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=imagenet_1k_50e_triphase_wu1k_cyc sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/imagenet_1k_50e_triphase_wu3k/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=imagenet_1k_50e_triphase_wu3k_cyc sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/imagenet_1k_50e_triphase_wu10k/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=imagenet_1k_50e_triphase_wu10k_cyc sbatch run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/imagenet_1k_50e_triphase_wu1k_l2/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=imagenet_1k_50e_triphase_wu1k_l2 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/imagenet_1k_50e_triphase_wu3k_l2/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=imagenet_1k_50e_triphase_wu3k_l2 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/imagenet_1k_50e_triphase_wu10k_l2/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=imagenet_1k_50e_triphase_wu10k_l2 sbatch run_finetuning.sh
+
+for l1 in 0.12 0.07 0.17 0.22 0.27 0.32
+do
+	CHECKPOINT=/checkpoint/qiantong/beit/cyclical/imagenet_1k_50e_triphase_wu3k_l1$l1/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=imagenet_1k_50e_triphase_wu3k_l1$l1 sbatch run_finetuning.sh
+done
+
+
+------------------------------- full
+
+for l1 in 0.12 0.07 0.22 0.27 0.32
+do
+	CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_wu3k_l1$l1/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_wu3k_l1$l1_299 sbatch run_finetuning.sh
+done
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_wu3k_l2/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_wu3k_l2_299 sbatch run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l2_t4/[8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l2_t4_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l2_t5/[7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l2_t5_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l2_t6/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l2_t6_299 sbatch run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t5/[7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t5_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t4/[8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t4_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t2/[10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t2_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t1/[11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t1_299 sbatch run_finetuning.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm35/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm35_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm45/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm45_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm55/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm55_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm65/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm65_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm75/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm75_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm85/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm85_299 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm95/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm95_299 sbatch run_finetuning.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew0.001/0.001/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=joint_base_vaew0.001 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew0.01/0.01/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=joint_base_vaew0.01 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew0.05/0.05/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=joint_base_vaew0.05 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew0.1/0.1/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=joint_base_vaew0.1 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew0.5/0.5/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=joint_base_vaew0.5 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew1/1/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=joint_base_vaew1 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew10/10/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=joint_base_vaew10 sbatch run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew2/2/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=joint_base_vaew2 sbatch run_finetuning.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew0.001/0.001/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=joint_base_e200_vaew0.001 sbatch --job-name=joint_base_e200_vaew run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew0.01/0.01/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=joint_base_e200_vaew0.01 sbatch --job-name=joint_base_e200_vaew run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew0.05/0.05/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=joint_base_e200_vaew0.05 sbatch --job-name=joint_base_e200_vaew run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew0.1/0.1/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=joint_base_e200_vaew0.1 sbatch --job-name=joint_base_e200_vaew run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew0.5/0.5/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=joint_base_e200_vaew0.5 sbatch --job-name=joint_base_e200_vaew run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew1/1/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=joint_base_e200_vaew1 sbatch --job-name=joint_base_e200_vaew run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew10/10/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=joint_base_e200_vaew10 sbatch --job-name=joint_base_e200_vaew run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_vaew2/2/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=joint_base_e200_vaew2 sbatch --job-name=joint_base_e200_vaew run_finetuning.sh
+
+
+for nmask in 35 45 55 65 75 85 95 100 105 110 115 120 125
+do
+ CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm$nmask/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm$nmask sbatch --job-name=scratch_l1_t6_nm$nmask run_finetuning.sh
+done
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm115/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm115 sbatch --job-name=scratch_l1_t6_nm115 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_nm120 sbatch --job-name=scratch_l1_t6_nm120 run_finetuning.sh
+
+for lr in 3e-4 7.5e-4 1.5e-3 3e-3
+do
+ CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_e200_lr$lr/1.0/75/0.9998/0/$lr/checkpoint-199.pth PREFIX=joint_base_e200_lr$lr sbatch --job-name=joint_base_e200_lr$lr run_finetuning.sh
+done
+
+
+for weight in 10 50 100 150 200 
+do
+  CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_t3_e200_mix$weight/$weight/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=base_t3_e200_mix$weight sbatch --job-name=ft_base_t3_e200_mix$weight run_finetuning.sh
+done
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_dp0/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_dp0 sbatch --job-name=ft_scratch_l1_t3_dp0 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_dp0_fc/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_dp0_fc sbatch --job-name=ft_scratch_l1_t3_dp0_fc run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_fc/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_fc sbatch --job-name=ft_scratch_l1_t3_fc run_finetuning.sh
+
+
+for nmask in 85 95 100 105 110 115 120 125 130 140 150 160
+do
+  CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm$nmask/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_nm$nmask sbatch --job-name=ft_scratch_l1_t3_nm$nmask run_finetuning.sh
+done
+
+for nmask in 85 95 100 105 110 115 120 125 130 140 150 160
+do
+  echo /checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm$nmask/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth 
+  ls /checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm$nmask/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth 
+done
+
+
+for nmask in 140 150 160
+do
+  CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm$nmask/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_nm$nmask sbatch --job-name=ft_scratch_l1_t3_nm$nmask run_finetuning.sh
+done
+
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t1_fc/[11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t1_fc sbatch --job-name=ft_scratch_l1_t1_fc run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t2_fc/[10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t2_fc sbatch --job-name=ft_scratch_l1_t2_fc run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_fc/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_fc sbatch --job-name=ft_scratch_l1_t3_fc run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t4_fc/[8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t4_fc sbatch --job-name=ft_scratch_l1_t4_fc run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t5_fc/[7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t5_fc sbatch --job-name=ft_scratch_l1_t5_fc run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_fc/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_fc sbatch --job-name=ft_scratch_l1_t6_fc run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t7_fc/[5,6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t7_fc sbatch --job-name=ft_scratch_l1_t7_fc run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t8_fc/[4,5,6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t8_fc sbatch --job-name=ft_scratch_l1_t8_fc run_finetuning.sh
+
+for layer in 1 2 3 4 5 6 7 8
+do
+  CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_t${layer}_e200_mix100/100/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=base_t${layer}_e200_mix100 sbatch --job-name=ft_base_t${layer}_e200_mix100 run_finetuning.sh
+done
+
+for layer in -1 -2 -3 -4 -5 -6 -7 -8 -9
+do
+  CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_t3_e200_mix100_beitl${layer}/100/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=base_t3_e200_mix100_beitl${layer} sbatch --job-name=ft_base_t3_e200_mix100_beitl${layer} run_finetuning.sh
+done
+
+
+for dim in 0 1
+do
+  for var_w in 0.1 0.5 1 5 10 
+  do
+    CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_var${dim}w${var_w}/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_var${dim}w${var_w} sbatch --job-name=ft_scratch_l1_t3_var${dim}w${var_w} run_finetuning.sh
+  done
+done
+
+
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm120/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t3_nm120 sbatch --job-name=ft_scratch_l1_t3_nm120 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120 sbatch --job-name=ft_scratch_l1_t6_nm120 run_finetuning.sh
+
+
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm120_s41/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t3_nm120_s41 sbatch --job-name=ft_scratch_l1_t3_nm120_s41 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm120_s43/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t3_nm120_s43 sbatch --job-name=ft_scratch_l1_t3_nm120_s43 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_s41/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_s41 sbatch --job-name=ft_scratch_l1_t6_nm120_s41 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_s43/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_s43 sbatch --job-name=ft_scratch_l1_t6_nm120_s43 run_finetuning.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_minmpb4/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_minmpb4 sbatch --job-name=ft_scratch_l1_t3_minmpb4 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_minmpb4_maxmpb64/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_minmpb4_maxmpb64 sbatch --job-name=ft_scratch_l1_t3_minmpb4_maxmpb64 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t3_minmpb4_maxmpb16_checkpoint-299.pth PREFIX=scratch_l1_t3_minmpb4_maxmpb16 sbatch --job-name=ft_scratch_l1_t3_minmpb4_maxmpb16 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth REFIX=scratch_l1_t6_nm120 sbatch --job-name=ft_scratch_l1_t6_nm120 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t3_minmpb4_maxmpb8_checkpoint-299.pth PREFIX=scratch_l1_t3_minmpb4_maxmpb8 sbatch --job-name=ft_scratch_l1_t3_minmpb4_maxmpb8 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120 sbatch --job-name=ft_scratch_bsz4096_e800_t3_nm120 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t6_nm120_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3 sbatch --job-name=ft_scratch_bsz4096_e800_t3_nm120_lr3e3 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t6_nm120_lr3e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr3e3 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr3e3 run_finetuning.sh
+
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3_1 sbatch --job-name=ft_scratch_bsz4096_e800_t3_nm120_lr3e3_1 run_finetuning.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3_2 sbatch --job-name=ft_scratch_bsz4096_e800_t3_nm120_lr3e3_2 run_finetuning.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t3_nm120_s41_nomean_checkpoint-299.pth PREFIX=scratch_l1_t3_nm120_s41_nomean sbatch --job-name=ft_scratch_l1_t3_nm120_s41_nomean run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t3_nm120_s43_nomean_checkpoint-299.pth PREFIX=scratch_l1_t3_nm120_s43_nomean sbatch --job-name=ft_scratch_l1_t3_nm120_s43_nomean run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t6_nm120_s41_nomean_checkpoint-299.pth PREFIX=scratch_l1_t6_nm120_s41_nomean sbatch --job-name=ft_scratch_l1_t6_nm120_s41_nomean run_finetuning.sh
+
+
+
+for layer in 5
+do
+  CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_t${layer}_nm120_checkpoint-299.pth PREFIX=scratch_bsz4096_t${layer}_nm120 sbatch --job-name=ft_scratch_bsz4096_t${layer}_nm120 run_finetuning.sh
+done
+
+
+for layer in 7
+do
+  CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t${layer}_nm120_checkpoint-299.pth PREFIX=scratch_t${layer}_nm120 sbatch --job-name=ft_scratch_t${layer}_nm120 run_finetuning.sh
+done
+
+for layer in 3 4 5 6
+do
+  CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t${layer}_nm120_checkpoint-299.pth PREFIX=scratch_t${layer}_nm120_km sbatch --job-name=ft_scratch_t${layer}_nm120_km run_finetuning_kaiming.sh
+done
+
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l11_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l11_t6_nm120 sbatch --job-name=scratch_l11_t6_nm120 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l12_t6_nm120 sbatch --job-name=scratch_l12_t6_nm120 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l14_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l14_t6_nm120 sbatch --job-name=scratch_l14_t6_nm120 run_finetuning.sh
+
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l2_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l2_t6_nm120 sbatch --job-name=scratch_l2_t6_nm120 run_finetuning.sh
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l2_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l2_t6_nm120 sbatch --job-name=p${pct}_scratch_l2_t6_nm120 run_finetuning.sh
+done
+
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl0/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl0 sbatch --job-name=scratch_l1_t6_nm120_augl0 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl1/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl1 sbatch --job-name=scratch_l1_t6_nm120_augl1 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl2/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl2 sbatch --job-name=scratch_l1_t6_nm120_augl2 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl3/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl3 sbatch --job-name=scratch_l1_t6_nm120_augl3 run_finetuning.sh
+CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl4/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl4 sbatch --job-name=scratch_l1_t6_nm120_augl4 run_finetuning.sh
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl0/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl0 sbatch --job-name=p${pct}_scratch_l1_t6_nm120_augl0 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl1/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl1 sbatch --job-name=p${pct}_scratch_l1_t6_nm120_augl1 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl2/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl2 sbatch --job-name=p${pct}_scratch_l1_t6_nm120_augl2 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl3/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl3 sbatch --job-name=p${pct}_scratch_l1_t6_nm120_augl3 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_augl4/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_augl4 sbatch --job-name=p${pct}_scratch_l1_t6_nm120_augl4 run_finetuning.sh
+done
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l11_t6_nm120_p1/checkpoint-299.pth PREFIX=scratch_l11_t6_nm120_p1 sbatch --job-name=ft_scratch_l11_t6_nm120_p1 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l11_t6_nm120_p1/checkpoint-299.pth PREFIX=scratch_l11_t6_nm120_p1 sbatch --job-name=p10_ft_scratch_l11_t6_nm120_p1 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1 sbatch --job-name=ft_scratch_l12_t6_nm120_p1 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1 sbatch --job-name=p10_ft_scratch_l12_t6_nm120_p1 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l2_t6_nm120_p1/checkpoint-299.pth PREFIX=scratch_l2_t6_nm120_p1 sbatch --job-name=ft_scratch_l2_t6_nm120_p1 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l2_t6_nm120_p1/checkpoint-299.pth PREFIX=scratch_l2_t6_nm120_p1 sbatch --job-name=p10_ft_scratch_l2_t6_nm120_p1 run_finetuning.sh
+
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_wu30_lr1e3_tri/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_wu30_lr1e3_tri sbatch --job-name=ft_scratch_l12_t6_nm120_p1_wu30_lr1e3_tri run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_wu30_lr1e3_tri/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_wu30_lr1e3_tri sbatch --job-name=p10_ft_scratch_l12_t6_nm120_p1_wu30_lr1e3_tri run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_wu30_lr2e3_tri/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_wu30_lr2e3_tri sbatch --job-name=ft_scratch_l12_t6_nm120_p1_wu30_lr2e3_tri run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_wu30_lr2e3_tri/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_wu30_lr2e3_tri sbatch --job-name=p10_ft_scratch_l12_t6_nm120_p1_wu30_lr2e3_tri run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_wu30_lr2e3/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_wu30_lr2e3 sbatch --job-name=ft_scratch_l12_t6_nm120_p1_wu30_lr2e3 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_wu30_lr2e3/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_wu30_lr2e3 sbatch --job-name=p10_ft_scratch_l12_t6_nm120_p1_wu30_lr2e3 run_finetuning.sh
+
+
+---------------- 1h 10h
+
+for pct in 10
+do
+  for lr in 2e-3 4e-3 8e-3 2e-2
+  do
+
+    LR=$lr FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm75/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=p${pct}_scratch_l1_t6_lr${lr} sbatch --job-name=p${pct}_scratch_l1_t6_lr${lr} run_finetuning.sh
+    LR=$lr FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t5/[7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=p${pct}_scratch_l1_t5_lr${lr} sbatch --job-name=p${pct}_scratch_l1_t5_lr${lr} run_finetuning.sh
+    LR=$lr FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t4/[8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=p${pct}_scratch_l1_t4_lr${lr} sbatch --job-name=p${pct}_scratch_l1_t4_lr${lr} run_finetuning.sh
+    LR=$lr FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=p${pct}_scratch_l1_t3_lr${lr} sbatch --job-name=p${pct}_scratch_l1_t3_lr${lr} run_finetuning.sh
+    LR=$lr FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t2/[10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=p${pct}_scratch_l1_t2_lr${lr} sbatch --job-name=p${pct}_scratch_l1_t2_lr${lr} run_finetuning.sh
+    LR=$lr FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t1/[11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=p${pct}_scratch_l1_t1_lr${lr} sbatch --job-name=p${pct}_scratch_l1_t1_lr${lr} run_finetuning.sh
+
+  done
+done
+
+
+for pct in 1 10
+do
+  for nmask in 35 45 55 65 75 85 95 100 105 110 115 120 125
+  do
+  
+   FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm$nmask/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=p${pct}_scratch_l1_t6_nm$nmask sbatch --job-name=p${pct}_scratch_l1_t6_nm$nmask run_finetuning.sh
+  
+  done
+done
+
+
+for pct in 1 10
+do
+  for weight in 0.001 0.01 0.05 0.1 0.5 1 2 10 
+  do
+    FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_vaew$weight/$weight/75/0.9998/0/1.5e-3/checkpoint-249.pth PREFIX=p${pct}_joint_base_vaew$weight sbatch --job-name=p${pct}_joint_base_vaew$weight run_finetuning.sh
+  done
+done
+
+
+for pct in 1 10
+do
+  for nmask in 35 45 55 65 75 85 95 100 105 110 115 120 125
+  do
+  
+   FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm$nmask/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=p${pct}_scratch_l1_t6_wd0_nm$nmask sbatch --job-name=p${pct}_scratch_l1_t6_wd0_nm$nmask run_finetuning.sh
+  
+  done
+done
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_dp0/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_dp0 sbatch --job-name=p${pct}_ft_scratch_l1_t3_dp0 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_dp0_fc/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_dp0_fc sbatch --job-name=p${pct}_ft_scratch_l1_t3_dp0_fc run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_fc/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_fc sbatch --job-name=p${pct}_ft_scratch_l1_t3_fc run_finetuning.sh
+done
+
+for pct in 1 10
+do
+  for weight in 10 50 100 150 200 
+  do
+    FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_t3_e200_mix$weight/$weight/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=base_t3_e200_mix$weight sbatch --job-name=p${pct}_base_t3_e200_mix$weight run_finetuning.sh
+  done
+done
+
+for pct in 1 10
+do
+  for nmask in 85 95 100 105 110 115 120 125 130 140 150 160
+  do
+    FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm$nmask/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_nm$nmask sbatch --job-name=p${pct}_ft_scratch_l1_t3_nm$nmask run_finetuning.sh
+  done
+done
+
+for pct in 1 10
+do
+  for nmask in 140 150 160
+  do
+    FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm$nmask/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_nm$nmask sbatch --job-name=p${pct}_ft_scratch_l1_t3_nm$nmask run_finetuning.sh
+  done
+done
+
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t2_fc/[10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t2_fc sbatch --job-name=p${pct}_ft_scratch_l1_t2_fc run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_fc/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_fc sbatch --job-name=p${pct}_ft_scratch_l1_t3_fc run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t5_fc/[7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t5_fc sbatch --job-name=p${pct}_ft_scratch_l1_t5_fc run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_fc/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t6_fc sbatch --job-name=p${pct}_ft_scratch_l1_t6_fc run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t7_fc/[5,6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t7_fc sbatch --job-name=p${pct}_ft_scratch_l1_t7_fc run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t8_fc/[4,5,6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t8_fc sbatch --job-name=p${pct}_ft_scratch_l1_t8_fc run_finetuning.sh
+done
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t1_fc/[11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t1_fc sbatch --job-name=p${pct}_ft_scratch_l1_t1_fc run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t4_fc/[8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t4_fc sbatch --job-name=p${pct}_ft_scratch_l1_t4_fc run_finetuning.sh
+done
+
+for pct in 1 10
+do
+  for layer in 1 2 3 4 5 6 7 8
+  do
+    FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_t${layer}_e200_mix100/100/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=base_t${layer}_e200_mix100 sbatch --job-name=p${pct}_ft_base_t${layer}_e200_mix100 run_finetuning.sh
+  done
+done
+
+for pct in 1 10
+do
+  for layer in -1 -2 -3 -4 -5 -6 -7 -8 -9
+  do
+    FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical_joint/base_t3_e200_mix100_beitl${layer}/100/75/0.9998/0/1.5e-3/checkpoint-199.pth PREFIX=base_t3_e200_mix100_beitl${layer} sbatch --job-name=p${pct}_ft_base_t3_e200_mix100_beitl${layer} run_finetuning.sh
+  done
+done
+
+for pct in 1 10
+do
+  for dim in 0 1
+  do
+    for var_w in 0.1 0.5 1 5 10 
+    do
+      FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_var${dim}w${var_w}/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_var${dim}w${var_w} sbatch --job-name=p${pct}_ft_scratch_l1_t3_var${dim}w${var_w} run_finetuning.sh
+    done
+  done
+done
+
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm120_s41/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t3_nm120_s41 sbatch --job-name=p${pct}_ft_scratch_l1_t3_nm120_s41 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm120_s43/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t3_nm120_s43 sbatch --job-name=p${pct}_ft_scratch_l1_t3_nm120_s43 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_s41/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_s41 sbatch --job-name=p${pct}_ft_scratch_l1_t6_nm120_s41 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120_s43/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120_s43 sbatch --job-name=p${pct}_ft_scratch_l1_t6_nm120_s43 run_finetuning.sh
+done
+
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_minmpb4/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_minmpb4 sbatch --job-name=p${pct}_ft_scratch_l1_t3_minmpb4 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_minmpb4_maxmpb64/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth PREFIX=scratch_l1_t3_minmpb4_maxmpb64 sbatch --job-name=p${pct}_ft_scratch_l1_t3_minmpb4_maxmpb64 run_finetuning.sh
+done
+
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth REFIX=scratch_l1_t6_nm120 sbatch --job-name=p${pct}_ft_scratch_l1_t6_nm120 run_finetuning.sh
+done
+
+for pct in 1 10
+do
+  for layer in 1 2 3 4 5 6 7 8 9
+  do
+    FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_t${layer}_nm120_checkpoint-299.pth PREFIX=scratch_bsz4096_t${layer}_nm120 sbatch --job-name=p${pct}_ft_scratch_bsz4096_t${layer}_nm120 run_finetuning.sh
+  done
+done
+
+
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120 sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t3_nm120 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t6_nm120_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120 sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t6_nm120 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3 sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t3_nm120_lr3e3 run_finetuning.sh
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3 sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t3_nm120_lr3e3 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t6_nm120_lr3e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr3e3 sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t6_nm120_lr3e3 run_finetuning.sh
+done
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3 sbatch --job-name=scratch_bsz4096_e800_t3_nm120_lr3e3 run_finetuning.sh
+for lr in 1e-3 2e-3
+do
+  LR=$lr CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3_ftlr$lr sbatch --job-name=ft_scratch_bsz4096_e800_t3_nm120_lr3e3_ftlr$lr run_finetuning.sh
+  LR=$lr CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t6_nm120_lr3e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr3e3_ftlr$lr sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr3e3_ftlr$lr run_finetuning.sh
+done
+
+for lr in 1e-3 2e-3 8e-3
+do
+  for pct in 1 10
+  do
+    LR=$lr FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3_ftlr$lr sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t3_nm120_lr3e3_ftlr$lr run_finetuning.sh
+    LR=$lr FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t6_nm120_lr3e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr3e3_ftlr$lr sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t6_nm120_lr3e3_ftlr$lr run_finetuning.sh
+  done
+done
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3_km sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t3_nm120_lr3e3_km run_finetuning_kaiming.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t6_nm120_lr3e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr3e3_km sbatch --job-name=p${pct}_ft_scratch_bsz4096_e800_t6_nm120_lr3e3_km run_finetuning_kaiming.sh
+done
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t3_nm120_lr3e3-checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t3_nm120_lr3e3_km sbatch --job-name=ft-scratch_bsz4096_e800_t3_nm120_lr3e3_km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_bsz4096_e800_t6_nm120_lr3e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr3e3_km sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr3e3_km run_finetuning_kaiming.sh
+
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t3_minmpb4_maxmpb16_checkpoint-299.pth PREFIX=scratch_l1_t3_minmpb4_maxmpb16 sbatch --job-name=p${pct}_ft_scratch_l1_t3_minmpb4_maxmpb16 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t3_minmpb4_maxmpb8_checkpoint-299.pth PREFIX=scratch_l1_t3_minmpb4_maxmpb8 sbatch --job-name=p${pct}_ft_scratch_l1_t3_minmpb4_maxmpb8 run_finetuning.sh
+done
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t3_nm120_s41_nomean_checkpoint-299.pth PREFIX=scratch_l1_t3_nm120_s41_nomean sbatch --job-name=ft_scratch_l1_t3_nm120_s41_nomean run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t3_nm120_s43_nomean_checkpoint-299.pth PREFIX=scratch_l1_t3_nm120_s43_nomean sbatch --job-name=ft_scratch_l1_t3_nm120_s43_nomean run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t6_nm120_s41_nomean_checkpoint-299.pth PREFIX=scratch_l1_t6_nm120_s41_nomean sbatch --job-name=ft_scratch_l1_t6_nm120_s41_nomean run_finetuning.sh
+done
+
+for pct in 1 10
+do
+  for layer in 1 2 4 5 7 8
+  do
+    FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l1_t${layer}_nm120_checkpoint-299.pth PREFIX=scratch_t${layer}_nm120 sbatch --job-name=p${pct}_ft_scratch_t${layer}_nm120 run_finetuning.sh
+  done
+done
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm95/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t3_nm95 sbatch --job-name=p${pct}_ft_scratch_l1_t3_nm95 run_finetuning.sh
+done 
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t3_nm120/[9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t3_nm120 sbatch --job-name=p${pct}_ft_scratch_l1_t3_nm120 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l1_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l1_t6_nm120 sbatch --job-name=p${pct}_ft_scratch_l1_t6_nm120 run_finetuning.sh
+done 
+
+for pct in 1 10
+do
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l11_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l11_t6_nm120 sbatch --job-name=p${pct}_scratch_l11_t6_nm120 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l12_t6_nm120 sbatch --job-name=p${pct}_scratch_l12_t6_nm120 run_finetuning.sh
+  FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/${pct}percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l14_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l14_t6_nm120 sbatch --job-name=p${pct}_scratch_l14_t6_nm120 run_finetuning.sh
+done
+
+
+DO=0.1 FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/1percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l11_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l11_t6_nm120_do0.1 sbatch --job-name=p1_scratch_l11_t6_nm120_do0.1 run_finetuning.sh
+DO=0.2 FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/1percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l11_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l11_t6_nm120_do0.2 sbatch --job-name=p1_scratch_l11_t6_nm120_do0.2 run_finetuning.sh
+
+DP=0.3 FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/1percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l11_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l11_t6_nm120_dp0.3 sbatch --job-name=p1_scratch_l11_t6_nm120_dp0.3 run_finetuning.sh
+DP=0.2 FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/1percent.txt CHECKPOINT='/checkpoint/qiantong/beit/cyclical/scratch_l11_t6_nm120/[6,7,8,9,10,11]/0.9998/0/1.5e-3/checkpoint-299.pth' PREFIX=scratch_l11_t6_nm120_dp0.2 sbatch --job-name=p1_scratch_l11_t6_nm120_dp0.2 run_finetuning.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_anl5/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_anl5 sbatch --job-name=ft_scratch_l12_t6_nm120_p1_anl5 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_anl5/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_anl5 sbatch --job-name=p10_ft_scratch_l12_t6_nm120_p1_anl5 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_anl10/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_anl10 sbatch --job-name=ft_scratch_l12_t6_nm120_p1_anl10 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_anl10/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_anl10 sbatch --job-name=p10_ft_scratch_l12_t6_nm120_p1_anl10 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_anl40/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_anl40 sbatch --job-name=ft_scratch_l12_t6_nm120_p1_anl40 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/scratch_l12_t6_nm120_p1_anl40/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_anl40 sbatch --job-name=p10_ft_scratch_l12_t6_nm120_p1_anl40 run_finetuning.sh
+
+
+----------
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/$1_checkpoint-$2.pth PREFIX=$1 sbatch --job-name=ft_$1 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/$1_checkpoint-$2.pth PREFIX=$1 sbatch --job-name=p10_ft_$1 run_finetuning.sh
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120 299
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_vw0.1 299
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_vw0.1_vm0.25 299
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_vw0.05 299
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_vw0.1_vm1 299
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_vw0.1_vm0.75 299
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_vw0.01 299
+
+
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz2048_t6_nm120_checkpoint-299.pth PREFIX=scratch_bsz2048_t6_nm120 sbatch --job-name=p10_ft_scratch_bsz2048_t6_nm120 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz2048_t6_nm120_vw0.05_checkpoint-299.pth PREFIX=scratch_bsz2048_t6_nm120_vw0.05 sbatch --job-name=p10_ft_scratch_bsz2048_t6_nm120_vw0.05 run_finetuning.sh
+
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t1_nm120_lr2e3_checkpoint-299.pth PREFIX=scratch_bsz4096_e800_t1_nm120_lr2e3 sbatch --job-name=p10_ft_scratch_bsz4096_e800_t1_nm120_lr2e3 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_wu80_checkpoint-299.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_wu80 sbatch --job-name=p10_ft_scratch_bsz4096_e800_t6_nm120_lr2e3_wu80 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/10percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3 sbatch --job-name=p10_ft_scratch_bsz4096_e800_t6_nm120_lr2e3 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz2048_t6_nm120_vw0.1_vm1_checkpoint-299.pth PREFIX=scratch_bsz2048_t6_nm120_vw0.1_vm1 sbatch --job-name=ft_scratch_bsz2048_t6_nm120_vw0.1_vm1 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz2048_t6_nm120_vw0.05_checkpoint-299.pth PREFIX=scratch_bsz2048_t6_nm120_vw0.05 sbatch --job-name=ft_scratch_bsz2048_t6_nm120_vw0.05 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_tri_lr2e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_tri_lr2e3_km sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_tri_lr2e3_km run_finetuning_kaiming.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l11_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l11 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l11 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3 run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1 run_finetuning.sh
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t1_nm120_lr2e3 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t2_nm120_lr2e3 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t4_nm120_lr2e3 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t7_nm120_lr2e3 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_wu80 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_tri_lr2e3 799
+
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_minmpb64 299
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_minmpb48 299
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz2048_t6_nm120_minmpb32 299
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t5_nm120_lr2e3 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_wu40 799
+
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_l11 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_l115 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s21 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s41 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41 799
+
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s22 799
+sh /checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/run.sh scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s42 799
+
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/1percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_tri_lr2e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_tri_lr2e3 sbatch --job-name=p1_ft_scratch_bsz4096_e800_t6_nm120_tri_lr2e3 run_finetuning.sh
+FILTER=/private/home/qiantong/w2vu/unilm_fork/beit/1percent.txt CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3 sbatch --job-name=p1_ft_scratch_bsz4096_e800_t6_nm120_lr2e3 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_ld075 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_ld075 run_finetuning_ld075.sh
+
+
+
+scratch_bsz4096_e800_t6_nm120_lr2e3_l11
+scratch_bsz4096_e800_t6_nm120_lr2e3_l115
+scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3
+scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3
+scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001
+scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1
+scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1
+scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1
+scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1
+scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1
+scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l11_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l115_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth
+
+PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l11_km
+PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_km
+PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_km
+PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_km
+PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_km
+PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_km
+PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_km
+PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_km
+PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_km
+PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_km
+PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_km
+
+sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l11-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l115-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1-km run_finetuning_kaiming.sh
+sbatch --job-name=ft-scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1-km run_finetuning_kaiming.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l11_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l11_km sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l11-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l115_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_km  sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l115-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_km sbatch --job-name=ft-scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_km  sbatch --job-name=ft-scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_km sbatch --job-name=ft-scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_km sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_km sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_km  sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_km  sbatch --job-name=ft-scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_km  sbatch --job-name=ft-scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1-km run_finetuning_kaiming.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_km  sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l115_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_km  sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l115-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_km  sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_km  sbatch --job-name=ft-scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1-km run_finetuning_kaiming.sh
+
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1_km sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1-km run_finetuning_kaiming.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1_km sbatch --job-name=ft_scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1-km run_finetuning_kaiming.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1  sbatch --job-name=ft-scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1 run_finetuning.sh
+
+
+scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1
+scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1
+scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21
+scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41
+scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1
+scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1
+scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1
+scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1
+scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1
+scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1
+scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1
+scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1
+
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_km2  sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_km2 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21_km2 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41_km2 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_km2  sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_km2 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1_km2 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1_km2 sbatch --job-name=ft_scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1_km2 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_km2 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1_km2 sbatch --job-name=ft_scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1_km2 run_finetuning_kaiming.sh
+LR=2e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_km2 sbatch --job-name=ft_scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_km2 run_finetuning_kaiming.sh
+
+
+
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_le3e3  sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l115_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s21_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_s41_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_le3e3  sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l125_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l13_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr2e3_vw001_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_l12_t6_nm120_tri_lr1e3_vw001_p1_lr3e3 run_finetuning.sh
+LR=3e-3 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_le3e3 sbatch --job-name=ft_scratch_bsz4096_e800_l12_t6_nm120_tri_lr2e3_vw001_p1_lr3e3 run_finetuning.sh
+
+
+WARMUP=30 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l11_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l11_wu30 sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l11_wu30 run_finetuning.sh
+WARMUP=30 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l115_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l115_wu30  sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l115_wu30 run_finetuning.sh
+WARMUP=30 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_wu30 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_wu30 run_finetuning.sh
+WARMUP=30 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_wu30  sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_wu30 run_finetuning.sh
+WARMUP=30 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_wu30 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_wu30 run_finetuning.sh
+WARMUP=30 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s21_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s21_wu30  sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s21_wu30 run_finetuning.sh
+WARMUP=30 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s41_checkpoint-799.pth  PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s41_wu30  sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_s41_wu30 run_finetuning.sh
+
+
+
+WARMUP=30 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_wu30 sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr1e3_vw001_wu30 run_finetuning.sh
+
+
+
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09998_5k/checkpoint-299.pth  PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_5k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_5k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09998_10k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_10k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_10k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09998_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09998_50k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_50k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_50k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09999_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09999_10k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_10k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_10k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay09_09999_50k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_50k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_50k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay06_09999_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay06_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay06_09999_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay07_09999_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay07_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay07_09999_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay08_09999_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay08_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay08_09999_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay06_09998_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay06_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay06_09998_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay08_09998_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay08_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay08_09998_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/scratch_l12_t6_nm120_p1_decay07_09998_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay07_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay07_09998_30k run_finetuning_aws_n2.sh
+
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay09_09998_5k_checkpoint-299.pth  PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_5k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_5k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay09_09998_10k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_10k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_10k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay09_09998_30k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay09_09998_50k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_50k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_50k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay09_09999_30k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay09_09999_10k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_10k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_10k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay09_09999_50k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_50k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_50k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay06_09999_30k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay06_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay06_09999_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay07_09999_30k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay07_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay07_09999_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay08_09999_30k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay08_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay08_09999_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay06_09998_30k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay06_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay06_09998_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay08_09998_30k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay08_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay08_09998_30k run_finetuning_aws_n2.sh
+CHECKPOINT=/fsx/qiantong/beit/2de53a84-9663-4897-86a4-580b91addcc9/scratch_l12_t6_nm120_p1_decay07_09998_30k_checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay07_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay07_09998_30k run_finetuning_aws_n2.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay09_09998_5k/checkpoint-299.pth  PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_5k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_5k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay09_09998_10k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_10k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_10k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay09_09998_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_30k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay09_09998_50k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09998_50k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09998_50k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay09_09999_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_30k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay09_09999_10k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_10k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_10k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay09_09999_50k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay09_09999_50k sbatch --job-name=scratch_l12_t6_nm120_p1_decay09_09999_50k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay06_09999_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay06_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay06_09999_30k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay07_09999_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay07_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay07_09999_30k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay08_09999_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay08_09999_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay08_09999_30k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay06_09998_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay06_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay06_09998_30k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay08_09998_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay08_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay08_09998_30k run_finetuning.sh
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/scratch_l12_t6_nm120_p1_decay07_09998_30k/checkpoint-299.pth PREFIX=scratch_l12_t6_nm120_p1_decay07_09998_30k sbatch --job-name=scratch_l12_t6_nm120_p1_decay07_09998_30k run_finetuning.sh
+
+
