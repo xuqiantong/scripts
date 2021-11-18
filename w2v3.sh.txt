@@ -1,3 +1,26 @@
+--------------------- to reproduce things --------------------
+
+## pretrain
+
+LR=1.5e-3 L1=1 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3 sbatch --job-name=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3 run_cyclical_aws_tri.sh
+
+L1=2 LR=2e-3 WARMUP=40 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1 sbatch --job-name=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1 run_cyclical_aws.sh
+
+WARMUP=40 L1=1 LR=6e-4 EPOCHS=800 NMASK=120 DECAY=0.9998 EMA_START=0 LAYERS='[6,7,8,9,10,11]' PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4 sbatch --job-name=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4 run_cyclical_n8_vitl_tri.sh
+
+## ft
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3_repro sbatch --job-name=ft_scratch_bsz4096_e800_l11_t6_nm120_tri_lr15e3 run_finetuning.sh
+
+CHECKPOINT=/checkpoint/qiantong/beit/cyclical/2de53a84-9663-4897-86a4-580b91addcc9/scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_checkpoint-799.pth PREFIX=scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1_repro sbatch --job-name=ft_scratch_bsz4096_e800_t6_nm120_lr2e3_l12_p1 run_finetuning.sh
+
+WARMUP=5 CHECKPOINT=/checkpoint/qiantong/beit/cyclical/beit/large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_checkpoint-799.pth  PREFIX=large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wd_wu5  sbatch --job-name=ft-large_bsz4096_e800_l11_t6_nm120_p1_tri_lr6e4_e50_wd_wu5 run_finetuning_n2.sh
+
+---------------------------------------------------------------
+
+
+
+
 ## pretrain
 
 rsync -chavzP --stats qiantong@27f7001a-4501-4171-9305-256f09b4fa38:/fsx/qiantong/beit/beit /checkpoint/qiantong/beit/cyclical
